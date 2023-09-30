@@ -3,7 +3,7 @@ import {PropTypes} from 'prop-types'
 
 const NavButton = ({children, btnBG, linkRef, fontSize = 5 }) => {
   return (
-    <NavLink className={`btn ${btnBG} fw-bold fs-${fontSize}`} to={linkRef}>
+    <NavLink className={`btn ${btnBG} fw-bold fs-${fontSize} rounded-pill px-4 border border-dark border-2`} to={linkRef}>
         {children}
     </NavLink>
   )
