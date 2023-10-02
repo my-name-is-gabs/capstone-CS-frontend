@@ -1,9 +1,8 @@
-import { Navigation} from "./components"
-import { Route, Routes } from "react-router-dom"
-import {Home, About, Guidelines} from './pages'
+import { Navigation } from "./components";
+import { Route, Routes } from "react-router-dom";
+import { Home, About, Guidelines, StartingPage } from "./pages";
 
 function App() {
-
   return (
     <>
       <Navigation />
@@ -11,12 +10,13 @@ function App() {
         <Route index element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/guidelines" element={<Guidelines />} />
+        <Route path="/startscholar" element={<StartingPage />} />
       </Routes>
-      <footer className='footer'>
+      <footer className="footer">
         <p className="text-end fw-bold fs-5 me-5">©DEVGROUP 2023</p>
       </footer>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

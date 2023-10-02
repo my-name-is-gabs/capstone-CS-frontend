@@ -1,0 +1,114 @@
+.cs-bg-primary {
+  background: #223d7e;
+}
+
+.cs-bg-fadeblue {
+  background: #869cbf !important;
+}
+
+.cs-bg-grayish {
+  background: #a5a5a5;
+}
+
+.cs-bg-light {
+  background: #dcf0fa;
+}
+
+.cs-bg-secondary {
+  background: #f0f0f0 !important;
+}
+
+.cs-border-top {
+  border-top: #223d7e 8px solid;
+}
+
+.cs-outline {
+  border-color: #223d7e !important;
+}
+
+.cs-btn-primary {
+  background: #f1c732 !important;
+  border: #223d7e 3px solid !important;
+  border-radius: 20rem !important;
+}
+
+.cs-btn-secondary {
+  background: white !important;
+  border: #223d7e 3px solid !important;
+  border-radius: 20rem !important;
+}
+
+.cs-border-box {
+  border: #223d7e 5px solid;
+  border-radius: 20px;
+  width: 90%;
+}
+
+.cs-radius {
+  border-radius: 20px;
+}
+
+.cs-startapp-div {
+  position: relative;
+  background: #869cbf;
+  border-left: #677a98 10px solid;
+}
+
+.cs-retrieveapp-div {
+  position: relative;
+  background: #acc1dc;
+  border-left: #92a7c2 10px solid;
+}
+
+.cs-monitor-div {
+  position: relative;
+  background: #c7daf2;
+  border-left: #b1c6e1 10px solid;
+}
+
+.cs-startapp-div a,
+.cs-retrieveapp-div a,
+.cs-monitor-div a {
+  position: absolute;
+  background: #f1c732;
+  text-align: center;
+  font-weight: bolder;
+  text-decoration: none;
+  color: black;
+  font-size: 1.4rem;
+  bottom: 0.98%;
+  right: 0.25%;
+  width: 100%;
+  max-width: 400px;
+  padding: 4px 0px;
+  outline: white 3px solid;
+  border-top-right-radius: 20px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.cs-startapp-div a:hover,
+.cs-retrieveapp-div a:hover,
+.cs-monitor-div a:hover {
+  color: black;
+  transform: scale(1.015);
+}
+
+.cs-footer {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+
+@media screen and (max-width: 760px) {
+  .cs-footer {
+    position: relative;
+  }
+}
+
+.cs-full-container {
+  max-height: 100vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
