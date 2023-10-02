@@ -2,6 +2,10 @@ import { NavLink } from "react-router-dom";
 import NavButton from "../Buttons/NavButton";
 
 const Navigation = () => {
+  const checkActiveLink = ({ isActive }) => {
+    return isActive ? "nav-link active" : "nav-link";
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary shadow-sm border border-bottom-4 border-dark">
@@ -26,16 +30,12 @@ const Navigation = () => {
           >
             <ul className="navbar-nav">
               <li className="nav-item">
-                <NavLink
-                  className="nav-link active"
-                  aria-current="page"
-                  to="/about"
-                >
+                <NavLink className={checkActiveLink} to="/about">
                   About
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/guidelines">
+                <NavLink className={checkActiveLink} to="/guidelines">
                   Guidelines
                 </NavLink>
               </li>

@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
-import "./startApps.css";
+import "./appstyle.css";
+import { NavLink } from "react-router-dom";
 
 const StartingPage = () => {
   return (
@@ -92,7 +93,7 @@ const StartingPage = () => {
                     Select your scholarship type and make suer you have the
                     necessary documents and information you will need.
                   </p>
-                  <a href="#">Start an Application</a>
+                  <NavLink to="/startapp">Start an Application</NavLink>
                 </div>
               </div>
               <div className="mx-4 mb-3">
@@ -101,7 +102,7 @@ const StartingPage = () => {
                     Select your scholarship type and make suer you have the
                     necessary documents and information you will need.
                   </p>
-                  <a href="#">Retrieve an Application</a>
+                  <NavLink to="/retrieve">Retrieve an Application</NavLink>
                 </div>
               </div>
               <div className="mx-4 mb-3">
