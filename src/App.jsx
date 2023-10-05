@@ -1,5 +1,6 @@
+import { useLayoutEffect } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { Navigation } from "./components";
-import { Route, Routes } from "react-router-dom";
 import {
   Home,
   About,
@@ -8,8 +9,15 @@ import {
   RetrieveApp,
   StartApp,
 } from "./pages";
+import BaseForm from "./forms/BaseForm";
 
 function App() {
+  const { pathname } = useLocation();
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   return (
     <>
       <Navigation />
@@ -20,6 +28,7 @@ function App() {
         <Route path="/startscholar" element={<StartingPage />} />
         <Route path="/startapp" element={<StartApp />} />
         <Route path="/retrieve" element={<RetrieveApp />} />
+        <Route path="/formsamp" element={<BaseForm />} />
       </Routes>
       <footer className="footer">
         <p className="text-end fw-bold fs-5 me-5">©DEVGROUP 2023</p>

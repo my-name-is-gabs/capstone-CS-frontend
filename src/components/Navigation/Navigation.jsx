@@ -11,6 +11,13 @@ const Navigation = () => {
       <nav className="navbar navbar-expand-lg bg-body-tertiary shadow-sm border border-bottom-4 border-dark">
         <div className="container">
           <NavLink className="navbar-brand fw-bold" to="/">
+            <img
+              src="/assets/img/logo_degree.png"
+              alt="Logo"
+              width="30"
+              height="24"
+              className="d-inline-block align-text-top"
+            />
             ABC Scholarship
           </NavLink>
           <button

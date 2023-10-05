@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import "./appstyle.css";
 
 const StartApp = () => {
@@ -30,7 +31,7 @@ const StartApp = () => {
             <p>
               Furthermore, the{" "}
               <span className="fw-bold">Centro Secretariat</span> assures that
-              will <span className="fw-bold">NOT:</span>
+              it will <span className="fw-bold">NOT:</span>
             </p>
             <ul>
               <li>
@@ -54,23 +55,6 @@ const StartApp = () => {
               <li>[Landline/Cellphone number]</li>
             </ol>
             <hr />
-            <div className="container d-flex justify-content-end">
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value=""
-                  id="flexCheckChecked"
-                  required
-                />
-                <label
-                  className="form-check-label fw-bold"
-                  htmlFor="flexCheckChecked"
-                >
-                  I Agree
-                </label>
-              </div>
-            </div>
           </div>
         </aside>
 
@@ -96,7 +80,7 @@ const StartApp = () => {
               </p>
             </div>
 
-            <form action="" method="post" className="container row mt-4">
+            <form method="post" className="container row mt-4">
               <div className="col-md-6">
                 <div className="mb-3">
                   <label htmlFor="securityQ" className="form-label fw-bold">
@@ -134,7 +118,7 @@ const StartApp = () => {
               <div className="col-md-6">
                 <div className="p-2 border border-3 border-dark rounded d-flex justify-content-around align-items-center bg-light">
                   <img
-                    src="/assets/img/logo_taguig.png"
+                    src="/assets/img/logo_degree.png"
                     className="img-fluid"
                     width="100"
                     alt="logo"
@@ -150,18 +134,18 @@ const StartApp = () => {
 
               <div className="mt-5 d-flex justify-content-center align-items-center">
                 <div className="d-flex gap-3">
-                  <a
-                    href="#"
+                  <NavLink
+                    to="/startscholar"
                     className="btn cs-btn-secondary fw-bold fs-5 shadow-sm px-5"
                   >
                     Cancel
-                  </a>
-                  <a
+                  </NavLink>
+                  <NavLink
                     href="#"
                     className="btn cs-btn-primary fw-bold fs-5 shadow-sm px-5"
                   >
                     Continue
-                  </a>
+                  </NavLink>
                 </div>
               </div>
             </form>
