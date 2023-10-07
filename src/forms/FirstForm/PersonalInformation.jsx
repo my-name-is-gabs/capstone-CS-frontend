@@ -157,7 +157,7 @@ const PersonalInformation = ({ setHelperCount }) => {
                 </label>
                 <input
                   type="text"
-                  name="firstname"
+                  name="firstName"
                   id="firstname"
                   className="form-control bg-body-secondary"
                   required
@@ -166,7 +166,7 @@ const PersonalInformation = ({ setHelperCount }) => {
                 />
               </div>
               <div className="col-md-4">
-                <label htmlFor="middlename" className="form-label fw-bold">
+                <label htmlFor="middleName" className="form-label fw-bold">
                   MIDDLE NAME:
                 </label>
                 <input
@@ -180,7 +180,7 @@ const PersonalInformation = ({ setHelperCount }) => {
                 />
               </div>
               <div className="col-md-4">
-                <label htmlFor="lastname" className="form-label fw-bold">
+                <label htmlFor="lastName" className="form-label fw-bold">
                   LAST NAME:
                 </label>
                 <input
@@ -196,13 +196,13 @@ const PersonalInformation = ({ setHelperCount }) => {
               <hr className="my-2 invisible" />
 
               <div className="col-md-4">
-                <label htmlFor="lastname" className="form-label fw-bold">
+                <label htmlFor="sex" className="form-label fw-bold">
                   SEX:
                 </label>
                 <input
                   type="text"
-                  name="lastname"
-                  id="lastname"
+                  name="sex"
+                  id="sex"
                   className="form-control bg-body-secondary"
                   required
                   readOnly
@@ -211,13 +211,13 @@ const PersonalInformation = ({ setHelperCount }) => {
               </div>
 
               <div className="col-md-4">
-                <label htmlFor="lastname" className="form-label fw-bold">
+                <label htmlFor="dateOfBirth" className="form-label fw-bold">
                   DATE OF BIRTH:
                 </label>
                 <input
                   type="text"
-                  name="lastname"
-                  id="lastname"
+                  name="dateOfBirth"
+                  id="dateOfBirth"
                   className="form-control bg-body-secondary"
                   required
                   readOnly
@@ -228,22 +228,27 @@ const PersonalInformation = ({ setHelperCount }) => {
               <hr className="my-2 invisible" />
 
               <div className="col-md-8">
-                <label htmlFor="lastname" className="form-label fw-bold">
+                <label htmlFor="address" className="form-label fw-bold">
                   ADDRESS (House No./Street):
                 </label>
                 <input
                   type="text"
-                  name="lastname"
-                  id="lastname"
+                  name="address"
+                  id="address"
                   className="form-control"
                   required
                 />
               </div>
               <div className="col-md-4">
-                <label htmlFor="" className="form-label fw-bold">
+                <label htmlFor="barangay" className="form-label fw-bold">
                   BARANGAY:
                 </label>
-                <select name="select1" id="" className="form-select" required>
+                <select
+                  name="barangay"
+                  id="barangay"
+                  className="form-select"
+                  required
+                >
                   <option selected="" disabled>
                     Open this select menu
                   </option>

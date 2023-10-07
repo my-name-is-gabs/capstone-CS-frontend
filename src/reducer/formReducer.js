@@ -20,7 +20,7 @@ export const INITIAL_STATE = {
   father_contact: "",
   father_occupation: "",
   father_placeOfWork: "",
-  father_edcuAttainment: "",
+  father_educAttainment: "",
   mother_firstName: "",
   mother_middleName: "",
   mother_lastName: "",
@@ -28,7 +28,7 @@ export const INITIAL_STATE = {
   mother_contact: "",
   mother_occupation: "",
   mother_placeOfWork: "",
-  mother_edcuAttainment: "",
+  mother_educAttainment: "",
   num_units_enrolled: "",
   isLadderized: "",
   num_sem_remaining: "",
@@ -39,6 +39,26 @@ export const INITIAL_STATE = {
 
 export const formReducer = (state, action) => {
   switch (action.type) {
+    case "PERSONAL_DATA":
+      return {
+        ...state,
+        [action.payload.name]: [action.payload.value],
+      };
+    case "FAMILY_DATA":
+      return {
+        ...state,
+        [action.payload.name]: [action.payload.value],
+      };
+    case "EDUC_DATA":
+      return {
+        ...state,
+        [action.payload.name]: [action.payload.value],
+      };
+    case "OTHER_DATA":
+      return {
+        ...state,
+        [action.payload.name]: [action.payload.value],
+      };
     default:
       return state;
   }

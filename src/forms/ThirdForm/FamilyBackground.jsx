@@ -75,100 +75,115 @@ const FamilyBackground = ({ setHelperCount }) => {
           <div className="card-body">
             <div className="row">
               <div className="col-md-4">
-                <label htmlFor="firstname" className="form-label fw-bold">
+                <label
+                  htmlFor="father_firstName"
+                  className="form-label fw-bold"
+                >
                   FIRST NAME:
                 </label>
                 <input
                   type="text"
-                  name="firstname"
-                  id="firstname"
+                  name="father_firstName"
+                  id="father_firstName"
                   className="form-control"
                   required
                 />
               </div>
               <div className="col-md-4">
-                <label htmlFor="middlename" className="form-label fw-bold">
+                <label
+                  htmlFor="father_middleName"
+                  className="form-label fw-bold"
+                >
                   MIDDLE NAME:
                 </label>
                 <input
                   type="text"
-                  name="middlename"
-                  id="middlename"
+                  name="father_middleName"
+                  id="father_middleName"
                   className="form-control"
                   required
                 />
               </div>
               <div className="col-md-4">
-                <label htmlFor="lastname" className="form-label fw-bold">
+                <label htmlFor="father_lastName" className="form-label fw-bold">
                   LAST NAME:
                 </label>
                 <input
                   type="text"
-                  name="lastname"
-                  id="lastname"
+                  name="father_lastName"
+                  id="father_lastName"
                   className="form-control"
                   required
                 />
               </div>
               <hr className="my-2 invisible" />
               <div className="col-md-8">
-                <label htmlFor="lastname" className="form-label fw-bold">
+                <label htmlFor="father_address" className="form-label fw-bold">
                   COMPLETE ADDRESS:
                 </label>
                 <input
                   type="text"
-                  name="lastname"
-                  id="lastname"
+                  name="father_address"
+                  id="father_address"
                   className="form-control"
                   required
                 />
               </div>
               <div className="col-md-4">
-                <label htmlFor="lastname" className="form-label fw-bold">
+                <label htmlFor="father_contact" className="form-label fw-bold">
                   CONTACT NUMBER:
                 </label>
                 <input
                   type="text"
-                  name="lastname"
-                  id="lastname"
+                  name="father_contact"
+                  id="father_contact"
                   className="form-control"
                   required
                 />
               </div>
               <hr className="my-2 invisible" />
               <div className="col-md-4">
-                <label htmlFor="lastname" className="form-label fw-bold">
+                <label
+                  htmlFor="father_occupation"
+                  className="form-label fw-bold"
+                >
                   OCCUPATION:
                 </label>
                 <input
                   type="text"
-                  name="lastname"
-                  id="lastname"
+                  name="father_occupation"
+                  id="father_occupation"
                   className="form-control"
                   required
                 />
               </div>
               <div className="col-md-8">
-                <label htmlFor="lastname" className="form-label fw-bold">
+                <label
+                  htmlFor="father_placeOfWork"
+                  className="form-label fw-bold"
+                >
                   PLACE OF WORK:
                 </label>
                 <input
                   type="text"
-                  name="lastname"
-                  id="lastname"
+                  name="father_placeOfWork"
+                  id="father_placeOfWork"
                   className="form-control"
                   required
                 />
               </div>
               <hr className="my-2 invisible" />
               <div className="col-md-12">
-                <label htmlFor="lastname" className="form-label fw-bold">
+                <label
+                  htmlFor="father_educAttainment"
+                  className="form-label fw-bold"
+                >
                   EDUCATIONAL ATTAINMENT:
                 </label>
                 <input
                   type="text"
-                  name="lastname"
-                  id="lastname"
+                  name="father_educAttainment"
+                  id="father_educAttainment"
                   className="form-control"
                   required
                 />
@@ -209,100 +224,115 @@ const FamilyBackground = ({ setHelperCount }) => {
           <div className="card-body">
             <div className="row">
               <div className="col-md-4">
-                <label htmlFor="firstname" className="form-label fw-bold">
+                <label
+                  htmlFor="mother_firstName"
+                  className="form-label fw-bold"
+                >
                   FIRST NAME:
                 </label>
                 <input
                   type="text"
-                  name="firstname"
-                  id="firstname"
+                  name="mother_firstName"
+                  id="mother_firstName"
                   className="form-control"
                   required
                 />
               </div>
               <div className="col-md-4">
-                <label htmlFor="middlename" className="form-label fw-bold">
+                <label
+                  htmlFor="mother_middleName"
+                  className="form-label fw-bold"
+                >
                   MIDDLE NAME:
                 </label>
                 <input
                   type="text"
-                  name="middlename"
-                  id="middlename"
+                  name="mother_middleName"
+                  id="mother_middleName"
                   className="form-control"
                   required
                 />
               </div>
               <div className="col-md-4">
-                <label htmlFor="lastname" className="form-label fw-bold">
+                <label htmlFor="mother_lastName" className="form-label fw-bold">
                   LAST NAME:
                 </label>
                 <input
                   type="text"
-                  name="lastname"
-                  id="lastname"
+                  name="mother_lastName"
+                  id="mother_lastName"
                   className="form-control"
                   required
                 />
               </div>
               <hr className="my-2 invisible" />
               <div className="col-md-8">
-                <label htmlFor="lastname" className="form-label fw-bold">
+                <label htmlFor="mother_address" className="form-label fw-bold">
                   COMPLETE ADDRESS:
                 </label>
                 <input
                   type="text"
-                  name="lastname"
-                  id="lastname"
+                  name="mother_address"
+                  id="mother_address"
                   className="form-control"
                   required
                 />
               </div>
               <div className="col-md-4">
-                <label htmlFor="lastname" className="form-label fw-bold">
+                <label htmlFor="mother_contact" className="form-label fw-bold">
                   CONTACT NUMBER:
                 </label>
                 <input
                   type="text"
-                  name="lastname"
-                  id="lastname"
+                  name="mother_contact"
+                  id="mother_contact"
                   className="form-control"
                   required
                 />
               </div>
               <hr className="my-2 invisible" />
               <div className="col-md-4">
-                <label htmlFor="lastname" className="form-label fw-bold">
+                <label
+                  htmlFor="mother_occupation"
+                  className="form-label fw-bold"
+                >
                   OCCUPATION:
                 </label>
                 <input
                   type="text"
-                  name="lastname"
-                  id="lastname"
+                  name="mother_occupation"
+                  id="mother_occupation"
                   className="form-control"
                   required
                 />
               </div>
               <div className="col-md-8">
-                <label htmlFor="lastname" className="form-label fw-bold">
+                <label
+                  htmlFor="mother_placeOfWork"
+                  className="form-label fw-bold"
+                >
                   PLACE OF WORK:
                 </label>
                 <input
                   type="text"
-                  name="lastname"
-                  id="lastname"
+                  name="mother_placeOfWork"
+                  id="mother_placeOfWork"
                   className="form-control"
                   required
                 />
               </div>
               <hr className="my-2 invisible" />
               <div className="col-md-12">
-                <label htmlFor="lastname" className="form-label fw-bold">
+                <label
+                  htmlFor="mother_educAttainment"
+                  className="form-label fw-bold"
+                >
                   EDUCATIONAL ATTAINMENT:
                 </label>
                 <input
                   type="text"
-                  name="lastname"
-                  id="lastname"
+                  name="mother_educAttainment"
+                  id="mother_educAttainment"
                   className="form-control"
                   required
                 />

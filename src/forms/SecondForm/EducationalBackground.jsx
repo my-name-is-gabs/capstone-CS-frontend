@@ -75,20 +75,20 @@ const EducationalBackground = ({ setHelperCount }) => {
           <div className="card-body">
             <div className="row">
               <div className="col-md-8">
-                <label htmlFor="firstname" className="form-label fw-bold">
+                <label htmlFor="p_schoolName" className="form-label fw-bold">
                   SCHOOL NAME:
                 </label>
                 <input
                   type="text"
-                  name="firstname"
-                  id="firstname"
+                  name="p_schoolName"
+                  id="p_schoolName"
                   className="form-control"
                   required
                 />
               </div>
 
               <div className="col-md-4">
-                <label htmlFor="middlename" className="form-label fw-bold">
+                <label htmlFor="p_schoolType" className="form-label fw-bold">
                   SCHOOL TYPE:
                 </label>
                 <br />
@@ -96,11 +96,11 @@ const EducationalBackground = ({ setHelperCount }) => {
                   <input
                     className="form-check-input"
                     type="radio"
-                    name="inlineRadioOptions"
-                    id="inlineRadio1"
-                    value="option1"
+                    name="p_schoolType"
+                    id="p_schoolType"
+                    value="private"
                   />
-                  <label className="form-check-label" htmlFor="inlineRadio1">
+                  <label className="form-check-label" htmlFor="p_schoolType">
                     Private
                   </label>
                 </div>
@@ -108,9 +108,9 @@ const EducationalBackground = ({ setHelperCount }) => {
                   <input
                     className="form-check-input"
                     type="radio"
-                    name="inlineRadioOptions"
-                    id="inlineRadio1"
-                    value="option1"
+                    name="p_schoolType"
+                    id="p_schoolType"
+                    value="public"
                   />
                   <label className="form-check-label" htmlFor="inlineRadio1">
                     Public
@@ -121,23 +121,31 @@ const EducationalBackground = ({ setHelperCount }) => {
               <hr className="my-2 invisible" />
 
               <div className="col-md-8">
-                <label htmlFor="lastname" className="form-label fw-bold">
+                <label htmlFor="p_schoolAddress" className="form-label fw-bold">
                   SCHOOL ADDRESS:
                 </label>
                 <input
                   type="text"
-                  name="lastname"
-                  id="lastname"
+                  name="p_schoolAddress"
+                  id="p_schoolAddress"
                   className="form-control"
                   required
                 />
               </div>
 
               <div className="col-md-4">
-                <label htmlFor="lastname" className="form-label fw-bold">
+                <label
+                  htmlFor="p_startgradYeare"
+                  className="form-label fw-bold"
+                >
                   YR. STARTED - GRADUATED:
                 </label>
-                <select name="select1" id="" className="form-select" required>
+                <select
+                  name="p_startgradYear"
+                  id="p_startgradYear"
+                  className="form-select"
+                  required
+                >
                   <option selected="selected" disabled>
                     Open this select menu
                   </option>
@@ -182,20 +190,20 @@ const EducationalBackground = ({ setHelperCount }) => {
           <div className="card-body">
             <div className="row">
               <div className="col-md-8">
-                <label htmlFor="firstname" className="form-label fw-bold">
+                <label htmlFor="s_schoolName" className="form-label fw-bold">
                   SCHOOL NAME:
                 </label>
                 <input
                   type="text"
-                  name="firstname"
-                  id="firstname"
+                  name="s_schoolName"
+                  id="s_schoolName"
                   className="form-control"
                   required
                 />
               </div>
 
               <div className="col-md-4">
-                <label htmlFor="middlename" className="form-label fw-bold">
+                <label htmlFor="s_schoolType" className="form-label fw-bold">
                   SCHOOL TYPE:
                 </label>
                 <br />
@@ -203,11 +211,11 @@ const EducationalBackground = ({ setHelperCount }) => {
                   <input
                     className="form-check-input"
                     type="radio"
-                    name="inlineRadioOptions"
-                    id="inlineRadio1"
-                    value="option1"
+                    name="s_schoolType"
+                    id="s_schoolType"
+                    value="private"
                   />
-                  <label className="form-check-label" htmlFor="inlineRadio1">
+                  <label className="form-check-label" htmlFor="s_schoolType">
                     Private
                   </label>
                 </div>
@@ -215,11 +223,11 @@ const EducationalBackground = ({ setHelperCount }) => {
                   <input
                     className="form-check-input"
                     type="radio"
-                    name="inlineRadioOptions"
-                    id="inlineRadio1"
-                    value="option1"
+                    name="s_schoolType"
+                    id="s_schoolType"
+                    value="public"
                   />
-                  <label className="form-check-label" htmlFor="inlineRadio1">
+                  <label className="form-check-label" htmlFor="s_schoolType">
                     Public
                   </label>
                 </div>

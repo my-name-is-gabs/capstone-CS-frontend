@@ -74,19 +74,22 @@ const OthersForm = ({ setHelperCount }) => {
           <div className="card-body">
             <div className="row">
               <div className="col-md-7">
-                <label htmlFor="firstname" className="form-label fw-bold">
+                <label
+                  htmlFor="num_units_enrolled"
+                  className="form-label fw-bold"
+                >
                   NO. UNITS ENROLLED:
                 </label>
                 <input
                   type="text"
-                  name="firstname"
-                  id="firstname"
+                  name="num_units_enrolled"
+                  id="num_units_enrolled"
                   className="form-control"
                   required
                 />
               </div>
               <div className="col-md-5">
-                <label htmlFor="middlename" className="form-label fw-bold">
+                <label htmlFor="isLadderized" className="form-label fw-bold">
                   LADDERIZED:
                 </label>
                 <br />
@@ -94,11 +97,11 @@ const OthersForm = ({ setHelperCount }) => {
                   <input
                     className="form-check-input"
                     type="radio"
-                    name="inlineRadioOptions"
-                    id="inlineRadio1"
-                    value="option1"
+                    name="isLadderized"
+                    id="isLadderized"
+                    value="yes"
                   />
-                  <label className="form-check-label" htmlFor="inlineRadio1">
+                  <label className="form-check-label" htmlFor="isLadderized">
                     Yes
                   </label>
                 </div>
@@ -106,11 +109,11 @@ const OthersForm = ({ setHelperCount }) => {
                   <input
                     className="form-check-input"
                     type="radio"
-                    name="inlineRadioOptions"
-                    id="inlineRadio1"
-                    value="option1"
+                    name="isLadderized"
+                    id="isLadderized"
+                    value="no"
                   />
-                  <label className="form-check-label" htmlFor="inlineRadio1">
+                  <label className="form-check-label" htmlFor="isLadderized">
                     No
                   </label>
                 </div>
@@ -119,22 +122,30 @@ const OthersForm = ({ setHelperCount }) => {
               <hr className="my-2 invisible" />
 
               <div className="col-md-6">
-                <label htmlFor="lastname" className="form-label fw-bold">
+                <label
+                  htmlFor="num_sem_remaining"
+                  className="form-label fw-bold"
+                >
                   NO. OF SEMESERS REMAINING:
                 </label>
                 <input
                   type="text"
-                  name="lastname"
-                  id="lastname"
+                  name="num_sem_remaining"
+                  id="num_sem_remaining"
                   className="form-control"
                   required
                 />
               </div>
               <div className="col-md-6">
-                <label htmlFor="lastname" className="form-label fw-bold">
+                <label htmlFor="student_status" className="form-label fw-bold">
                   STUDENT STATUS:
                 </label>
-                <select name="select1" id="" className="form-select" required>
+                <select
+                  name="student_status"
+                  id="student_status"
+                  className="form-select"
+                  required
+                >
                   <option selected="selected" disabled>
                     Open this select menu
                   </option>
@@ -147,26 +158,26 @@ const OthersForm = ({ setHelperCount }) => {
               <hr className="my-2 invisible" />
 
               <div className="col-md-6">
-                <label htmlFor="lastname" className="form-label fw-bold">
+                <label htmlFor="transferee" className="form-label fw-bold">
                   TRANSFEREE:
                 </label>
                 <input
                   type="text"
-                  name="lastname"
-                  id="lastname"
+                  name="transferee"
+                  id="transferee"
                   className="form-control"
                   placeholder="Name of the last school attended"
                   required
                 />
               </div>
               <div className="col-md-6">
-                <label htmlFor="lastname" className="form-label fw-bold">
+                <label htmlFor="shiftee" className="form-label fw-bold">
                   SHIFTEE:
                 </label>
                 <input
                   type="text"
-                  name="lastname"
-                  id="lastname"
+                  name="shiftee"
+                  id="shiftee"
                   className="form-control"
                   placeholder="Name of the last school attended"
                   required
