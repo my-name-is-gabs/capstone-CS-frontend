@@ -1,7 +1,23 @@
 /* eslint-disable react/no-unescaped-entities */
 import { PropTypes } from "prop-types";
+// import { useReducer } from "react";
+// import { formReducer, INITIAL_STATE } from "../../reducer/formReducer";
 
-const FamilyBackground = ({ setHelperCount }) => {
+const FamilyBackground = ({
+  setHelperCount,
+  setStepCount,
+  dispatcher,
+  state,
+}) => {
+  // const [state, dispatch] = useReducer(formReducer, INITIAL_STATE);
+
+  const handleChange = (e) => {
+    dispatcher({
+      type: "EDUC_DATA",
+      payload: { name: e.target.name, value: e.target.value },
+    });
+  };
+
   return (
     <>
       {/* Stepper */}
@@ -43,7 +59,13 @@ const FamilyBackground = ({ setHelperCount }) => {
       {/* End of stepper */}
 
       {/* <!-- Forms Under Family Background --> */}
-      <div id="familyBackground">
+      <form
+        id="familyBackground"
+        method="post"
+        onSubmit={() => {
+          setStepCount((step) => step + 1);
+        }}
+      >
         {/* <!-- FIRST ROW --> */}
         <div className="card cs-bg-secondary-rounded shadow w-75 mx-auto mb-5">
           <div className="card-header cs-bg-fadeblue">
@@ -86,6 +108,8 @@ const FamilyBackground = ({ setHelperCount }) => {
                   name="father_firstName"
                   id="father_firstName"
                   className="form-control"
+                  value={state.father_firstName}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -101,6 +125,8 @@ const FamilyBackground = ({ setHelperCount }) => {
                   name="father_middleName"
                   id="father_middleName"
                   className="form-control"
+                  value={state.father_middleName}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -113,6 +139,8 @@ const FamilyBackground = ({ setHelperCount }) => {
                   name="father_lastName"
                   id="father_lastName"
                   className="form-control"
+                  value={state.father_lastName}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -126,6 +154,8 @@ const FamilyBackground = ({ setHelperCount }) => {
                   name="father_address"
                   id="father_address"
                   className="form-control"
+                  value={state.father_address}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -138,6 +168,8 @@ const FamilyBackground = ({ setHelperCount }) => {
                   name="father_contact"
                   id="father_contact"
                   className="form-control"
+                  value={state.father_contact}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -154,6 +186,8 @@ const FamilyBackground = ({ setHelperCount }) => {
                   name="father_occupation"
                   id="father_occupation"
                   className="form-control"
+                  value={state.father_occupation}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -169,6 +203,8 @@ const FamilyBackground = ({ setHelperCount }) => {
                   name="father_placeOfWork"
                   id="father_placeOfWork"
                   className="form-control"
+                  value={state.father_placeOfWork}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -185,6 +221,8 @@ const FamilyBackground = ({ setHelperCount }) => {
                   name="father_educAttainment"
                   id="father_educAttainment"
                   className="form-control"
+                  value={state.father_educAttainment}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -235,6 +273,8 @@ const FamilyBackground = ({ setHelperCount }) => {
                   name="mother_firstName"
                   id="mother_firstName"
                   className="form-control"
+                  value={state.mother_firstName}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -250,6 +290,8 @@ const FamilyBackground = ({ setHelperCount }) => {
                   name="mother_middleName"
                   id="mother_middleName"
                   className="form-control"
+                  value={state.mother_middleName}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -262,6 +304,8 @@ const FamilyBackground = ({ setHelperCount }) => {
                   name="mother_lastName"
                   id="mother_lastName"
                   className="form-control"
+                  value={state.mother_lastName}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -275,6 +319,8 @@ const FamilyBackground = ({ setHelperCount }) => {
                   name="mother_address"
                   id="mother_address"
                   className="form-control"
+                  value={state.mother_address}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -287,6 +333,8 @@ const FamilyBackground = ({ setHelperCount }) => {
                   name="mother_contact"
                   id="mother_contact"
                   className="form-control"
+                  value={state.mother_contact}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -303,6 +351,8 @@ const FamilyBackground = ({ setHelperCount }) => {
                   name="mother_occupation"
                   id="mother_occupation"
                   className="form-control"
+                  value={state.mother_occupation}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -318,6 +368,8 @@ const FamilyBackground = ({ setHelperCount }) => {
                   name="mother_placeOfWork"
                   id="mother_placeOfWork"
                   className="form-control"
+                  value={state.mother_placeOfWork}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -334,6 +386,8 @@ const FamilyBackground = ({ setHelperCount }) => {
                   name="mother_educAttainment"
                   id="mother_educAttainment"
                   className="form-control"
+                  value={state.mother_educAttainment}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -341,7 +395,23 @@ const FamilyBackground = ({ setHelperCount }) => {
           </div>
         </div>
         {/* <!-- END OF SECOND ROW --> */}
-      </div>
+
+        {/* <!-- Buttons Per Sections --> */}
+        <div className="mt-5 d-flex justify-content-end align-items-center w-75 mx-auto mb-5">
+          <div className="d-flex gap-3">
+            <button
+              type="button"
+              className="btn cs-btn-secondary fw-bold fs-5 shadow-sm px-5"
+              onClick={() => setStepCount((step) => step - 1)}
+            >
+              Back
+            </button>
+            <button className="btn cs-btn-primary fw-bold fs-5 shadow-sm px-5">
+              Next
+            </button>
+          </div>
+        </div>
+      </form>
       {/* <!-- End of Forms Under Family Background --> */}
     </>
   );
@@ -349,6 +419,9 @@ const FamilyBackground = ({ setHelperCount }) => {
 
 FamilyBackground.propTypes = {
   setHelperCount: PropTypes.func,
+  setStepCount: PropTypes.func,
+  dispatcher: PropTypes.func,
+  state: PropTypes.object,
 };
 
 export default FamilyBackground;

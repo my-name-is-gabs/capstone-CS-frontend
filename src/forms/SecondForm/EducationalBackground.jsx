@@ -1,7 +1,23 @@
 /* eslint-disable react/no-unescaped-entities */
 import { PropTypes } from "prop-types";
+// import { useReducer } from "react";
+// import { formReducer, INITIAL_STATE } from "../../reducer/formReducer";
 
-const EducationalBackground = ({ setHelperCount }) => {
+const EducationalBackground = ({
+  setHelperCount,
+  setStepCount,
+  dispatcher,
+  state,
+}) => {
+  // const [state, dispatch] = useReducer(formReducer, INITIAL_STATE);
+
+  const handleChange = (e) => {
+    dispatcher({
+      type: "EDUC_DATA",
+      payload: { name: e.target.name, value: e.target.value },
+    });
+  };
+
   return (
     <>
       {/* Stepper */}
@@ -43,7 +59,13 @@ const EducationalBackground = ({ setHelperCount }) => {
       {/* End of stepper */}
 
       {/* <!-- Forms under Educational Background --> */}
-      <div id="educBackground">
+      <form
+        id="educBackground"
+        method="post"
+        onSubmit={() => {
+          setStepCount((step) => step + 1);
+        }}
+      >
         {/* <!-- First Row --> */}
         <div className="card cs-bg-secondary-rounded shadow w-75 mx-auto mb-5">
           <div className="card-header cs-bg-fadeblue">
@@ -83,6 +105,8 @@ const EducationalBackground = ({ setHelperCount }) => {
                   name="p_schoolName"
                   id="p_schoolName"
                   className="form-control"
+                  onChange={handleChange}
+                  value={state.p_schoolname}
                   required
                 />
               </div>
@@ -98,7 +122,9 @@ const EducationalBackground = ({ setHelperCount }) => {
                     type="radio"
                     name="p_schoolType"
                     id="p_schoolType"
-                    value="private"
+                    value={state.p_schoolType ?? "private"}
+                    onChange={handleChange}
+                    required
                   />
                   <label className="form-check-label" htmlFor="p_schoolType">
                     Private
@@ -110,7 +136,9 @@ const EducationalBackground = ({ setHelperCount }) => {
                     type="radio"
                     name="p_schoolType"
                     id="p_schoolType"
-                    value="public"
+                    value={state.p_schoolType ?? "public"}
+                    onChange={handleChange}
+                    required
                   />
                   <label className="form-check-label" htmlFor="inlineRadio1">
                     Public
@@ -129,6 +157,8 @@ const EducationalBackground = ({ setHelperCount }) => {
                   name="p_schoolAddress"
                   id="p_schoolAddress"
                   className="form-control"
+                  value={state.p_schoolAddress}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -144,6 +174,8 @@ const EducationalBackground = ({ setHelperCount }) => {
                   name="p_startgradYear"
                   id="p_startgradYear"
                   className="form-select"
+                  onChange={handleChange}
+                  value={state.p_startgradYear}
                   required
                 >
                   <option selected="selected" disabled>
@@ -198,6 +230,8 @@ const EducationalBackground = ({ setHelperCount }) => {
                   name="s_schoolName"
                   id="s_schoolName"
                   className="form-control"
+                  value={state.s_schoolName}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -213,7 +247,9 @@ const EducationalBackground = ({ setHelperCount }) => {
                     type="radio"
                     name="s_schoolType"
                     id="s_schoolType"
-                    value="private"
+                    value={state.s_schoolName ?? "private"}
+                    onChange={handleChange}
+                    required
                   />
                   <label className="form-check-label" htmlFor="s_schoolType">
                     Private
@@ -225,7 +261,9 @@ const EducationalBackground = ({ setHelperCount }) => {
                     type="radio"
                     name="s_schoolType"
                     id="s_schoolType"
-                    value="public"
+                    value={state.s_schoolName ?? "public"}
+                    onChange={handleChange}
+                    required
                   />
                   <label className="form-check-label" htmlFor="s_schoolType">
                     Public
@@ -236,7 +274,23 @@ const EducationalBackground = ({ setHelperCount }) => {
           </div>
         </div>
         {/* <!-- End of Second Row --> */}
-      </div>
+
+        {/* <!-- Buttons Per Sections --> */}
+        <div className="mt-5 d-flex justify-content-end align-items-center w-75 mx-auto mb-5">
+          <div className="d-flex gap-3">
+            <button
+              type="button"
+              className="btn cs-btn-secondary fw-bold fs-5 shadow-sm px-5"
+              onClick={() => setStepCount((step) => step - 1)}
+            >
+              Back
+            </button>
+            <button className="btn cs-btn-primary fw-bold fs-5 shadow-sm px-5">
+              Next
+            </button>
+          </div>
+        </div>
+      </form>
       {/* <!-- End of Forms Under Educational Background --> */}
     </>
   );
@@ -244,6 +298,9 @@ const EducationalBackground = ({ setHelperCount }) => {
 
 EducationalBackground.propTypes = {
   setHelperCount: PropTypes.func,
+  setStepCount: PropTypes.func,
+  dispatcher: PropTypes.func,
+  state: PropTypes.object,
 };
 
 export default EducationalBackground;

@@ -112,7 +112,7 @@ const StartingPage = () => {
                     monitor and check the progress of your scholarship
                     application.
                   </p>
-                  <a href="#">Monitor your Application</a>
+                  <NavLink to="/monitor">Monitor your Application</NavLink>
                 </div>
               </div>
             </form>

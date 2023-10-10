@@ -1,3 +1,4 @@
 const MAX_FORM_COUNT = 4;
+const INITIAL_FORM_COUNT = 1;
 
-export { MAX_FORM_COUNT };
+export { MAX_FORM_COUNT, INITIAL_FORM_COUNT };

@@ -1,6 +1,13 @@
 import { PropTypes } from "prop-types";
 
-const OthersForm = ({ setHelperCount }) => {
+const OthersForm = ({ setHelperCount, setStepCount, dispatcher, state }) => {
+  const handleChange = (e) => {
+    dispatcher({
+      type: "OTHER_DATA",
+      payload: { name: e.target.name, value: e.target.value },
+    });
+  };
+
   return (
     <>
       {/* Stepper */}
@@ -42,7 +49,7 @@ const OthersForm = ({ setHelperCount }) => {
       {/* End of stepper */}
 
       {/* <!-- FORMS Under Other Scholastic Information and Requirements --> */}
-      <div id="scholasticInfo">
+      <form id="scholasticInfo" method="post">
         {/* <!-- FIRST ROW --> */}
         <div className="card cs-bg-secondary-rounded shadow w-75 mx-auto mb-5">
           <div className="card-header cs-bg-fadeblue">
@@ -81,10 +88,12 @@ const OthersForm = ({ setHelperCount }) => {
                   NO. UNITS ENROLLED:
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   name="num_units_enrolled"
                   id="num_units_enrolled"
                   className="form-control"
+                  onChange={handleChange}
+                  value={state.num_units_enrolled}
                   required
                 />
               </div>
@@ -99,7 +108,9 @@ const OthersForm = ({ setHelperCount }) => {
                     type="radio"
                     name="isLadderized"
                     id="isLadderized"
-                    value="yes"
+                    value={state.isLadderized ?? "yes"}
+                    onChange={handleChange}
+                    required
                   />
                   <label className="form-check-label" htmlFor="isLadderized">
                     Yes
@@ -111,7 +122,9 @@ const OthersForm = ({ setHelperCount }) => {
                     type="radio"
                     name="isLadderized"
                     id="isLadderized"
-                    value="no"
+                    value={state.isLadderized ?? "no"}
+                    onChange={handleChange}
+                    required
                   />
                   <label className="form-check-label" htmlFor="isLadderized">
                     No
@@ -129,10 +142,12 @@ const OthersForm = ({ setHelperCount }) => {
                   NO. OF SEMESERS REMAINING:
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   name="num_sem_remaining"
                   id="num_sem_remaining"
                   className="form-control"
+                  value={state.num_sem_remaining}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -144,6 +159,8 @@ const OthersForm = ({ setHelperCount }) => {
                   name="student_status"
                   id="student_status"
                   className="form-select"
+                  value={state.student_status}
+                  onChange={handleChange}
                   required
                 >
                   <option selected="selected" disabled>
@@ -167,6 +184,8 @@ const OthersForm = ({ setHelperCount }) => {
                   id="transferee"
                   className="form-control"
                   placeholder="Name of the last school attended"
+                  value={state.transferee}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -180,6 +199,8 @@ const OthersForm = ({ setHelperCount }) => {
                   id="shiftee"
                   className="form-control"
                   placeholder="Name of the last school attended"
+                  value={state.shiftee}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -201,7 +222,28 @@ const OthersForm = ({ setHelperCount }) => {
           </div>
         </div> */}
         {/* <!-- END OF SECOND ROW --> */}
-      </div>
+
+        {/* <!-- Buttons Per Sections --> */}
+        <div className="mt-5 d-flex justify-content-end align-items-center w-75 mx-auto mb-5">
+          <div className="d-flex gap-3">
+            <button
+              type="button"
+              className="btn cs-btn-secondary fw-bold fs-5 shadow-sm px-5"
+              onClick={() => setStepCount((step) => step - 1)}
+            >
+              Back
+            </button>
+            <button
+              type="button"
+              className="btn cs-btn-primary fw-bold fs-5 shadow-sm px-5"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              Finish
+            </button>
+          </div>
+        </div>
+      </form>
       {/* <!-- End of FORMS Under Other Scholastic Information and Requirements --> */}
 
       {/* <!-- Buttons Per Sections --> */}
@@ -219,59 +261,15 @@ const OthersForm = ({ setHelperCount }) => {
           </a>
         </div>
       </div> */}
-
-      {/* <!-- Modal --> */}
-      <div
-        className="modal fade"
-        id="exampleModal"
-        tabIndex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-lg">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h1 className="modal-title fs-5 fw-bold" id="exampleModalLabel">
-                AGREEMENT
-              </h1>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body">
-              <p className="p-3">
-                I hereby certify that <b>ALL</b> the answers given above are
-                <b> TRUE</b> and <b>CORRECT</b>. I further acknowledge that{" "}
-                <b>
-                  ANY ACT OF DISHONESTY OR FALSIFICATION MAY BE A GROUND FOR MY
-                  DISQUALIFICATION
-                </b>{" "}
-                from this scholarship program. I also understand that this
-                submission of application does <b>NOT AUTOMATICALLY QUALIFY</b>{" "}
-                me for the scholarship grant and that I will abide by the
-                decision of the ABC City Scholarship Screening Committee.
-              </p>
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn cs-btn-primary fw-bold fs-5 shadow-sm px-4"
-              >
-                I Understand
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
     </>
   );
 };
 
 OthersForm.propTypes = {
   setHelperCount: PropTypes.func,
+  setStepCount: PropTypes.func,
+  dispatcher: PropTypes.func,
+  state: PropTypes.object,
 };
 
 export default OthersForm;

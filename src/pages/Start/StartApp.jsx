@@ -1,7 +1,32 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useReducer, useRef } from "react";
+import { formReducer, INITIAL_STATE } from "../../reducer/formReducer";
 import "./appstyle.css";
 
 const StartApp = () => {
+  const [state, dispatch] = useReducer(formReducer, INITIAL_STATE);
+  const navigate = useNavigate();
+  const applicantIdRef = useRef(null);
+
+  const handleChange = (e) => {
+    dispatch({
+      type: "SECURITY_DATA",
+      payload: { name: e.target.name, value: e.target.value },
+    });
+
+    handleID();
+  };
+
+  const handleID = () => {
+    dispatch({
+      type: "SECURITY_DATA",
+      payload: {
+        name: applicantIdRef.current.name,
+        value: applicantIdRef.current.value,
+      },
+    });
+  };
+
   return (
     <>
       <div className="row">
@@ -80,19 +105,32 @@ const StartApp = () => {
               </p>
             </div>
 
-            <form method="post" className="container row mt-4">
+            <form
+              method="post"
+              className="container row mt-4"
+              onSubmit={() => {
+                console.log(state);
+                navigate("/forms");
+              }}
+            >
               <div className="col-md-6">
                 <div className="mb-3">
-                  <label htmlFor="securityQ" className="form-label fw-bold">
+                  <label
+                    htmlFor="security_question"
+                    className="form-label fw-bold"
+                  >
                     Security Question:
                   </label>
                   <div className="input-group">
                     <select
-                      name="securityQ"
-                      id="securityQ"
+                      name="security_question"
+                      id="security_question"
                       className="form-select"
+                      onChange={handleChange}
                     >
-                      <option selected>Select Question...</option>
+                      <option selected disabled>
+                        Select Question...
+                      </option>
                       <option value="q1">Q1</option>
                       <option value="q2">Q2</option>
                       <option value="q3">Q3</option>
@@ -101,15 +139,19 @@ const StartApp = () => {
                 </div>
 
                 <div className="mb-3">
-                  <label htmlFor="answerQ" className="form-label fw-bold">
+                  <label
+                    htmlFor="security_answer"
+                    className="form-label fw-bold"
+                  >
                     {" "}
                     Answer:{" "}
                   </label>
                   <input
                     type="text"
-                    name="answer!"
-                    id="answerQ"
+                    name="security_answer"
+                    id="security_answer"
                     className="form-control"
+                    onChange={handleChange}
                     placeholder="Your answer..."
                   />
                 </div>
@@ -122,6 +164,12 @@ const StartApp = () => {
                     className="img-fluid"
                     width="100"
                     alt="logo"
+                  />
+                  <input
+                    ref={applicantIdRef}
+                    type="hidden"
+                    name="application_id"
+                    value="XXYZZ000"
                   />
                   <div className="d-flex flex-column justify-content-center py-2">
                     <h6 className="fw-bold">Your Application ID is:</h6>
@@ -140,12 +188,15 @@ const StartApp = () => {
                   >
                     Cancel
                   </NavLink>
-                  <NavLink
-                    href="#"
+                  {/* <NavLink
+                    to="/forms"
                     className="btn cs-btn-primary fw-bold fs-5 shadow-sm px-5"
                   >
                     Continue
-                  </NavLink>
+                  </NavLink> */}
+                  <button className="btn cs-btn-primary fw-bold fs-5 shadow-sm px-5">
+                    Continue
+                  </button>
                 </div>
               </div>
             </form>

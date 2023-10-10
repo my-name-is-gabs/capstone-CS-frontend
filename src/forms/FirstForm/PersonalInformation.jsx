@@ -1,6 +1,52 @@
 import { PropTypes } from "prop-types";
+import { NavLink } from "react-router-dom";
+// import { formReducer, INITIAL_STATE } from "../../reducer/formReducer";
+import { useRef } from "react";
 
-const PersonalInformation = ({ setHelperCount }) => {
+const PersonalInformation = ({
+  setHelperCount,
+  setStepCount,
+  dispatcher,
+  state,
+}) => {
+  // const [state, dispatch] = useReducer(formReducer, INITIAL_STATE);
+  const fNameRef = useRef(null);
+  const mNameRef = useRef(null);
+  const lNameRef = useRef(null);
+  const sexRef = useRef(null);
+  const dobRef = useRef(null);
+
+  const handleChange = (e) => {
+    dispatcher({
+      type: "PERSONAL_DATA",
+      payload: { name: e.target.name, value: e.target.value },
+    });
+    handleDefaultValues();
+  };
+
+  const handleDefaultValues = () => {
+    dispatcher({
+      type: "PERSONAL_DATA",
+      payload: { name: fNameRef.current.name, value: fNameRef.current.value },
+    });
+    dispatcher({
+      type: "PERSONAL_DATA",
+      payload: { name: mNameRef.current.name, value: mNameRef.current.value },
+    });
+    dispatcher({
+      type: "PERSONAL_DATA",
+      payload: { name: lNameRef.current.name, value: lNameRef.current.value },
+    });
+    dispatcher({
+      type: "PERSONAL_DATA",
+      payload: { name: sexRef.current.name, value: sexRef.current.value },
+    });
+    dispatcher({
+      type: "PERSONAL_DATA",
+      payload: { name: dobRef.current.name, value: dobRef.current.value },
+    });
+  };
+
   return (
     <>
       {/* Stepper */}
@@ -43,249 +89,266 @@ const PersonalInformation = ({ setHelperCount }) => {
 
       <div id="personalInfo">
         {/* <!-- Under Personal Information --> */}
+
         {/* <!-- First Row --> */}
-        <div className="card cs-bg-secondary-rounded shadow w-75 mx-auto mb-5">
-          <div className="card-header cs-bg-fadeblue">
-            <div className="container d-flex justify-content-between align-items-center">
-              <div className="d-inline-flex gap-3 align-items-center">
-                <img
-                  src="/assets/icons/Grant.png"
-                  className="img-fluid"
-                  alt="Grant Icon"
-                  width={32}
-                  height={32}
-                />
-                <div className="fs-5 text-white fw-semibold">
-                  SCHOLARIP TYPE
+        <form action="" method="post">
+          <div className="card cs-bg-secondary-rounded shadow w-75 mx-auto mb-5">
+            <div className="card-header cs-bg-fadeblue">
+              <div className="container d-flex justify-content-between align-items-center">
+                <div className="d-inline-flex gap-3 align-items-center">
+                  <img
+                    src="/assets/icons/document.png"
+                    className="img-fluid"
+                    alt="Grant Icon"
+                    width={32}
+                    height={32}
+                  />
+                  <div className="fs-5 text-white fw-semibold">UPLOAD FILE</div>
                 </div>
-              </div>
-              <button
-                className="cs-btn-nolayout"
-                type="button"
-                data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasRight"
-                aria-controls="offcanvasRight"
-                onClick={() => setHelperCount(0)}
-              >
-                <i className="fs-2 fa-regular fa-circle-question"></i>
-              </button>
-            </div>
-          </div>
-          <div className="card-body">
-            <div className="col-md-5">
-              <label htmlFor="scholarshipType" className="form-label fw-bold">
-                Type:
-              </label>
-              <select
-                name="scholar_type"
-                id="scholarshpType"
-                className="form-select"
-                required
-              >
-                <option selected="selected" disabled="disabled">
-                  Choose...
-                </option>
-                <option value="Premier">Premier</option>
-                <option value="Full">Full</option>
-                <option value="Priority">Priority</option>
-                <option value="Basic">Basic</option>
-                <option value="SUC/LUC">SUC/LUC</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div className="card cs-bg-secondary-rounded shadow w-75 mx-auto mb-5">
-          <div className="card-header cs-bg-fadeblue">
-            <div className="container d-flex justify-content-between align-items-center">
-              <div className="d-inline-flex gap-3 align-items-center">
-                <img
-                  src="/assets/icons/document.png"
-                  className="img-fluid"
-                  alt="Grant Icon"
-                  width={32}
-                  height={32}
-                />
-                <div className="fs-5 text-white fw-semibold">UPLOAD FILE</div>
-              </div>
-              <button
-                className="cs-btn-nolayout"
-                type="button"
-                data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasRight"
-                aria-controls="offcanvasRight"
-                onClick={() => setHelperCount(1)}
-              >
-                <i className="fs-2 fa-regular fa-circle-question"></i>
-              </button>
-            </div>
-          </div>
-          <div className="card-body">
-            <div className="col-md">
-              <label htmlFor="scholarshipType" className="form-label fw-bold">
-                Upload Birth Certificate:
-              </label>
-              <input
-                className="form-control"
-                type="file"
-                id="formFile"
-                name="birthCertFile"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Second Row */}
-        <div
-          className={`card cs-bg-secondary-rounded shadow w-75 mx-auto mb-5`}
-        >
-          <div className="card-header cs-bg-fadeblue">
-            <div className="container d-flex justify-content-between align-items-center">
-              <div className="d-inline-flex gap-3 align-items-center">
-                <i className="fa-solid fa-user-large fs-3"></i>
-                <div className="fs-5 text-white fw-semibold">
-                  PERSONAL INFORMATION
-                </div>
+                <button
+                  className="cs-btn-nolayout"
+                  type="button"
+                  data-bs-toggle="offcanvas"
+                  data-bs-target="#offcanvasRight"
+                  aria-controls="offcanvasRight"
+                  onClick={() => setHelperCount(1)}
+                >
+                  <i className="fs-2 fa-regular fa-circle-question"></i>
+                </button>
               </div>
             </div>
-          </div>
-          <div className="card-body">
-            <div className="row">
-              <div className="col-md-4">
-                <label htmlFor="firstname" className="form-label fw-bold">
-                  FIRST NAME:
+            <div className="card-body">
+              <div className="col-md">
+                <label htmlFor="scholarshipType" className="form-label fw-bold">
+                  Upload Birth Certificate:
                 </label>
                 <input
-                  type="text"
-                  name="firstName"
-                  id="firstname"
-                  className="form-control bg-body-secondary"
-                  required
-                  readOnly
-                  value={"John"}
-                />
-              </div>
-              <div className="col-md-4">
-                <label htmlFor="middleName" className="form-label fw-bold">
-                  MIDDLE NAME:
-                </label>
-                <input
-                  type="text"
-                  name="middlename"
-                  id="middlename"
-                  className="form-control bg-body-secondary"
-                  required
-                  readOnly
-                  value={"D"}
-                />
-              </div>
-              <div className="col-md-4">
-                <label htmlFor="lastName" className="form-label fw-bold">
-                  LAST NAME:
-                </label>
-                <input
-                  type="text"
-                  name="lastname"
-                  id="lastname"
-                  className="form-control bg-body-secondary"
-                  required
-                  readOnly
-                  value={"Doe"}
-                />
-              </div>
-              <hr className="my-2 invisible" />
-
-              <div className="col-md-4">
-                <label htmlFor="sex" className="form-label fw-bold">
-                  SEX:
-                </label>
-                <input
-                  type="text"
-                  name="sex"
-                  id="sex"
-                  className="form-control bg-body-secondary"
-                  required
-                  readOnly
-                  value={"Male"}
-                />
-              </div>
-
-              <div className="col-md-4">
-                <label htmlFor="dateOfBirth" className="form-label fw-bold">
-                  DATE OF BIRTH:
-                </label>
-                <input
-                  type="text"
-                  name="dateOfBirth"
-                  id="dateOfBirth"
-                  className="form-control bg-body-secondary"
-                  required
-                  readOnly
-                  value={"08 January 1999"}
-                />
-              </div>
-
-              <hr className="my-2 invisible" />
-
-              <div className="col-md-8">
-                <label htmlFor="address" className="form-label fw-bold">
-                  ADDRESS (House No./Street):
-                </label>
-                <input
-                  type="text"
-                  name="address"
-                  id="address"
                   className="form-control"
-                  required
+                  type="file"
+                  id="formFile"
+                  name="birthCertFile"
                 />
               </div>
-              <div className="col-md-4">
-                <label htmlFor="barangay" className="form-label fw-bold">
-                  BARANGAY:
+            </div>
+          </div>
+        </form>
+
+        <form
+          action=""
+          method="post"
+          onSubmit={(e) => {
+            e.preventDefault();
+            setStepCount((step) => step + 1);
+          }}
+        >
+          <div className="card cs-bg-secondary-rounded shadow w-75 mx-auto mb-5">
+            <div className="card-header cs-bg-fadeblue">
+              <div className="container d-flex justify-content-between align-items-center">
+                <div className="d-inline-flex gap-3 align-items-center">
+                  <img
+                    src="/assets/icons/Grant.png"
+                    className="img-fluid"
+                    alt="Grant Icon"
+                    width={32}
+                    height={32}
+                  />
+                  <div className="fs-5 text-white fw-semibold">
+                    SCHOLARIP TYPE
+                  </div>
+                </div>
+                <button
+                  className="cs-btn-nolayout"
+                  type="button"
+                  data-bs-toggle="offcanvas"
+                  data-bs-target="#offcanvasRight"
+                  aria-controls="offcanvasRight"
+                  onClick={() => setHelperCount(0)}
+                >
+                  <i className="fs-2 fa-regular fa-circle-question"></i>
+                </button>
+              </div>
+            </div>
+            <div className="card-body">
+              <div className="col-md-5">
+                <label htmlFor="scholarshipType" className="form-label fw-bold">
+                  Type:
                 </label>
                 <select
-                  name="barangay"
-                  id="barangay"
+                  name="scholar_type"
+                  id="scholarshpType"
                   className="form-select"
+                  onChange={handleChange}
+                  value={state.scholar_type}
                   required
                 >
-                  <option selected="" disabled>
-                    Open this select menu
-                  </option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  <option value="Premier">Premier</option>
+                  <option value="Full">Full</option>
+                  <option value="Priority">Priority</option>
+                  <option value="Basic">Basic</option>
+                  <option value="SUC/LUC">SUC/LUC</option>
                 </select>
               </div>
             </div>
           </div>
-        </div>
+
+          {/* Second Row */}
+          <div
+            className={`card cs-bg-secondary-rounded shadow w-75 mx-auto mb-5`}
+          >
+            <div className="card-header cs-bg-fadeblue">
+              <div className="container d-flex justify-content-between align-items-center">
+                <div className="d-inline-flex gap-3 align-items-center">
+                  <i className="fa-solid fa-user-large fs-3"></i>
+                  <div className="fs-5 text-white fw-semibold">
+                    PERSONAL INFORMATION
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="card-body">
+              <div className="row">
+                <div className="col-md-4">
+                  <label htmlFor="firstname" className="form-label fw-bold">
+                    FIRST NAME:
+                  </label>
+                  <input
+                    ref={fNameRef}
+                    type="text"
+                    name="firstName"
+                    id="firstname"
+                    className="form-control bg-body-secondary"
+                    required
+                    readOnly
+                    value={"John"}
+                  />
+                </div>
+                <div className="col-md-4">
+                  <label htmlFor="middleName" className="form-label fw-bold">
+                    MIDDLE NAME:
+                  </label>
+                  <input
+                    ref={mNameRef}
+                    type="text"
+                    name="middleName"
+                    id="middleName"
+                    className="form-control bg-body-secondary"
+                    required
+                    readOnly
+                    value={"D"}
+                  />
+                </div>
+                <div className="col-md-4">
+                  <label htmlFor="lastName" className="form-label fw-bold">
+                    LAST NAME:
+                  </label>
+                  <input
+                    ref={lNameRef}
+                    type="text"
+                    name="lastName"
+                    id="lastName"
+                    className="form-control bg-body-secondary"
+                    required
+                    readOnly
+                    value={"Doe"}
+                  />
+                </div>
+                <hr className="my-2 invisible" />
+
+                <div className="col-md-4">
+                  <label htmlFor="sex" className="form-label fw-bold">
+                    SEX:
+                  </label>
+                  <input
+                    ref={sexRef}
+                    type="text"
+                    name="sex"
+                    id="sex"
+                    className="form-control bg-body-secondary"
+                    required
+                    readOnly
+                    value={"Male"}
+                  />
+                </div>
+
+                <div className="col-md-4">
+                  <label htmlFor="dateOfBirth" className="form-label fw-bold">
+                    DATE OF BIRTH:
+                  </label>
+                  <input
+                    ref={dobRef}
+                    type="text"
+                    name="dateOfBirth"
+                    id="dateOfBirth"
+                    className="form-control bg-body-secondary"
+                    required
+                    readOnly
+                    value={"08 January 1999"}
+                  />
+                </div>
+
+                <hr className="my-2 invisible" />
+
+                <div className="col-md-8">
+                  <label htmlFor="address" className="form-label fw-bold">
+                    ADDRESS (House No./Street):
+                  </label>
+                  <input
+                    type="text"
+                    name="address"
+                    id="address"
+                    className="form-control"
+                    onChange={handleChange}
+                    value={state.address}
+                    required
+                  />
+                </div>
+                <div className="col-md-4">
+                  <label htmlFor="barangay" className="form-label fw-bold">
+                    BARANGAY:
+                  </label>
+                  <select
+                    name="barangay"
+                    id="barangay"
+                    className="form-select"
+                    onChange={handleChange}
+                    value={state.barangay}
+                    required
+                  >
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* <!-- Buttons Per Sections --> */}
+          <div className="mt-5 d-flex justify-content-end align-items-center w-75 mx-auto mb-5">
+            <div className="d-flex gap-3">
+              <NavLink
+                to="/startscholar"
+                className="btn cs-btn-secondary fw-bold fs-5 shadow-sm px-5"
+              >
+                Cancel
+              </NavLink>
+              <button className="btn cs-btn-primary fw-bold fs-5 shadow-sm px-5">
+                Next
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
       {/* End of Forms Under Personal Information */}
-
-      {/* <!-- Buttons Per Sections --> */}
-      <div className="mt-5 d-flex justify-content-end align-items-center w-75 mx-auto mb-5">
-        <div className="d-flex gap-3">
-          <a
-            href="#"
-            className="btn cs-btn-secondary fw-bold fs-5 shadow-sm px-5"
-          >
-            Cancel
-          </a>
-          <button
-            href="#"
-            className="btn cs-btn-primary fw-bold fs-5 shadow-sm px-5"
-          >
-            Next
-          </button>
-        </div>
-      </div>
     </>
   );
 };
 
 PersonalInformation.propTypes = {
   setHelperCount: PropTypes.func,
+  setStepCount: PropTypes.func,
+  dispatcher: PropTypes.func,
+  state: PropTypes.object,
 };
 
 export default PersonalInformation;
