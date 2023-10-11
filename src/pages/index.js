@@ -5,6 +5,7 @@ import StartingPage from "./Start/StartingPage";
 import RetrieveApp from "./Start/RetrieveApp";
 import StartApp from "./Start/StartApp";
 import Monitor from "./Start/Monitor";
+import MonitorApp from "./Monitoring/MonitorApp";
 
 export {
   Home,
@@ -14,4 +15,5 @@ export {
   RetrieveApp,
   StartApp,
   Monitor,
+  MonitorApp,
 };

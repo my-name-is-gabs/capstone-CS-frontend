@@ -27,12 +27,12 @@ const Monitor = () => {
                 >
                   Cancel
                 </NavLink>
-                <button
-                  type="button"
+                <NavLink
+                  to="/monitorapp"
                   className="btn cs-btn-primary fw-bold fs-6 shadow-sm px-5"
                 >
                   Continue
-                </button>
+                </NavLink>
               </div>
             </div>
           </form>

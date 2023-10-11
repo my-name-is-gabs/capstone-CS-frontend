@@ -9,6 +9,7 @@ import {
   RetrieveApp,
   StartApp,
   Monitor,
+  MonitorApp,
 } from "./pages";
 import BaseForm from "./forms/BaseForm";
 
@@ -31,6 +32,7 @@ function App() {
         <Route path="/startapp" element={<StartApp />} />
         <Route path="/retrieve" element={<RetrieveApp />} />
         <Route path="/monitor" element={<Monitor />} />
+        <Route path="/monitorapp" element={<MonitorApp />} />
         <Route path="/forms" element={<BaseForm />} />
       </Routes>
       <footer className="footer">
