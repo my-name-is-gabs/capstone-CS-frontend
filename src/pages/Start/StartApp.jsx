@@ -2,6 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useReducer, useRef } from "react";
 import { formReducer, INITIAL_STATE } from "../../reducer/formReducer";
 import "./appstyle.css";
+import { Footer } from "../../components";
 
 const StartApp = () => {
   const [state, dispatch] = useReducer(formReducer, INITIAL_STATE);
@@ -201,6 +202,8 @@ const StartApp = () => {
               </div>
             </form>
           </div>
+
+          <Footer />
         </main>
       </div>
     </>

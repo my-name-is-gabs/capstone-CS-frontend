@@ -1,14 +1,32 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+import { useLayoutEffect, useState } from "react";
 import NavButton from "../Buttons/NavButton";
 
 const Navigation = () => {
+  // useLocation is used to navigate the pathname to render the navigation bar for a specific page only
+  const location = useLocation();
+  const [isVisible, setIsVisible] = useState(true);
+
+  useLayoutEffect(() => {
+    if (location.pathname === "/login") {
+      setIsVisible(false);
+    } else {
+      setIsVisible(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location]);
+
   const checkActiveLink = ({ isActive }) => {
     return isActive ? "nav-link active" : "nav-link";
   };
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary shadow-sm border border-bottom-4 border-dark">
+      <nav
+        className={`navbar navbar-expand-lg bg-body-tertiary shadow-sm border border-bottom-4 border-dark ${
+          isVisible ? "" : "d-none"
+        }`}
+      >
         <div className="container">
           <NavLink className="navbar-brand fw-bold" to="/">
             <img
@@ -63,5 +81,4 @@ const Navigation = () => {
     </>
   );
 };
-
 export default Navigation;

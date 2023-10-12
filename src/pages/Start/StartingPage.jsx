@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
+import { Footer } from "../../components";
 import "./appstyle.css";
 import { NavLink } from "react-router-dom";
 
@@ -117,6 +118,8 @@ const StartingPage = () => {
               </div>
             </form>
           </div>
+
+          <Footer />
         </div>
       </div>
     </>

@@ -1,0 +1,37 @@
+.log-page_container {
+  display: flex;
+  min-height: 100vh;
+  height: 100%;
+}
+
+.log-page_sidebar {
+  position: relative;
+  left: 0%;
+  top: 0%;
+  width: 450px;
+  background: #3eb3c5;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.log-page_header {
+  position: absolute;
+  top: 48px;
+  left: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.log-page_main {
+  position: relative;
+  top: 0%;
+}
+
+.head-title {
+  border-bottom: 3px solid white;
+  padding: 15px 0px;
+}

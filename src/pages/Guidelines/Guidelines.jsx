@@ -1,3 +1,5 @@
+import { Footer } from "../../components";
+
 const Guidelines = () => {
   return (
     <>
@@ -100,6 +102,7 @@ const Guidelines = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

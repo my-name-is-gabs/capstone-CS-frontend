@@ -9,7 +9,7 @@ const MonitorApp = () => {
   const stepStyle = {
     "& .Mui-active": {
       "& .MuiSvgIcon-root": {
-        color: grey[500],
+        color: grey[800],
       },
     },
     "& .Mui-completed": {

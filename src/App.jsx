@@ -12,6 +12,7 @@ import {
   MonitorApp,
 } from "./pages";
 import BaseForm from "./forms/BaseForm";
+import Login from "./client/login/Login";
 
 function App() {
   const { pathname } = useLocation();
@@ -23,6 +24,7 @@ function App() {
   return (
     <>
       <Navigation />
+
       <Routes>
         <Route index element={<Home />} />
         <Route path="/:message" element={<Home />} />
@@ -34,10 +36,8 @@ function App() {
         <Route path="/monitor" element={<Monitor />} />
         <Route path="/monitorapp" element={<MonitorApp />} />
         <Route path="/forms" element={<BaseForm />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
-      <footer className="footer">
-        <p className="text-end fw-bold fs-5 me-5">©DEVGROUP 2023</p>
-      </footer>
     </>
   );
 }
