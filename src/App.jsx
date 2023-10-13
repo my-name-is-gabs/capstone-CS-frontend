@@ -13,6 +13,7 @@ import {
 } from "./pages";
 import BaseForm from "./forms/BaseForm";
 import Login from "./client/login/Login";
+import ClientLandingPage from "./client/home/ClientLandingPage";
 
 function App() {
   const { pathname } = useLocation();
@@ -37,6 +38,7 @@ function App() {
         <Route path="/monitorapp" element={<MonitorApp />} />
         <Route path="/forms" element={<BaseForm />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/user" element={<ClientLandingPage />} />
       </Routes>
     </>
   );

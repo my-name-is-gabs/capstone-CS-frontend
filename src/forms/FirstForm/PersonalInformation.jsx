@@ -2,6 +2,7 @@ import { PropTypes } from "prop-types";
 import { NavLink } from "react-router-dom";
 // import { formReducer, INITIAL_STATE } from "../../reducer/formReducer";
 import { useRef } from "react";
+import { SubmitButton } from "../../components";
 
 const PersonalInformation = ({
   setHelperCount,
@@ -332,9 +333,7 @@ const PersonalInformation = ({
               >
                 Cancel
               </NavLink>
-              <button className="btn cs-btn-primary fw-bold fs-5 shadow-sm px-5">
-                Next
-              </button>
+              <SubmitButton>Next</SubmitButton>
             </div>
           </div>
         </form>
