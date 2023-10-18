@@ -1,4 +1,7 @@
-const MAX_FORM_COUNT = 4;
-const INITIAL_FORM_COUNT = 1;
+// FORM CONSTANTS
+export const MAX_FORM_COUNT = 4;
+export const INITIAL_FORM_COUNT = 1;
 
-export { MAX_FORM_COUNT, INITIAL_FORM_COUNT };
+// AXIOS API CONSTANTS
+export const BASE_URL = "http://127.0.0.1:8000";
+export const API_TIMEOUT = 5000;

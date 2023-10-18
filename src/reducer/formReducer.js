@@ -45,27 +45,27 @@ export const formReducer = (state, action) => {
     case "SECURITY_DATA":
       return {
         ...state,
-        [action.payload.name]: action.payload.value,
+        [action.payload.name]: action.payload.value.trim(),
       };
     case "PERSONAL_DATA":
       return {
         ...state,
-        [action.payload.name]: action.payload.value,
+        [action.payload.name]: action.payload.value.trim(),
       };
     case "EDUC_DATA":
       return {
         ...state,
-        [action.payload.name]: action.payload.value,
+        [action.payload.name]: action.payload.value.trim(),
       };
     case "FAMILY_DATA":
       return {
         ...state,
-        [action.payload.name]: action.payload.value,
+        [action.payload.name]: action.payload.value.trim(),
       };
     case "OTHER_DATA":
       return {
         ...state,
-        [action.payload.name]: action.payload.value,
+        [action.payload.name]: action.payload.value.trim(),
       };
     default:
       return state;

@@ -8,7 +8,7 @@ const Navigation = () => {
   const [isVisible, setIsVisible] = useState(true);
 
   useLayoutEffect(() => {
-    if (location.pathname === "/login" || location.pathname === "/user") {
+    if (location.pathname === "/scholar" || location.pathname === "/login") {
       setIsVisible(false);
     } else {
       setIsVisible(true);

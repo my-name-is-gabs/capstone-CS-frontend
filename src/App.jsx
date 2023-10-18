@@ -14,6 +14,7 @@ import {
 import BaseForm from "./forms/BaseForm";
 import Login from "./client/login/Login";
 import ClientLandingPage from "./client/home/ClientLandingPage";
+import PrivateRouting from "./utils/PrivateRouting";
 
 function App() {
   const { pathname } = useLocation();
@@ -38,7 +39,10 @@ function App() {
         <Route path="/monitorapp" element={<MonitorApp />} />
         <Route path="/forms" element={<BaseForm />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/user" element={<ClientLandingPage />} />
+        {/* private routing in reactjs */}
+        <Route exact path="/" element={<PrivateRouting />}>
+          <Route exact path="/scholar" element={<ClientLandingPage />} />
+        </Route>
       </Routes>
     </>
   );
