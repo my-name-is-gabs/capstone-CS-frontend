@@ -1,81 +1,20 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { SubmitButton } from "../../components";
 import AuthContext from "../../context/AuthContext";
-import axios from "../../api/axios";
+
 import "./login.css";
 
 const Login = () => {
-  const { setAuth } = useContext(AuthContext);
+  const { handleLogin, error, setError } = useContext(AuthContext);
   const [showPass, setShowPass] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
-  const [error, setError] = useState(true);
 
-  const [formData, updateFormData] = useState(
-    Object.freeze({
-      username: "",
-      password: "",
-    })
-  );
-
-  const handleChange = (e) => {
-    updateFormData({
-      ...formData,
-      [e.target.name]: e.target.value.trim(),
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // console.log(formData);
-
-    axios
-      .post(`/api/token/`, {
-        username: formData.username,
-        password: formData.password,
-      })
-      .then((res) => {
-        localStorage.setItem("access_token", res.data.access);
-        localStorage.setItem("refresh_token", res.data.refresh);
-        axios.defaults.headers["Authorization"] =
-          "JWT " + localStorage.setItem("access_token", res.data.access);
-
-        const role = res.data?.role;
-        console.log(role);
-        setAuth({
-          username: formData.username,
-          password: formData.password,
-          role,
-        });
-        setError(false);
-      })
-      .catch((err) => {
-        if (!err?.response) {
-          setError(true);
-          setErrorMsg("Login Failed");
-        }
-      });
-
-    // const response = await axios.post("http://127.0.0.1:8000/api/token/", {
-    //   username: formData.username,
-    //   password: formData.password,
-    // });
-
-    // console.log(response);
-
-    // const response = await fetch("http://127.0.0.1:8000/api/token/", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(formData),
-    // });
-
-    // const data = await response.json();
-
-    // console.log(data);
-    // console.log(response);
-  };
+  useEffect(() => {
+    setTimeout(() => {
+      setError(false);
+    }, 6000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
@@ -93,13 +32,15 @@ const Login = () => {
           </div>
         </aside>
         <main className="login-page_main">
-          <div className={error ? "alert alert-danger" : "d-none"} role="alert">
-            {errorMsg}
-          </div>
+          {error && (
+            <div className="alert alert-danger" role="alert">
+              {error}
+            </div>
+          )}
 
           <form
             className="login-page_form_container shadow"
-            onSubmit={handleSubmit}
+            onSubmit={handleLogin}
           >
             <h1 className="fw-bold fs-2 mt-5">Welcome to Centro Secretariat</h1>
             <div className="mt-5">
@@ -111,7 +52,7 @@ const Login = () => {
                 className="form-control rounded login-border-primary"
                 id="username"
                 name="username"
-                onChange={handleChange}
+                autoComplete="off"
                 required
               />
             </div>
@@ -124,7 +65,6 @@ const Login = () => {
                 className="form-control rounded login-border-primary"
                 id="password"
                 name="password"
-                onChange={handleChange}
                 required
               />
             </div>

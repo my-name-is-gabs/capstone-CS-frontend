@@ -40,7 +40,7 @@ function App() {
         <Route path="/forms" element={<BaseForm />} />
         <Route path="/login" element={<Login />} />
         {/* private routing in reactjs */}
-        <Route exact path="/" element={<PrivateRouting />}>
+        <Route path="/" element={<PrivateRouting />}>
           <Route exact path="/scholar" element={<ClientLandingPage />} />
         </Route>
       </Routes>

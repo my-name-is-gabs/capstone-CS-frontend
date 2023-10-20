@@ -2,7 +2,7 @@ import { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 
 const ClientLandingPage = () => {
-  let { username } = useContext(AuthContext);
+  let { scholar } = useContext(AuthContext);
 
   return (
     <>
@@ -181,7 +181,7 @@ const ClientLandingPage = () => {
               </div>
             </div>
           </div>
-          <div className="col py-3">Welcome {username}</div>
+          <div className="col py-3">Welcome {scholar.username}</div>
         </div>
       </div>
     </>
