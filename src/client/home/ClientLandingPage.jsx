@@ -2,7 +2,7 @@ import { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 
 const ClientLandingPage = () => {
-  let { scholar } = useContext(AuthContext);
+  let { scholar, logoutScholar } = useContext(AuthContext);
 
   return (
     <>
@@ -151,7 +151,9 @@ const ClientLandingPage = () => {
                     height="30"
                     className="rounded-circle"
                   />
-                  <span className="d-none d-sm-inline mx-1">loser</span>
+                  <span className="d-none d-sm-inline mx-1">
+                    {scholar.username}
+                  </span>
                 </a>
                 <ul className="dropdown-menu dropdown-menu-dark text-small shadow">
                   <li>
@@ -173,9 +175,13 @@ const ClientLandingPage = () => {
                     <hr className="dropdown-divider" />
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#">
+                    <button
+                      type="button"
+                      className="dropdown-item"
+                      onClick={() => logoutScholar()}
+                    >
                       Sign out
-                    </a>
+                    </button>
                   </li>
                 </ul>
               </div>

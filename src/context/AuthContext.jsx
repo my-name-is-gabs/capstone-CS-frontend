@@ -44,8 +44,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const logoutScholar = () => {
+    setScholar(null);
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    navigate("/login");
+  };
+
   return (
-    <AuthContext.Provider value={{ scholar, handleLogin, error, setError }}>
+    <AuthContext.Provider
+      value={{ scholar, handleLogin, logoutScholar, error, setError }}
+    >
       {children}
     </AuthContext.Provider>
   );

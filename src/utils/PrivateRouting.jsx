@@ -6,15 +6,15 @@ import AuthContext from "../context/AuthContext";
 const PrivateRouting = () => {
   const { scholar, setError } = useContext(AuthContext);
 
-  if (scholar.role === "SCHOLAR" && scholar.isActive) {
+  if (scholar?.role === "SCHOLAR" && scholar?.isActive) {
     return <Outlet />;
   } else {
-    setError("Unuathorized Access!");
+    setError("Unauthorized Access!");
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
     return <Navigate to="/login" />;
   }
-  // return scholar.role === "SCHOLAR" && scholar.isActive ? (
+  // return scholar?.role === "SCHOLAR" && scholar?.isActive ? (
   //   <Outlet />
   // ) : (
   //   <Navigate to="/login" />
