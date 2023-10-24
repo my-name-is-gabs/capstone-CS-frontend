@@ -1,9 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
+import { useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 import { Footer } from "../../components";
 import "./appstyle.css";
 import { NavLink } from "react-router-dom";
 
 const StartingPage = () => {
+  const [captcha, setCaptcha] = useState(null);
+
   return (
     <>
       <div className="row">
@@ -70,42 +74,34 @@ const StartingPage = () => {
             style={{ width: "90%" }}
           >
             <form action="" method="post">
-              {/* <div className="mx-4 mb-3">
-                <label className="mb-2 fw-bold">
-                  Enter the code as shown below
-                </label>
-                <div className="col-md-6">
-                  <div className="input-group">
-                    <input
-                      type="text"
-                      name="captcha"
-                      id="captcha"
-                      className="form-control"
-                    />
-                  </div>
-                  <div className="input-group">
-                    <h1>captcha place</h1>
-                  </div>
-                </div>
-              </div> */}
               <div className="mx-4 mb-3">
-                <div className="cs-startapp-div p-4">
-                  <p className="mb-4">
-                    Select your scholarship type and make suer you have the
-                    necessary documents and information you will need.
-                  </p>
-                  <NavLink to="/startapp">Start an Application</NavLink>
-                </div>
+                <ReCAPTCHA
+                  sitekey={import.meta.env.VITE_RECAPTCHA_KEY}
+                  onChange={(val) => setCaptcha(val)}
+                />
               </div>
-              <div className="mx-4 mb-3">
-                <div className="cs-retrieveapp-div p-4">
-                  <p className="mb-4">
-                    Select your scholarship type and make suer you have the
-                    necessary documents and information you will need.
-                  </p>
-                  <NavLink to="/retrieve">Retrieve an Application</NavLink>
-                </div>
-              </div>
+              {captcha && (
+                <>
+                  <div className="mx-4 mb-3">
+                    <div className="cs-startapp-div p-4">
+                      <p className="mb-4">
+                        Select your scholarship type and make suer you have the
+                        necessary documents and information you will need.
+                      </p>
+                      <NavLink to="/startapp">Start an Application</NavLink>
+                    </div>
+                  </div>
+                  <div className="mx-4 mb-3">
+                    <div className="cs-retrieveapp-div p-4">
+                      <p className="mb-4">
+                        Select your scholarship type and make suer you have the
+                        necessary documents and information you will need.
+                      </p>
+                      <NavLink to="/retrieve">Retrieve an Application</NavLink>
+                    </div>
+                  </div>
+                </>
+              )}
               {/* <div className="mx-4 mb-3">
                 <div className="cs-monitor-div p-4">
                   <p className="mb-4">
