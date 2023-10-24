@@ -70,7 +70,7 @@ const StartingPage = () => {
             style={{ width: "90%" }}
           >
             <form action="" method="post">
-              <div className="mx-4 mb-3">
+              {/* <div className="mx-4 mb-3">
                 <label className="mb-2 fw-bold">
                   Enter the code as shown below
                 </label>
@@ -87,7 +87,7 @@ const StartingPage = () => {
                     <h1>captcha place</h1>
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div className="mx-4 mb-3">
                 <div className="cs-startapp-div p-4">
                   <p className="mb-4">
@@ -106,7 +106,7 @@ const StartingPage = () => {
                   <NavLink to="/retrieve">Retrieve an Application</NavLink>
                 </div>
               </div>
-              <div className="mx-4 mb-3">
+              {/* <div className="mx-4 mb-3">
                 <div className="cs-monitor-div p-4">
                   <p className="mb-4">
                     If you already applied and have an existing account you can
@@ -115,7 +115,7 @@ const StartingPage = () => {
                   </p>
                   <NavLink to="/monitor">Monitor your Application</NavLink>
                 </div>
-              </div>
+              </div> */}
             </form>
           </div>
 

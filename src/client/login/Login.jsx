@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { SubmitButton } from "../../components";
 import AuthContext from "../../context/AuthContext";
@@ -6,15 +6,8 @@ import AuthContext from "../../context/AuthContext";
 import "./login.css";
 
 const Login = () => {
-  const { handleLogin, error, setError } = useContext(AuthContext);
+  const { handleLogin, error } = useContext(AuthContext);
   const [showPass, setShowPass] = useState(false);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setError(false);
-    }, 6000);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <>

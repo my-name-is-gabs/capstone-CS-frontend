@@ -28,19 +28,23 @@ body {
 }
 
 .cs-bg-primary {
-  background: #223d7e;
+  background: #223d7e !important;
 }
 
 .cs-bg-fadeblue {
   background: #869cbf !important;
 }
 
+.cs-bg-client {
+  background: #3eb3c5 !important;
+}
+
 .cs-bg-grayish {
-  background: #a5a5a5;
+  background: #a5a5a5 !important;
 }
 
 .cs-bg-light {
-  background: #dcf0fa;
+  background: #dcf0fa !important;
 }
 
 .cs-bg-secondary {

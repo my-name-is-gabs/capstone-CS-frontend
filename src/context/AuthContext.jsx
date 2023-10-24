@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import axios from "../api/axios";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,21 @@ export const AuthProvider = ({ children }) => {
   );
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  const validUser = localStorage.getItem("invalidAccess")
+    ? localStorage.getItem("invalidAccess")
+    : "";
+
+  useEffect(() => {
+    setTimeout(() => {
+      setError("");
+      localStorage.removeItem("invalidAccess");
+    }, 6000);
+  }, [error]);
+
+  useEffect(() => {
+    setError(validUser);
+  }, [validUser]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -37,7 +52,7 @@ export const AuthProvider = ({ children }) => {
       navigate("/scholar");
     } catch (err) {
       if (err.response.status === 401) {
-        setError("Invalid credentials");
+        setError("Wrong credentials!");
         e.target.username.value = "";
         e.target.password.value = "";
       }

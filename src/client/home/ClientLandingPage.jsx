@@ -1,194 +1,92 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import AuthContext from "../../context/AuthContext";
+import "../clientcss.css";
+import MonitorApp from "../Monitor/MonitorApp";
+import HomeScholar from "./HomeScholar";
+import Inquiries from "../Inquiries/Inquiries";
 
 const ClientLandingPage = () => {
   let { scholar, logoutScholar } = useContext(AuthContext);
+  const [pageStep, setPageStep] = useState(1);
+
+  const PageDisplay = (step) => {
+    switch (step) {
+      case 1:
+        return <HomeScholar user={scholar.username} />;
+
+      case 2:
+        return <MonitorApp />;
+
+      case 3:
+        return <Inquiries />;
+
+      default:
+        return;
+    }
+  };
 
   return (
     <>
-      <div className="container-fluid">
-        <div className="row flex-nowrap">
-          <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-            <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-              <a
-                href="/"
-                className="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none"
-              >
-                <span className="fs-5 d-none d-sm-inline">Menu</span>
-              </a>
-              <ul
-                className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
-                id="menu"
-              >
-                <li className="nav-item">
-                  <a href="#" className="nav-link align-middle px-0">
-                    <i className="fs-4 bi-house"></i>{" "}
-                    <span className="ms-1 d-none d-sm-inline">Home</span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#submenu1"
-                    data-bs-toggle="collapse"
-                    className="nav-link px-0 align-middle"
-                  >
-                    <i className="fs-4 bi-speedometer2"></i>{" "}
-                    <span className="ms-1 d-none d-sm-inline">Dashboard</span>{" "}
-                  </a>
-                  <ul
-                    className="collapse show nav flex-column ms-1"
-                    id="submenu1"
-                    data-bs-parent="#menu"
-                  >
-                    <li className="w-100">
-                      <a href="#" className="nav-link px-0">
-                        {" "}
-                        <span className="d-none d-sm-inline">Item</span> 1{" "}
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" className="nav-link px-0">
-                        {" "}
-                        <span className="d-none d-sm-inline">Item</span> 2{" "}
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <a href="#" className="nav-link px-0 align-middle">
-                    <i className="fs-4 bi-table"></i>{" "}
-                    <span className="ms-1 d-none d-sm-inline">Orders</span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#submenu2"
-                    data-bs-toggle="collapse"
-                    className="nav-link px-0 align-middle "
-                  >
-                    <i className="fs-4 bi-bootstrap"></i>{" "}
-                    <span className="ms-1 d-none d-sm-inline">Bootstrap</span>
-                  </a>
-                  <ul
-                    className="collapse nav flex-column ms-1"
-                    id="submenu2"
-                    data-bs-parent="#menu"
-                  >
-                    <li className="w-100">
-                      <a href="#" className="nav-link px-0">
-                        {" "}
-                        <span className="d-none d-sm-inline">Item</span> 1
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" className="nav-link px-0">
-                        {" "}
-                        <span className="d-none d-sm-inline">Item</span> 2
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <a
-                    href="#submenu3"
-                    data-bs-toggle="collapse"
-                    className="nav-link px-0 align-middle"
-                  >
-                    <i className="fs-4 bi-grid"></i>{" "}
-                    <span className="ms-1 d-none d-sm-inline">Products</span>{" "}
-                  </a>
-                  <ul
-                    className="collapse nav flex-column ms-1"
-                    id="submenu3"
-                    data-bs-parent="#menu"
-                  >
-                    <li className="w-100">
-                      <a href="#" className="nav-link px-0">
-                        {" "}
-                        <span className="d-none d-sm-inline">Product</span> 1
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" className="nav-link px-0">
-                        {" "}
-                        <span className="d-none d-sm-inline">Product</span> 2
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" className="nav-link px-0">
-                        {" "}
-                        <span className="d-none d-sm-inline">Product</span> 3
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" className="nav-link px-0">
-                        {" "}
-                        <span className="d-none d-sm-inline">Product</span> 4
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <a href="#" className="nav-link px-0 align-middle">
-                    <i className="fs-4 bi-people"></i>{" "}
-                    <span className="ms-1 d-none d-sm-inline">Customers</span>{" "}
-                  </a>
-                </li>
-              </ul>
-              <hr />
-              <div className="dropdown pb-4">
-                <a
-                  href="#"
-                  className="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                  id="dropdownUser1"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <img
-                    src="https://github.com/mdo.png"
-                    alt="hugenerd"
-                    width="30"
-                    height="30"
-                    className="rounded-circle"
-                  />
-                  <span className="d-none d-sm-inline mx-1">
-                    {scholar.username}
-                  </span>
-                </a>
-                <ul className="dropdown-menu dropdown-menu-dark text-small shadow">
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      New project...
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Settings
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Profile
-                    </a>
-                  </li>
-                  <li>
-                    <hr className="dropdown-divider" />
-                  </li>
-                  <li>
-                    <button
-                      type="button"
-                      className="dropdown-item"
-                      onClick={() => logoutScholar()}
-                    >
-                      Sign out
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            </div>
+      <header className="position-absolute top-0 left-0 z-3 w-100 p-3 cs-bg-client">
+        <div className="d-flex ms-3">
+          <img
+            src="/assets/img/logo_degree.png"
+            width={64}
+            height={64}
+            className="align-self-center"
+            alt="Logo"
+          />
+          <div className="d-block text-white">
+            <h3 className="fw-bold border-bottom border-2 border-white pb-2">
+              ABC City
+            </h3>
+            <p className="fs-6">Scholarship Programs</p>
           </div>
-          <div className="col py-3">Welcome {scholar.username}</div>
         </div>
+      </header>
+
+      <div className="row flex-nowrap">
+        <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 scholar-sidebar-hide">
+          <aside className="scholar-sidebar col-auto col-md-2">
+            <ul className="scholar-navs">
+              <li
+                className={
+                  pageStep === 1
+                    ? "scholar-nav-link active"
+                    : "scholar-nav-link"
+                }
+                onClick={() => setPageStep(1)}
+              >
+                <i className="fa-solid fa-house"></i> Home
+              </li>
+              <li
+                className={
+                  pageStep === 2
+                    ? "scholar-nav-link active"
+                    : "scholar-nav-link"
+                }
+                onClick={() => setPageStep(2)}
+              >
+                <i className="fa-solid fa-bars-progress"></i> Monitor
+              </li>
+              <li
+                className={
+                  pageStep === 3
+                    ? "scholar-nav-link active"
+                    : "scholar-nav-link"
+                }
+                onClick={() => setPageStep(3)}
+              >
+                <i className="fa-solid fa-message"></i> Inquiries
+              </li>
+            </ul>
+
+            <button className="scholar-logout" onClick={() => logoutScholar()}>
+              <i className="fa-solid fa-right-from-bracket"></i> Logout
+            </button>
+          </aside>
+        </div>
+        <div className="scholar-main col py-3">{PageDisplay(pageStep)}</div>
       </div>
     </>
   );
