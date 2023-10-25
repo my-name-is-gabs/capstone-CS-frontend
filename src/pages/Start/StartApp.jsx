@@ -1,32 +1,87 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { useReducer, useRef } from "react";
-import { formReducer, INITIAL_STATE } from "../../reducer/formReducer";
-import "./appstyle.css";
+import { useRef, useEffect, useState, useMemo } from "react";
+// import { formReducer, INITIAL_STATE } from "../../reducer/formReducer";
 import { Footer } from "../../components";
+import { encrypt } from "n-krypta";
+import "./appstyle.css";
 
 const StartApp = () => {
-  const [state, dispatch] = useReducer(formReducer, INITIAL_STATE);
+  // const [state, dispatch] = useReducer(formReducer, INITIAL_STATE);
   const navigate = useNavigate();
   const applicantIdRef = useRef(null);
+  const [generatedId, setGeneratedId] = useState(null);
 
-  const handleChange = (e) => {
-    dispatch({
-      type: "SECURITY_DATA",
-      payload: { name: e.target.name, value: e.target.value },
-    });
-
-    handleID();
+  const securityQustions = {
+    q1: "What city were you born in?",
+    q2: "What is the name of your first pet?",
+    q3: "What was the name of your first stuffed animal?",
+    q4: "What is the first name of your first crush?",
   };
 
-  const handleID = () => {
-    dispatch({
-      type: "SECURITY_DATA",
-      payload: {
-        name: applicantIdRef.current.name,
-        value: applicantIdRef.current.value,
-      },
-    });
+  // const handleChange = (e) => {
+  //   dispatch({
+  //     type: "SECURITY_DATA",
+  //     payload: { name: e.target.name, value: e.target.value },
+  //   });
+
+  //   handleID();
+  // };
+
+  // const handleID = () => {
+  //   dispatch({
+  //     type: "SECURITY_DATA",
+  //     payload: {
+  //       name: applicantIdRef.current.name,
+  //       value: applicantIdRef.current.value,
+  //     },
+  //   });
+  // };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    const application_id = e.target.application_id.value;
+    const security_question = e.target.security_question.value;
+    const security_answer = e.target.security_answer.value;
+
+    const formData = {
+      application_id,
+      security_question,
+      security_answer,
+    };
+
+    const encryptSecurityData = encrypt(
+      formData,
+      import.meta.env.VITE_SECRET_KEY
+    );
+
+    localStorage.setItem("formSecurityAccessData", encryptSecurityData);
+    navigate("/forms");
   };
+
+  const dateTimeOption = useMemo(() => {
+    return {
+      month: "2-digit",
+      day: "2-digit",
+      year: "numeric",
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleIdGeneration = () => {
+      const numGenerator = () => {
+        return Math.ceil(Math.random() * 100000);
+      };
+      const currentYear = new Date().getFullYear();
+      const scholarId = `S-${currentYear}-${numGenerator()}`;
+      setGeneratedId(scholarId);
+    };
+
+    window.addEventListener("load", handleIdGeneration);
+
+    return () => {
+      window.removeEventListener("load", handleIdGeneration);
+    };
+  }, []);
 
   return (
     <>
@@ -109,10 +164,7 @@ const StartApp = () => {
             <form
               method="post"
               className="container row mt-4"
-              onSubmit={() => {
-                console.log(state);
-                navigate("/forms");
-              }}
+              onSubmit={handleOnSubmit}
             >
               <div className="col-md-6">
                 <div className="mb-3">
@@ -127,14 +179,21 @@ const StartApp = () => {
                       name="security_question"
                       id="security_question"
                       className="form-select"
-                      onChange={handleChange}
+                      // onChange={handleChange}
+                      required
                     >
-                      <option selected disabled>
-                        Select Question...
+                      <option value={securityQustions["q1"]} defaultValue>
+                        {securityQustions["q1"]}
                       </option>
-                      <option value="q1">Q1</option>
-                      <option value="q2">Q2</option>
-                      <option value="q3">Q3</option>
+                      <option value={securityQustions["q2"]}>
+                        {securityQustions["q2"]}
+                      </option>
+                      <option value={securityQustions["q3"]}>
+                        {securityQustions["q3"]}
+                      </option>
+                      <option value={securityQustions["q4"]}>
+                        {securityQustions["q4"]}
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -144,16 +203,16 @@ const StartApp = () => {
                     htmlFor="security_answer"
                     className="form-label fw-bold"
                   >
-                    {" "}
-                    Answer:{" "}
+                    Answer:
                   </label>
                   <input
                     type="text"
                     name="security_answer"
                     id="security_answer"
                     className="form-control"
-                    onChange={handleChange}
+                    // onChange={handleChange}
                     placeholder="Your answer..."
+                    required
                   />
                 </div>
               </div>
@@ -170,13 +229,19 @@ const StartApp = () => {
                     ref={applicantIdRef}
                     type="hidden"
                     name="application_id"
-                    value="XXYZZ000"
+                    value={generatedId}
                   />
                   <div className="d-flex flex-column justify-content-center py-2">
                     <h6 className="fw-bold">Your Application ID is:</h6>
-                    <p className="text-center text-danger fw-bold">XXYZZ000</p>
+                    <p className="text-center text-danger fw-bold">
+                      {generatedId}
+                    </p>
                     <h6 className="fw-bold">Date:</h6>
-                    <p className="text-center">MM/DD/YYYY</p>
+                    <p className="text-center">
+                      {new Intl.DateTimeFormat("en-ph", dateTimeOption).format(
+                        new Date()
+                      )}
+                    </p>
                   </div>
                 </div>
               </div>

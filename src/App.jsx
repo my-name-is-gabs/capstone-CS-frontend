@@ -8,13 +8,14 @@ import {
   StartingPage,
   RetrieveApp,
   StartApp,
-  Monitor,
-  MonitorApp,
+  // Monitor,
+  // MonitorApp,
 } from "./pages";
 import BaseForm from "./forms/BaseForm";
 import Login from "./client/login/Login";
 import ClientLandingPage from "./client/home/ClientLandingPage";
 import PrivateRouting from "./utils/PrivateRouting";
+import FormProtectedRoute from "./utils/FormProtectedRoute";
 
 function App() {
   const { pathname } = useLocation();
@@ -33,14 +34,16 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/guidelines" element={<Guidelines />} />
         <Route path="/startscholar" element={<StartingPage />} />
-        <Route path="/startapp" element={<StartApp />} />
+        <Route element={<FormProtectedRoute />}>
+          <Route path="/startapp" element={<StartApp />} />
+          <Route path="/forms" element={<BaseForm />} />
+        </Route>
         <Route path="/retrieve" element={<RetrieveApp />} />
-        <Route path="/monitor" element={<Monitor />} />
-        <Route path="/monitorapp" element={<MonitorApp />} />
-        <Route path="/forms" element={<BaseForm />} />
+        {/* <Route path="/monitor" element={<Monitor />} />
+        <Route path="/monitorapp" element={<MonitorApp />} /> */}
         <Route path="/login" element={<Login />} />
         {/* private routing in reactjs */}
-        <Route path="/" element={<PrivateRouting />}>
+        <Route element={<PrivateRouting />}>
           <Route exact path="/scholar" element={<ClientLandingPage />} />
         </Route>
       </Routes>

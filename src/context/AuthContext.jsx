@@ -6,7 +6,14 @@ import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
+/**
+ *
+ * The AuthProvider contains the login authentiation logic and the form authentication logic for private routing.
+ *
+ */
+
 export const AuthProvider = ({ children }) => {
+  // handling login
   const [scholar, setScholar] = useState(() =>
     localStorage.getItem("access_token")
       ? jwt_decode(localStorage.getItem("access_token"))
@@ -65,10 +72,23 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("refresh_token");
     navigate("/login");
   };
+  // end of handling login
+
+  // handling Form routing
+  const [startApp, setStartApp] = useState(false);
+  //end of handling Form routing
 
   return (
     <AuthContext.Provider
-      value={{ scholar, handleLogin, logoutScholar, error, setError }}
+      value={{
+        scholar,
+        handleLogin,
+        logoutScholar,
+        error,
+        setError,
+        startApp,
+        setStartApp,
+      }}
     >
       {children}
     </AuthContext.Provider>

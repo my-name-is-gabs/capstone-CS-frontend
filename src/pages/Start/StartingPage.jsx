@@ -1,12 +1,14 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useState } from "react";
+import { useContext, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Footer } from "../../components";
 import "./appstyle.css";
 import { NavLink } from "react-router-dom";
+import AuthContext from "../../context/AuthContext";
 
 const StartingPage = () => {
   const [captcha, setCaptcha] = useState(null);
+  const { startApp, setStartApp } = useContext(AuthContext);
 
   return (
     <>
@@ -77,7 +79,10 @@ const StartingPage = () => {
               <div className="mx-4 mb-3">
                 <ReCAPTCHA
                   sitekey={import.meta.env.VITE_RECAPTCHA_KEY}
-                  onChange={(val) => setCaptcha(val)}
+                  onChange={(val) => {
+                    setCaptcha(val);
+                    setStartApp(!startApp);
+                  }}
                 />
               </div>
               {captcha && (
