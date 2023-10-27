@@ -8,11 +8,12 @@ import { useLocation } from "react-router-dom";
 import { formReducer, INITIAL_STATE } from "../reducer/formReducer";
 import CryptoJS from "crypto-js";
 
-const BaseForm = () => {
+const RetrieveBaseForm = () => {
   const [helperCount, setHelperCount] = useState(0);
   const [stepCount, setStepCount] = useState(1);
   const [scholarId, setScholarId] = useState("");
   const [state, dispatch] = useReducer(formReducer, INITIAL_STATE);
+  const [retrievedFormData, setRetrieveFormData] = useState(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -25,6 +26,7 @@ const BaseForm = () => {
       localStorage.setItem("encryptedFormData", encryptFormData);
       e.returnValue = "";
     };
+
     if (location.pathname === "/forms") {
       window.addEventListener("beforeunload", handleBeforeUnload, {
         capture: true,
@@ -51,7 +53,20 @@ const BaseForm = () => {
     );
 
     setScholarId(decryptedData.application_id);
+
+    ///
   }, []);
+
+  useEffect(() => {
+    const getEncryptData = localStorage.getItem("encryptedFormData");
+    const decryptFormData = CryptoJS.AES.decrypt(
+      getEncryptData,
+      import.meta.env.VITE_SECRET_KEY
+    );
+    setRetrieveFormData(
+      JSON.parse(decryptFormData.toString(CryptoJS.enc.Utf8))
+    );
+  }, [retrievedFormData]);
 
   const saveProgress = () => {
     const encryptFormData = CryptoJS.AES.encrypt(
@@ -70,7 +85,7 @@ const BaseForm = () => {
             setHelperCount={setHelperCount}
             setStepCount={setStepCount}
             dispatcher={dispatch}
-            state={state}
+            retrievedData={retrievedFormData}
             saveProgress={saveProgress}
           />
         );
@@ -80,7 +95,7 @@ const BaseForm = () => {
             setHelperCount={setHelperCount}
             setStepCount={setStepCount}
             dispatcher={dispatch}
-            state={state}
+            retrievedData={retrievedFormData}
             saveProgress={saveProgress}
           />
         );
@@ -90,7 +105,7 @@ const BaseForm = () => {
             setHelperCount={setHelperCount}
             setStepCount={setStepCount}
             dispatcher={dispatch}
-            state={state}
+            retrievedData={retrievedFormData}
             saveProgress={saveProgress}
           />
         );
@@ -100,7 +115,7 @@ const BaseForm = () => {
             setHelperCount={setHelperCount}
             setStepCount={setStepCount}
             dispatcher={dispatch}
-            state={state}
+            retrievedData={retrievedFormData}
             saveProgress={saveProgress}
           />
         );
@@ -226,4 +241,4 @@ const BaseForm = () => {
   );
 };
 
-export default BaseForm;
+export default RetrieveBaseForm;

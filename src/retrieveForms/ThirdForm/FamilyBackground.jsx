@@ -1,16 +1,16 @@
 /* eslint-disable react/no-unescaped-entities */
 import { PropTypes } from "prop-types";
 // import { useReducer } from "react";
-// import { formReducer, INITIAL_STATE } from "../../reducer/formReducer";
+// import { formReducer, INITIAL_retrievedData? } from "../../reducer/formReducer";
 
 const FamilyBackground = ({
   setHelperCount,
   setStepCount,
   dispatcher,
-  state,
   saveProgress,
+  retrievedData,
 }) => {
-  // const [state, dispatch] = useReducer(formReducer, INITIAL_STATE);
+  // const [retrievedData?, dispatch] = useReducer(formReducer, INITIAL_retrievedData?);
 
   const handleChange = (e) => {
     dispatcher({
@@ -109,7 +109,7 @@ const FamilyBackground = ({
                   name="father_firstName"
                   id="father_firstName"
                   className="form-control"
-                  value={state.father_firstName}
+                  value={retrievedData?.father_firstName}
                   onChange={handleChange}
                   required
                 />
@@ -126,7 +126,7 @@ const FamilyBackground = ({
                   name="father_middleName"
                   id="father_middleName"
                   className="form-control"
-                  value={state.father_middleName}
+                  value={retrievedData?.father_middleName}
                   onChange={handleChange}
                   required
                 />
@@ -140,7 +140,7 @@ const FamilyBackground = ({
                   name="father_lastName"
                   id="father_lastName"
                   className="form-control"
-                  value={state.father_lastName}
+                  value={retrievedData?.father_lastName}
                   onChange={handleChange}
                   required
                 />
@@ -155,7 +155,7 @@ const FamilyBackground = ({
                   name="father_address"
                   id="father_address"
                   className="form-control"
-                  value={state.father_address}
+                  value={retrievedData?.father_address}
                   onChange={handleChange}
                   required
                 />
@@ -169,7 +169,7 @@ const FamilyBackground = ({
                   name="father_contact"
                   id="father_contact"
                   className="form-control"
-                  value={state.father_contact}
+                  value={retrievedData?.father_contact}
                   onChange={handleChange}
                   required
                 />
@@ -187,7 +187,7 @@ const FamilyBackground = ({
                   name="father_occupation"
                   id="father_occupation"
                   className="form-control"
-                  value={state.father_occupation}
+                  value={retrievedData?.father_occupation}
                   onChange={handleChange}
                   required
                 />
@@ -204,7 +204,7 @@ const FamilyBackground = ({
                   name="father_placeOfWork"
                   id="father_placeOfWork"
                   className="form-control"
-                  value={state.father_placeOfWork}
+                  value={retrievedData?.father_placeOfWork}
                   onChange={handleChange}
                   required
                 />
@@ -222,7 +222,7 @@ const FamilyBackground = ({
                   name="father_educAttainment"
                   id="father_educAttainment"
                   className="form-control"
-                  value={state.father_educAttainment}
+                  value={retrievedData?.father_educAttainment}
                   onChange={handleChange}
                   required
                 />
@@ -274,7 +274,7 @@ const FamilyBackground = ({
                   name="mother_firstName"
                   id="mother_firstName"
                   className="form-control"
-                  value={state.mother_firstName}
+                  value={retrievedData?.mother_firstName}
                   onChange={handleChange}
                   required
                 />
@@ -291,7 +291,7 @@ const FamilyBackground = ({
                   name="mother_middleName"
                   id="mother_middleName"
                   className="form-control"
-                  value={state.mother_middleName}
+                  value={retrievedData?.mother_middleName}
                   onChange={handleChange}
                   required
                 />
@@ -305,7 +305,7 @@ const FamilyBackground = ({
                   name="mother_lastName"
                   id="mother_lastName"
                   className="form-control"
-                  value={state.mother_lastName}
+                  value={retrievedData?.mother_lastName}
                   onChange={handleChange}
                   required
                 />
@@ -320,7 +320,7 @@ const FamilyBackground = ({
                   name="mother_address"
                   id="mother_address"
                   className="form-control"
-                  value={state.mother_address}
+                  value={retrievedData?.mother_address}
                   onChange={handleChange}
                   required
                 />
@@ -334,7 +334,7 @@ const FamilyBackground = ({
                   name="mother_contact"
                   id="mother_contact"
                   className="form-control"
-                  value={state.mother_contact}
+                  value={retrievedData?.mother_contact}
                   onChange={handleChange}
                   required
                 />
@@ -352,7 +352,7 @@ const FamilyBackground = ({
                   name="mother_occupation"
                   id="mother_occupation"
                   className="form-control"
-                  value={state.mother_occupation}
+                  value={retrievedData?.mother_occupation}
                   onChange={handleChange}
                   required
                 />
@@ -369,7 +369,7 @@ const FamilyBackground = ({
                   name="mother_placeOfWork"
                   id="mother_placeOfWork"
                   className="form-control"
-                  value={state.mother_placeOfWork}
+                  value={retrievedData?.mother_placeOfWork}
                   onChange={handleChange}
                   required
                 />
@@ -387,7 +387,7 @@ const FamilyBackground = ({
                   name="mother_educAttainment"
                   id="mother_educAttainment"
                   className="form-control"
-                  value={state.mother_educAttainment}
+                  value={retrievedData?.mother_educAttainment}
                   onChange={handleChange}
                   required
                 />
@@ -431,7 +431,7 @@ FamilyBackground.propTypes = {
   setHelperCount: PropTypes.func,
   setStepCount: PropTypes.func,
   dispatcher: PropTypes.func,
-  state: PropTypes.object,
+  retrievedData: PropTypes.object,
   saveProgress: PropTypes.func,
 };
 

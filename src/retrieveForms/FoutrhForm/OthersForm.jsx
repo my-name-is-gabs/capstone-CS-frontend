@@ -4,7 +4,7 @@ const OthersForm = ({
   setHelperCount,
   setStepCount,
   dispatcher,
-  state,
+  retrievedData,
   saveProgress,
 }) => {
   const handleChange = (e) => {
@@ -99,7 +99,7 @@ const OthersForm = ({
                   id="num_units_enrolled"
                   className="form-control"
                   onChange={handleChange}
-                  value={state.num_units_enrolled}
+                  value={retrievedData.num_units_enrolled}
                   required
                 />
               </div>
@@ -114,7 +114,7 @@ const OthersForm = ({
                     type="radio"
                     name="isLadderized"
                     id="isLadderized"
-                    value={state.isLadderized ?? "yes"}
+                    value={retrievedData.isLadderized ?? "yes"}
                     onChange={handleChange}
                     required
                   />
@@ -128,7 +128,7 @@ const OthersForm = ({
                     type="radio"
                     name="isLadderized"
                     id="isLadderized"
-                    value={state.isLadderized ?? "no"}
+                    value={retrievedData.isLadderized ?? "no"}
                     onChange={handleChange}
                     required
                   />
@@ -152,7 +152,7 @@ const OthersForm = ({
                   name="num_sem_remaining"
                   id="num_sem_remaining"
                   className="form-control"
-                  value={state.num_sem_remaining}
+                  value={retrievedData.num_sem_remaining}
                   onChange={handleChange}
                   required
                 />
@@ -165,7 +165,7 @@ const OthersForm = ({
                   name="student_status"
                   id="student_status"
                   className="form-select"
-                  value={state.student_status}
+                  value={retrievedData.student_status}
                   onChange={handleChange}
                   required
                 >
@@ -190,7 +190,7 @@ const OthersForm = ({
                   id="transferee"
                   className="form-control"
                   placeholder="Name of the last school attended"
-                  value={state.transferee}
+                  value={retrievedData.transferee}
                   onChange={handleChange}
                   required
                 />
@@ -205,7 +205,7 @@ const OthersForm = ({
                   id="shiftee"
                   className="form-control"
                   placeholder="Name of the last school attended"
-                  value={state.shiftee}
+                  value={retrievedData.shiftee}
                   onChange={handleChange}
                   required
                 />
@@ -284,7 +284,7 @@ OthersForm.propTypes = {
   setHelperCount: PropTypes.func,
   setStepCount: PropTypes.func,
   dispatcher: PropTypes.func,
-  state: PropTypes.object,
+  retrievedData: PropTypes.object,
   saveProgress: PropTypes.func,
 };
 

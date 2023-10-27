@@ -1,16 +1,16 @@
 /* eslint-disable react/no-unescaped-entities */
 import { PropTypes } from "prop-types";
 // import { useReducer } from "react";
-// import { formReducer, INITIAL_STATE } from "../../reducer/formReducer";
+// import { formReducer, INITIAL_retrievedData? } from "../../reducer/formReducer";
 
 const EducationalBackground = ({
   setHelperCount,
   setStepCount,
   dispatcher,
-  state,
+  retrievedData,
   saveProgress,
 }) => {
-  // const [state, dispatch] = useReducer(formReducer, INITIAL_STATE);
+  // const [retrievedData?, dispatch] = useReducer(formReducer, INITIAL_retrievedData?);
 
   const handleChange = (e) => {
     dispatcher({
@@ -107,7 +107,7 @@ const EducationalBackground = ({
                   id="p_schoolName"
                   className="form-control"
                   onChange={handleChange}
-                  value={state.p_schoolName}
+                  value={retrievedData?.p_schoolName}
                   required
                 />
               </div>
@@ -123,7 +123,7 @@ const EducationalBackground = ({
                     type="radio"
                     name="p_schoolType"
                     id="p_schoolType"
-                    value={state.p_schoolType ?? "private"}
+                    value={retrievedData?.p_schoolType ?? "private"}
                     onChange={handleChange}
                     required
                   />
@@ -137,7 +137,7 @@ const EducationalBackground = ({
                     type="radio"
                     name="p_schoolType"
                     id="p_schoolType"
-                    value={state.p_schoolType ?? "public"}
+                    value={retrievedData?.p_schoolType ?? "public"}
                     onChange={handleChange}
                     required
                   />
@@ -158,7 +158,7 @@ const EducationalBackground = ({
                   name="p_schoolAddress"
                   id="p_schoolAddress"
                   className="form-control"
-                  value={state.p_schoolAddress}
+                  value={retrievedData?.p_schoolAddress}
                   onChange={handleChange}
                   required
                 />
@@ -176,7 +176,7 @@ const EducationalBackground = ({
                   id="p_startgradYear"
                   className="form-select"
                   onChange={handleChange}
-                  value={state.p_startgradYear}
+                  value={retrievedData?.p_startgradYear}
                   required
                 >
                   <option selected="selected" disabled>
@@ -231,7 +231,7 @@ const EducationalBackground = ({
                   name="s_schoolName"
                   id="s_schoolName"
                   className="form-control"
-                  value={state.s_schoolName}
+                  value={retrievedData?.s_schoolName}
                   onChange={handleChange}
                   required
                 />
@@ -248,7 +248,7 @@ const EducationalBackground = ({
                     type="radio"
                     name="s_schoolType"
                     id="s_schoolType"
-                    value={state.s_schoolName ?? "private"}
+                    value={retrievedData?.s_schoolName ?? "private"}
                     onChange={handleChange}
                     required
                   />
@@ -262,7 +262,7 @@ const EducationalBackground = ({
                     type="radio"
                     name="s_schoolType"
                     id="s_schoolType"
-                    value={state.s_schoolName ?? "public"}
+                    value={retrievedData?.s_schoolName ?? "public"}
                     onChange={handleChange}
                     required
                   />
@@ -310,8 +310,8 @@ EducationalBackground.propTypes = {
   setHelperCount: PropTypes.func,
   setStepCount: PropTypes.func,
   dispatcher: PropTypes.func,
-  state: PropTypes.object,
   saveProgress: PropTypes.func,
+  retrievedData: PropTypes.object,
 };
 
 export default EducationalBackground;

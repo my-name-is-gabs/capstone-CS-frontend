@@ -71,6 +71,10 @@ body {
   border-radius: 20rem !important;
 }
 
+.cs-btn-border {
+  border: #223d7e 3px solid !important;
+}
+
 .cs-border-box {
   border: #223d7e 5px solid;
   border-radius: 20px;

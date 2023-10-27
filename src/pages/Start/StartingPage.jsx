@@ -9,6 +9,11 @@ import AuthContext from "../../context/AuthContext";
 const StartingPage = () => {
   const [captcha, setCaptcha] = useState(null);
   const { startApp, setStartApp } = useContext(AuthContext);
+  const [securityExist] = useState(
+    localStorage.getItem("formSecurityAccessData")
+      ? localStorage.getItem("formSecurityAccessData")
+      : false
+  );
 
   return (
     <>
@@ -85,6 +90,7 @@ const StartingPage = () => {
                   }}
                 />
               </div>
+
               {captcha && (
                 <>
                   <div className="mx-4 mb-3">
@@ -96,15 +102,19 @@ const StartingPage = () => {
                       <NavLink to="/startapp">Start an Application</NavLink>
                     </div>
                   </div>
-                  <div className="mx-4 mb-3">
-                    <div className="cs-retrieveapp-div p-4">
-                      <p className="mb-4">
-                        Select your scholarship type and make suer you have the
-                        necessary documents and information you will need.
-                      </p>
-                      <NavLink to="/retrieve">Retrieve an Application</NavLink>
+                  {securityExist && (
+                    <div className="mx-4 mb-3">
+                      <div className="cs-retrieveapp-div p-4">
+                        <p className="mb-4">
+                          Select your scholarship type and make suer you have
+                          the necessary documents and information you will need.
+                        </p>
+                        <NavLink to="/retrieve">
+                          Retrieve an Application
+                        </NavLink>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </>
               )}
               {/* <div className="mx-4 mb-3">

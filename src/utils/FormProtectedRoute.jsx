@@ -3,8 +3,8 @@ import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 
 const FormProtectedRoute = () => {
-  const { startApp } = useContext(AuthContext);
-  return startApp ? <Outlet /> : <Navigate to="/startscholar" />;
+  const { startApp, retrieveApp } = useContext(AuthContext);
+  return startApp || retrieveApp ? <Outlet /> : <Navigate to="/startscholar" />;
 };
 
 export default FormProtectedRoute;

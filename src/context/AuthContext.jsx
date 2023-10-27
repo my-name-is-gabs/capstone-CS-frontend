@@ -78,6 +78,9 @@ export const AuthProvider = ({ children }) => {
   const [startApp, setStartApp] = useState(false);
   //end of handling Form routing
 
+  // handling retrieval of form data
+  const [retrieveApp, setRetrieveApp] = useState(false);
+
   return (
     <AuthContext.Provider
       value={{
@@ -88,6 +91,8 @@ export const AuthProvider = ({ children }) => {
         setError,
         startApp,
         setStartApp,
+        retrieveApp,
+        setRetrieveApp,
       }}
     >
       {children}

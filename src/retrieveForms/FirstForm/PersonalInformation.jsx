@@ -8,10 +8,9 @@ const PersonalInformation = ({
   setHelperCount,
   setStepCount,
   dispatcher,
-  state,
+  retrievedData,
   saveProgress,
 }) => {
-  // const [state, dispatch] = useReducer(formReducer, INITIAL_STATE);
   const fNameRef = useRef(null);
   const mNameRef = useRef(null);
   const lNameRef = useRef(null);
@@ -92,61 +91,6 @@ const PersonalInformation = ({
       <div id="personalInfo">
         {/* <!-- Under Personal Information --> */}
 
-        {/* <!-- First Row --> */}
-        <form action="" method="post">
-          <div className="card cs-bg-secondary-rounded shadow w-75 mx-auto mb-5">
-            <div className="card-header cs-bg-fadeblue">
-              <div className="container d-flex justify-content-between align-items-center">
-                <div className="d-inline-flex gap-3 align-items-center">
-                  <img
-                    src="/assets/icons/document.png"
-                    className="img-fluid"
-                    alt="Grant Icon"
-                    width={32}
-                    height={32}
-                  />
-                  <div className="fs-5 text-white fw-semibold">UPLOAD FILE</div>
-                </div>
-                <button
-                  className="cs-btn-nolayout"
-                  type="button"
-                  data-bs-toggle="offcanvas"
-                  data-bs-target="#offcanvasRight"
-                  aria-controls="offcanvasRight"
-                  onClick={() => setHelperCount(1)}
-                >
-                  <i className="fs-2 fa-regular fa-circle-question"></i>
-                </button>
-              </div>
-            </div>
-            <div className="card-body">
-              <div className="col-md">
-                <label htmlFor="scholarshipType" className="form-label fw-bold">
-                  Upload Birth Certificate:
-                </label>
-                <input
-                  className="form-control"
-                  type="file"
-                  id="formFile"
-                  name="birthCertFile"
-                />
-              </div>
-            </div>
-          </div>
-          {/* uncomment for later development */}
-          {/* <div className="mt-5 d-flex justify-content-end align-items-center w-75 mx-auto mb-5">
-            <div className="d-flex gap-3">
-              <NavLink
-                to="/startscholar"
-                className="btn cs-btn-secondary fw-bold fs-5 shadow-sm px-5"
-              >
-                Cancel
-              </NavLink>
-              <SubmitButton>Next</SubmitButton>
-            </div>
-          </div> */}
-        </form>
-
         <form
           action=""
           method="post"
@@ -192,7 +136,7 @@ const PersonalInformation = ({
                   id="scholarshpType"
                   className="form-select"
                   onChange={handleChange}
-                  value={state.scholar_type}
+                  value={retrievedData?.scholar_type}
                   required
                 >
                   <option selected="selected" disabled>
@@ -315,7 +259,7 @@ const PersonalInformation = ({
                     id="address"
                     className="form-control"
                     onChange={handleChange}
-                    value={state.address}
+                    value={retrievedData?.address}
                     required
                   />
                 </div>
@@ -328,7 +272,7 @@ const PersonalInformation = ({
                     id="barangay"
                     className="form-select"
                     onChange={handleChange}
-                    value={state.barangay}
+                    value={retrievedData?.barangay}
                     required
                   >
                     <option selected="selected" disabled>
@@ -375,7 +319,7 @@ PersonalInformation.propTypes = {
   setHelperCount: PropTypes.func,
   setStepCount: PropTypes.func,
   dispatcher: PropTypes.func,
-  state: PropTypes.object,
+  retrievedData: PropTypes.object,
   saveProgress: PropTypes.func,
 };
 

@@ -1,12 +1,10 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useRef, useEffect, useState, useMemo } from "react";
-// import { formReducer, INITIAL_STATE } from "../../reducer/formReducer";
 import { Footer } from "../../components";
-import { encrypt } from "n-krypta";
+import AES from "crypto-js/aes";
 import "./appstyle.css";
 
 const StartApp = () => {
-  // const [state, dispatch] = useReducer(formReducer, INITIAL_STATE);
   const navigate = useNavigate();
   const applicantIdRef = useRef(null);
   const [generatedId, setGeneratedId] = useState(null);
@@ -17,25 +15,6 @@ const StartApp = () => {
     q3: "What was the name of your first stuffed animal?",
     q4: "What is the first name of your first crush?",
   };
-
-  // const handleChange = (e) => {
-  //   dispatch({
-  //     type: "SECURITY_DATA",
-  //     payload: { name: e.target.name, value: e.target.value },
-  //   });
-
-  //   handleID();
-  // };
-
-  // const handleID = () => {
-  //   dispatch({
-  //     type: "SECURITY_DATA",
-  //     payload: {
-  //       name: applicantIdRef.current.name,
-  //       value: applicantIdRef.current.value,
-  //     },
-  //   });
-  // };
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -49,8 +28,8 @@ const StartApp = () => {
       security_answer,
     };
 
-    const encryptSecurityData = encrypt(
-      formData,
+    const encryptSecurityData = AES.encrypt(
+      JSON.stringify(formData),
       import.meta.env.VITE_SECRET_KEY
     );
 
@@ -66,22 +45,21 @@ const StartApp = () => {
     };
   }, []);
 
+  const numGenerator = useMemo(() => {
+    return Math.ceil(Math.random() * 100000);
+  }, []);
+
   useEffect(() => {
     const handleIdGeneration = () => {
-      const numGenerator = () => {
-        return Math.ceil(Math.random() * 100000);
-      };
+      // const numGenerator = () => {
+      //   return Math.ceil(Math.random() * 100000);
+      // };
       const currentYear = new Date().getFullYear();
-      const scholarId = `S-${currentYear}-${numGenerator()}`;
+      const scholarId = `S-${currentYear}-${numGenerator}`;
       setGeneratedId(scholarId);
     };
-
-    window.addEventListener("load", handleIdGeneration);
-
-    return () => {
-      window.removeEventListener("load", handleIdGeneration);
-    };
-  }, []);
+    handleIdGeneration();
+  }, [numGenerator]);
 
   return (
     <>
@@ -132,7 +110,7 @@ const StartApp = () => {
             <ol style={{ listStyle: "none" }}>
               <li>Legal Office Department</li>
               <li>Room 20X</li>
-              <li>Taguig City</li>
+              <li>ABC City</li>
               <li>[Landline/Cellphone number]</li>
             </ol>
             <hr />
@@ -179,10 +157,12 @@ const StartApp = () => {
                       name="security_question"
                       id="security_question"
                       className="form-select"
-                      // onChange={handleChange}
                       required
                     >
-                      <option value={securityQustions["q1"]} defaultValue>
+                      <option
+                        value={securityQustions["q1"]}
+                        defaultValue={securityQustions["q1"]}
+                      >
                         {securityQustions["q1"]}
                       </option>
                       <option value={securityQustions["q2"]}>
@@ -210,7 +190,6 @@ const StartApp = () => {
                     name="security_answer"
                     id="security_answer"
                     className="form-control"
-                    // onChange={handleChange}
                     placeholder="Your answer..."
                     required
                   />

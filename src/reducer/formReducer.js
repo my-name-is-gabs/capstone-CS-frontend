@@ -1,7 +1,4 @@
 export const INITIAL_STATE = {
-  application_id: null,
-  security_question: null,
-  security_answer: null,
   scholar_type: null,
   firstName: null,
   middleName: null,
@@ -42,31 +39,27 @@ export const INITIAL_STATE = {
 
 export const formReducer = (state, action) => {
   switch (action.type) {
-    case "SECURITY_DATA":
-      return {
-        ...state,
-        [action.payload.name]: action.payload.value.trim(),
-      };
     case "PERSONAL_DATA":
       return {
         ...state,
-        [action.payload.name]: action.payload.value.trim(),
+        [action.payload.name]: action.payload.value,
       };
     case "EDUC_DATA":
       return {
         ...state,
-        [action.payload.name]: action.payload.value.trim(),
+        [action.payload.name]: action.payload.value,
       };
     case "FAMILY_DATA":
       return {
         ...state,
-        [action.payload.name]: action.payload.value.trim(),
+        [action.payload.name]: action.payload.value,
       };
     case "OTHER_DATA":
       return {
         ...state,
-        [action.payload.name]: action.payload.value.trim(),
+        [action.payload.name]: action.payload.value,
       };
+
     default:
       return state;
   }
