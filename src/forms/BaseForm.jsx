@@ -4,7 +4,7 @@ import FamilyBackground from "./ThirdForm/FamilyBackground";
 import OthersForm from "./FoutrhForm/OthersForm";
 import helperMenuContents from "../extras/helperData";
 import { useState, useReducer, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { formReducer, INITIAL_STATE } from "../reducer/formReducer";
 import CryptoJS from "crypto-js";
 
@@ -14,6 +14,7 @@ const BaseForm = () => {
   const [scholarId, setScholarId] = useState("");
   const [state, dispatch] = useReducer(formReducer, INITIAL_STATE);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleBeforeUnload = (e) => {
@@ -212,9 +213,9 @@ const BaseForm = () => {
               </NavButton> */}
               <button
                 className="btn cs-btn-primary fw-bold fs-5 shadow-sm px-4"
-                // onClick={() => {
-                //   console.log(formProgressData);
-                // }}
+                onClick={() => {
+                  navigate("/success");
+                }}
               >
                 I Understand
               </button>

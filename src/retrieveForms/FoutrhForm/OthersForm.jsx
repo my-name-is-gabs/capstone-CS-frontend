@@ -5,7 +5,7 @@ const OthersForm = ({
   setStepCount,
   dispatcher,
   retrievedData,
-  saveProgress,
+  // saveProgress,
 }) => {
   const handleChange = (e) => {
     dispatcher({
@@ -232,13 +232,13 @@ const OthersForm = ({
         {/* <!-- Buttons Per Sections --> */}
         <div className="mt-5 d-flex justify-content-between align-items-center w-75 mx-auto mb-5">
           <div className="align-self-start">
-            <button
+            {/* <button
               type="button"
               className="btn btn-success rounded-pill cs-btn-border fw-bold fs-5 shadow-sm px-5"
               onClick={() => saveProgress()}
             >
               Save Progress
-            </button>
+            </button> */}
           </div>
           <div className="d-flex gap-3">
             <button

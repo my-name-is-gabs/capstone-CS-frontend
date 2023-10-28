@@ -9,7 +9,7 @@ const PersonalInformation = ({
   setStepCount,
   dispatcher,
   retrievedData,
-  saveProgress,
+  // saveProgress,
 }) => {
   const fNameRef = useRef(null);
   const mNameRef = useRef(null);
@@ -288,8 +288,8 @@ const PersonalInformation = ({
           </div>
 
           {/* <!-- Buttons Per Sections --> */}
-          <div className="mt-5 d-flex justify-content-between align-items-center w-75 mx-auto mb-5">
-            <div className="align-self-start">
+          <div className="mt-5 d-flex justify-content-end align-items-center w-75 mx-auto mb-5">
+            {/* <div className="align-self-start">
               <button
                 type="button"
                 className="btn btn-success rounded-pill cs-btn-border fw-bold fs-5 shadow-sm px-5"
@@ -297,7 +297,7 @@ const PersonalInformation = ({
               >
                 Save Progress
               </button>
-            </div>
+            </div> */}
             <div className="d-flex gap-3">
               <NavLink
                 to="/startscholar"
