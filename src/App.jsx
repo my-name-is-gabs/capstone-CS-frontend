@@ -8,8 +8,8 @@ import {
   StartingPage,
   RetrieveApp,
   StartApp,
-  // Monitor,
-  // MonitorApp,
+  Monitor,
+  MonitorApp,
 } from "./pages";
 import BaseForm from "./forms/BaseForm";
 import RetrieveBaseForm from "./retrieveForms/RetrieveBaseForm";
@@ -44,8 +44,8 @@ function App() {
         <Route element={<FormProtectedRoute />}>
           <Route path="/retrieveForm" element={<RetrieveBaseForm />} />
         </Route>
-        {/* <Route path="/monitor" element={<Monitor />} />
-        <Route path="/monitorapp" element={<MonitorApp />} /> */}
+        <Route path="/monitor" element={<Monitor />} />
+        <Route path="/monitorapp" element={<MonitorApp />} />
         <Route path="/login" element={<Login />} />
         {/* private routing in reactjs */}
         <Route element={<PrivateRouting />}>

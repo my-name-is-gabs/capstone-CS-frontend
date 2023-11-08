@@ -1,8 +1,9 @@
 import { PropTypes } from "prop-types";
 import { NavLink } from "react-router-dom";
-// import { formReducer, INITIAL_STATE } from "../../reducer/formReducer";
-import { useRef } from "react";
+import { useState } from "react";
 import { SubmitButton } from "../../components";
+import { barangayOptions, religionOptions } from "../../extras/selectionData";
+import { isPersonalInfoValid } from "../../extras/handleFormError";
 
 const PersonalInformation = ({
   setHelperCount,
@@ -11,42 +12,37 @@ const PersonalInformation = ({
   state,
   saveProgress,
 }) => {
-  // const [state, dispatch] = useReducer(formReducer, INITIAL_STATE);
-  const fNameRef = useRef(null);
-  const mNameRef = useRef(null);
-  const lNameRef = useRef(null);
-  const sexRef = useRef(null);
-  const dobRef = useRef(null);
+  const [districtLevel, setDistrictLevel] = useState("");
+  const [error, setError] = useState({});
 
   const handleChange = (e) => {
     dispatcher({
-      type: "PERSONAL_DATA",
+      type: "FORM_DATA",
       payload: { name: e.target.name, value: e.target.value },
     });
-    handleDefaultValues();
   };
 
-  const handleDefaultValues = () => {
-    dispatcher({
-      type: "PERSONAL_DATA",
-      payload: { name: fNameRef.current.name, value: fNameRef.current.value },
-    });
-    dispatcher({
-      type: "PERSONAL_DATA",
-      payload: { name: mNameRef.current.name, value: mNameRef.current.value },
-    });
-    dispatcher({
-      type: "PERSONAL_DATA",
-      payload: { name: lNameRef.current.name, value: lNameRef.current.value },
-    });
-    dispatcher({
-      type: "PERSONAL_DATA",
-      payload: { name: sexRef.current.name, value: sexRef.current.value },
-    });
-    dispatcher({
-      type: "PERSONAL_DATA",
-      payload: { name: dobRef.current.name, value: dobRef.current.value },
-    });
+  // const handleDefaultValues = () => {
+  //   dispatcher({
+  //     type: "FORM_DATA",
+  //     payload: { name: fNameRef.current.name, value: fNameRef.current.value },
+  //   });
+  //   dispatcher({
+  //     type: "FORM_DATA",
+  //     payload: { name: mNameRef.current.name, value: mNameRef.current.value },
+  //   });
+  //   dispatcher({
+  //     type: "FORM_DATA",
+  //     payload: { name: lNameRef.current.name, value: lNameRef.current.value },
+  //   });
+  // };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    let errors = isPersonalInfoValid(state);
+    setError(errors);
+    if (Object.keys(errors).length > 0) return;
+    setStepCount((step) => step + 1);
   };
 
   return (
@@ -93,7 +89,7 @@ const PersonalInformation = ({
         {/* <!-- Under Personal Information --> */}
 
         {/* <!-- First Row --> */}
-        <form action="" method="post">
+        {/* <form action="" method="post">
           <div className="card cs-bg-secondary-rounded shadow w-75 mx-auto mb-5">
             <div className="card-header cs-bg-fadeblue">
               <div className="container d-flex justify-content-between align-items-center">
@@ -121,19 +117,19 @@ const PersonalInformation = ({
             </div>
             <div className="card-body">
               <div className="col-md">
-                <label htmlFor="scholarshipType" className="form-label fw-bold">
-                  Upload Birth Certificate:
+                <label htmlFor="nationalId" className="form-label fw-bold">
+                  Upload National ID:
                 </label>
                 <input
                   className="form-control"
                   type="file"
-                  id="formFile"
-                  name="birthCertFile"
+                  id="nationalId"
+                  name="nationalId"
                 />
               </div>
             </div>
           </div>
-          {/* uncomment for later development */}
+          uncomment for later development
           {/* <div className="mt-5 d-flex justify-content-end align-items-center w-75 mx-auto mb-5">
             <div className="d-flex gap-3">
               <NavLink
@@ -144,16 +140,14 @@ const PersonalInformation = ({
               </NavLink>
               <SubmitButton>Next</SubmitButton>
             </div>
-          </div> */}
-        </form>
+          </div>
+        </form> */}
 
         <form
           action=""
+          encType="multipart/form-data"
           method="post"
-          onSubmit={(e) => {
-            e.preventDefault();
-            setStepCount((step) => step + 1);
-          }}
+          onSubmit={handleOnSubmit}
         >
           <div className="card cs-bg-secondary-rounded shadow w-75 mx-auto mb-5">
             <div className="card-header cs-bg-fadeblue">
@@ -184,25 +178,34 @@ const PersonalInformation = ({
             </div>
             <div className="card-body">
               <div className="col-md-5">
-                <label htmlFor="scholarshipType" className="form-label fw-bold">
-                  Type:
+                <label htmlFor="scholar_type" className="form-label fw-bold">
+                  Type: <span className="text-danger">*</span>
                 </label>
+                {/* {error.scholar_type && (
+                  <>
+                    <span className="ms-2 text-danger">
+                      {error.scholar_type}
+                    </span>
+                  </>
+                )} */}
+                <span className="ms-2 text-danger">{error?.scholar_type}</span>
                 <select
                   name="scholar_type"
-                  id="scholarshpType"
+                  id="scholar_type"
                   className="form-select"
                   onChange={handleChange}
                   value={state.scholar_type}
                   required
                 >
-                  <option selected="selected" disabled>
-                    Open this select menu...
+                  <option selected="selected" defaultValue>
+                    Choose Scholar Type...
                   </option>
-                  <option value="Premier">Premier</option>
-                  <option value="Full">Full</option>
-                  <option value="Priority">Priority</option>
-                  <option value="Basic">Basic</option>
-                  <option value="SUC/LUC">SUC/LUC</option>
+                  <option value="BASIC PLUS SUC">BASIC PLUS SUC</option>
+                  <option value="SUC_LCU">SUC/LCU</option>
+                  <option value="BASIC SCHOLARSHIP">BASIC SCHOLARSHIP</option>
+                  <option value="HONOR">HONOR</option>
+                  <option value="PRIORITY">PRIORITY</option>
+                  <option value="PREMIER">PREMIER</option>
                 </select>
               </div>
             </div>
@@ -224,90 +227,82 @@ const PersonalInformation = ({
             </div>
             <div className="card-body">
               <div className="row">
-                <div className="col-md-4">
-                  <label htmlFor="firstname" className="form-label fw-bold">
-                    FIRST NAME:
+                <div className="col-md-12">
+                  <label htmlFor="nationalId" className="form-label fw-bold">
+                    Upload National ID:
                   </label>
                   <input
-                    ref={fNameRef}
-                    type="text"
-                    name="firstName"
-                    id="firstname"
-                    className="form-control bg-body-secondary"
-                    required
-                    readOnly
-                    value={"John"}
+                    className="form-control"
+                    type="file"
+                    id="nationalId"
+                    name="nationalId"
                   />
                 </div>
-                <div className="col-md-4">
-                  <label htmlFor="middleName" className="form-label fw-bold">
-                    MIDDLE NAME:
-                  </label>
-                  <input
-                    ref={mNameRef}
-                    type="text"
-                    name="middleName"
-                    id="middleName"
-                    className="form-control bg-body-secondary"
-                    required
-                    readOnly
-                    value={"D"}
-                  />
-                </div>
-                <div className="col-md-4">
-                  <label htmlFor="lastName" className="form-label fw-bold">
-                    LAST NAME:
-                  </label>
-                  <input
-                    ref={lNameRef}
-                    type="text"
-                    name="lastName"
-                    id="lastName"
-                    className="form-control bg-body-secondary"
-                    required
-                    readOnly
-                    value={"Doe"}
-                  />
-                </div>
+
                 <hr className="my-2 invisible" />
 
                 <div className="col-md-4">
-                  <label htmlFor="sex" className="form-label fw-bold">
-                    SEX:
+                  <label htmlFor="district" className="form-label fw-bold">
+                    SEX: <span className="text-danger">*</span>
                   </label>
-                  <input
-                    ref={sexRef}
-                    type="text"
+                  {/* {error.sex && (
+                    <>
+                      <span className="ms-2 text-danger">{error.sex}</span>
+                    </>
+                  )} */}
+                  <span className="ms-2 text-danger">{error?.sex}</span>
+                  <select
                     name="sex"
                     id="sex"
-                    className="form-control bg-body-secondary"
+                    className="form-select"
+                    onChange={handleChange}
+                    value={state.sex}
                     required
-                    readOnly
-                    value={"Male"}
-                  />
+                  >
+                    <option selected defaultValue>
+                      Choose...
+                    </option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
                 </div>
 
                 <div className="col-md-4">
                   <label htmlFor="dateOfBirth" className="form-label fw-bold">
-                    DATE OF BIRTH:
+                    DATE OF BIRTH: <span className="text-danger">*</span>
                   </label>
                   <input
-                    ref={dobRef}
-                    type="text"
+                    type="date"
                     name="dateOfBirth"
                     id="dateOfBirth"
-                    className="form-control bg-body-secondary"
+                    className="form-control"
+                    onChange={handleChange}
+                    value={state.dateOfBirth}
                     required
-                    readOnly
-                    value={"08 January 1999"}
+                  />
+                </div>
+
+                <div className="col-md-4">
+                  <label htmlFor="email" className="form-label fw-bold">
+                    EMAIL: <span className="text-danger">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    className="form-control"
+                    onChange={handleChange}
+                    value={state.email}
+                    required
                   />
                 </div>
 
                 <hr className="my-2 invisible" />
 
-                <div className="col-md-8">
+                <div className="col-md-12">
                   <label htmlFor="address" className="form-label fw-bold">
-                    ADDRESS (House No./Street):
+                    ADDRESS (House No./Street):{" "}
+                    <span className="text-danger">*</span>
                   </label>
                   <input
                     type="text"
@@ -319,10 +314,49 @@ const PersonalInformation = ({
                     required
                   />
                 </div>
-                <div className="col-md-4">
-                  <label htmlFor="barangay" className="form-label fw-bold">
-                    BARANGAY:
+
+                <hr className="my-2 invisible" />
+
+                <div className="col-md-6">
+                  <label htmlFor="district" className="form-label fw-bold">
+                    DISCTRICT: <span className="text-danger">*</span>
                   </label>
+                  {/* {error.district && (
+                    <>
+                      <span className="ms-2 text-danger">{error.district}</span>
+                    </>
+                  )} */}
+                  <span className="ms-2 text-danger">{error?.district}</span>
+                  <select
+                    name="district"
+                    id="district"
+                    className="form-select"
+                    onChange={handleChange}
+                    value={state.district}
+                    required
+                  >
+                    <option selected defaultValue>
+                      Choose a district...
+                    </option>
+                    <option value="1" onClick={() => setDistrictLevel("one")}>
+                      1
+                    </option>
+                    <option value="2" onClick={() => setDistrictLevel("two")}>
+                      2
+                    </option>
+                  </select>
+                </div>
+
+                <div className="col-md-6">
+                  <label htmlFor="barangay" className="form-label fw-bold">
+                    BARANGAY: <span className="text-danger">*</span>
+                  </label>
+                  {/* {error.barangay && (
+                    <>
+                      <span className="ms-2 text-danger">{error.barangay}</span>
+                    </>
+                  )} */}
+                  <span className="ms-2 text-danger">{error?.barangay}</span>
                   <select
                     name="barangay"
                     id="barangay"
@@ -331,13 +365,63 @@ const PersonalInformation = ({
                     value={state.barangay}
                     required
                   >
-                    <option selected="selected" disabled>
-                      Open this select menu
-                    </option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    {districtLevel &&
+                      barangayOptions[districtLevel].map((brgy, i) => (
+                        <>
+                          <option key={i} value={brgy}>
+                            {brgy}
+                          </option>
+                        </>
+                      ))}
                   </select>
+                </div>
+
+                <hr className="my-2 invisible" />
+
+                <div className="col-md-6">
+                  <label htmlFor="barangay" className="form-label fw-bold">
+                    RELIGION: <span className="text-danger">*</span>
+                  </label>
+                  {/* {error.religion && (
+                    <>
+                      <span className="ms-2 text-danger">{error.religion}</span>
+                    </>
+                  )} */}
+                  <span className="ms-2 text-danger">{error?.religion}</span>
+                  <select
+                    name="religion"
+                    id="religion"
+                    className="form-select"
+                    onChange={handleChange}
+                    value={state.religion}
+                    required
+                  >
+                    <option selected defaultValue>
+                      Choose a religion...
+                    </option>
+                    {religionOptions.map((religionName, i) => (
+                      <>
+                        <option key={i} value={religionName}>
+                          {religionName}
+                        </option>
+                      </>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="col-md-6">
+                  <label htmlFor="fb_link" className="form-label fw-bold">
+                    FB LINK: <span className="text-danger">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="fb_link"
+                    id="fb_link"
+                    className="form-control"
+                    onChange={handleChange}
+                    value={state.fb_link}
+                    required
+                  />
                 </div>
               </div>
             </div>

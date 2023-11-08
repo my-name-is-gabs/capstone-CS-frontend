@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import { PropTypes } from "prop-types";
-// import { useReducer } from "react";
-// import { formReducer, INITIAL_STATE } from "../../reducer/formReducer";
+import { isEducInfoValid } from "../../extras/handleFormError";
+import { useState } from "react";
 
 const EducationalBackground = ({
   setHelperCount,
@@ -10,13 +10,21 @@ const EducationalBackground = ({
   state,
   saveProgress,
 }) => {
-  // const [state, dispatch] = useReducer(formReducer, INITIAL_STATE);
+  const [error, setError] = useState({});
 
   const handleChange = (e) => {
     dispatcher({
-      type: "EDUC_DATA",
+      type: "FORM_DATA",
       payload: { name: e.target.name, value: e.target.value },
     });
+  };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    let errors = isEducInfoValid(state);
+    setError(errors);
+    if (Object.keys(errors).length > 0) return;
+    setStepCount((step) => step + 1);
   };
 
   return (
@@ -60,13 +68,7 @@ const EducationalBackground = ({
       {/* End of stepper */}
 
       {/* <!-- Forms under Educational Background --> */}
-      <form
-        id="educBackground"
-        method="post"
-        onSubmit={() => {
-          setStepCount((step) => step + 1);
-        }}
-      >
+      <form id="educBackground" method="post" onSubmit={handleOnSubmit}>
         {/* <!-- First Row --> */}
         <div className="card cs-bg-secondary-rounded shadow w-75 mx-auto mb-5">
           <div className="card-header cs-bg-fadeblue">
@@ -80,7 +82,7 @@ const EducationalBackground = ({
                   height={32}
                 />
                 <div className="fs-5 text-white fw-semibold">
-                  PRIMARY EDUCATION
+                  CURRENT EDUCATION
                 </div>
               </div>
               <button
@@ -97,94 +99,116 @@ const EducationalBackground = ({
           </div>
           <div className="card-body">
             <div className="row">
-              <div className="col-md-8">
-                <label htmlFor="p_schoolName" className="form-label fw-bold">
-                  SCHOOL NAME:
+              <div className="col-md-6">
+                <label
+                  htmlFor="university_attending"
+                  className="form-label fw-bold"
+                >
+                  UNIVERSITY ATTENDING:
                 </label>
                 <input
                   type="text"
-                  name="p_schoolName"
-                  id="p_schoolName"
+                  name="university_attending"
+                  id="university_attending"
                   className="form-control"
                   onChange={handleChange}
-                  value={state.p_schoolName}
+                  value={state.university_attending}
+                  required
+                />
+              </div>
+
+              <div className="col-md-6">
+                <label htmlFor="course_taking" className="form-label fw-bold">
+                  COURSE TAKING:
+                </label>
+                <input
+                  type="text"
+                  name="course_taking"
+                  id="course_taking"
+                  className="form-control"
+                  onChange={handleChange}
+                  value={state.course_taking}
+                  required
+                />
+              </div>
+
+              <hr className="my-2 invisible" />
+
+              <div className="col-md-4">
+                <label htmlFor="year_level" className="form-label fw-bold">
+                  YEAR LEVEL:
+                </label>
+                <input
+                  type="text"
+                  name="year_level"
+                  id="year_level"
+                  className="form-control"
+                  onChange={handleChange}
+                  value={state.year_level}
                   required
                 />
               </div>
 
               <div className="col-md-4">
-                <label htmlFor="p_schoolType" className="form-label fw-bold">
-                  SCHOOL TYPE:
+                <label htmlFor="is_graduating" className="form-label fw-bold">
+                  IS GRADUATING:
                 </label>
                 <br />
                 <div className="form-check form-check-inline">
                   <input
                     className="form-check-input"
                     type="radio"
-                    name="p_schoolType"
-                    id="p_schoolType"
-                    value={state.p_schoolType ?? "private"}
+                    name="is_graduating"
+                    id="is_graduating"
+                    value={state.is_graduating ?? "True"}
                     onChange={handleChange}
                     required
                   />
-                  <label className="form-check-label" htmlFor="p_schoolType">
-                    Private
+                  <label className="form-check-label" htmlFor="is_graduating">
+                    Yes
                   </label>
                 </div>
                 <div className="form-check form-check-inline">
                   <input
                     className="form-check-input"
                     type="radio"
-                    name="p_schoolType"
-                    id="p_schoolType"
-                    value={state.p_schoolType ?? "public"}
+                    name="is_graduating"
+                    id="is_graduating"
+                    value={state.is_graduating ?? "False"}
                     onChange={handleChange}
                     required
                   />
                   <label className="form-check-label" htmlFor="inlineRadio1">
-                    Public
+                    No
                   </label>
                 </div>
               </div>
 
-              <hr className="my-2 invisible" />
-
-              <div className="col-md-8">
-                <label htmlFor="p_schoolAddress" className="form-label fw-bold">
-                  SCHOOL ADDRESS:
-                </label>
-                <input
-                  type="text"
-                  name="p_schoolAddress"
-                  id="p_schoolAddress"
-                  className="form-control"
-                  value={state.p_schoolAddress}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
               <div className="col-md-4">
-                <label
-                  htmlFor="p_startgradYeare"
-                  className="form-label fw-bold"
-                >
-                  YR. STARTED - GRADUATED:
+                <label htmlFor="course_duration" className="form-label fw-bold">
+                  COURSE DURATION: <span className="text-danger">*</span>
                 </label>
+                {error.course_duration && (
+                  <>
+                    <span className="ms-2 text-danger">
+                      {error.course_duration}
+                    </span>
+                  </>
+                )}
                 <select
-                  name="p_startgradYear"
-                  id="p_startgradYear"
+                  name="course_duration"
+                  id="course_duration"
                   className="form-select"
                   onChange={handleChange}
-                  value={state.p_startgradYear}
+                  value={state.course_duration}
                   required
                 >
-                  <option selected="selected" disabled>
-                    Open this select menu
+                  <option selected defaultValue={null}>
+                    Choose...
                   </option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  <option value="THREE YEARS">THREE (3) YEARS</option>
+                  <option value="FOUR YEARS">FOUR (4) YEARS</option>
+                  <option value="FIVE YEARS">FIVE (5) YEARS</option>
                 </select>
               </div>
             </div>
@@ -205,40 +229,36 @@ const EducationalBackground = ({
                   height={32}
                 />
                 <div className="fs-5 text-white fw-semibold">
-                  SECONDARY EDUCATION
+                  ELEMENTARY SCHOOL
                 </div>
               </div>
-              <button
-                className="cs-btn-nolayout"
-                type="button"
-                data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasRight"
-                aria-controls="offcanvasRight"
-                onClick={() => setHelperCount(3)}
-              >
-                <i className="fs-2 fa-regular fa-circle-question"></i>
-              </button>
             </div>
           </div>
           <div className="card-body">
             <div className="row">
               <div className="col-md-8">
-                <label htmlFor="s_schoolName" className="form-label fw-bold">
+                <label
+                  htmlFor="elementary_school"
+                  className="form-label fw-bold"
+                >
                   SCHOOL NAME:
                 </label>
                 <input
                   type="text"
-                  name="s_schoolName"
-                  id="s_schoolName"
+                  name="elementary_school"
+                  id="elementary_school"
                   className="form-control"
-                  value={state.s_schoolName}
+                  value={state.elementary_school}
                   onChange={handleChange}
                   required
                 />
               </div>
 
               <div className="col-md-4">
-                <label htmlFor="s_schoolType" className="form-label fw-bold">
+                <label
+                  htmlFor="elementary_school_type"
+                  className="form-label fw-bold"
+                >
                   SCHOOL TYPE:
                 </label>
                 <br />
@@ -246,13 +266,16 @@ const EducationalBackground = ({
                   <input
                     className="form-check-input"
                     type="radio"
-                    name="s_schoolType"
-                    id="s_schoolType"
-                    value={state.s_schoolName ?? "private"}
+                    name="elementary_school_type"
+                    id="elementary_school_type"
+                    value={state.elementary_school_type ?? "private"}
                     onChange={handleChange}
                     required
                   />
-                  <label className="form-check-label" htmlFor="s_schoolType">
+                  <label
+                    className="form-check-label"
+                    htmlFor="elementary_school_type"
+                  >
                     Private
                   </label>
                 </div>
@@ -260,21 +283,280 @@ const EducationalBackground = ({
                   <input
                     className="form-check-input"
                     type="radio"
-                    name="s_schoolType"
-                    id="s_schoolType"
-                    value={state.s_schoolName ?? "public"}
+                    name="shs_school_type"
+                    id="shs_school_type"
+                    value={state.elementary_school_type ?? "public"}
                     onChange={handleChange}
                     required
                   />
-                  <label className="form-check-label" htmlFor="s_schoolType">
+                  <label
+                    className="form-check-label"
+                    htmlFor="elementary_school_type"
+                  >
                     Public
                   </label>
                 </div>
+              </div>
+
+              <hr className="my-2 invisible" />
+
+              <div className="col-md-8">
+                <label
+                  htmlFor="elementary_school_address"
+                  className="form-label fw-bold"
+                >
+                  SCHOOL ADDRESS:
+                </label>
+                <input
+                  type="text"
+                  name="elementary_school_address"
+                  id="elementary_school_address"
+                  className="form-control"
+                  value={state.elementary_school_address}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="col-md-4">
+                <label
+                  htmlFor="elementary_start_end"
+                  className="form-label fw-bold"
+                >
+                  SCHOOL YEAR (START-END):
+                </label>
+                <input
+                  type="text"
+                  name="elementary_start_end"
+                  id="elementary_start_end"
+                  className="form-control"
+                  value={state.elementary_start_end}
+                  onChange={handleChange}
+                  required
+                />
               </div>
             </div>
           </div>
         </div>
         {/* <!-- End of Second Row --> */}
+
+        {/* <!-- Third Row --> */}
+        <div className="card cs-bg-secondary-rounded shadow w-75 mx-auto mb-5">
+          <div className="card-header cs-bg-fadeblue">
+            <div className="container d-flex justify-content-between align-items-center">
+              <div className="d-inline-flex gap-3 align-items-center">
+                <img
+                  src="/assets/icons/secondary.png"
+                  className="img-fluid"
+                  alt="Grant Icon"
+                  width={32}
+                  height={32}
+                />
+                <div className="fs-5 text-white fw-semibold">
+                  JUNIOR HIGH SCHOOL
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="card-body">
+            <div className="row">
+              <div className="col-md-8">
+                <label htmlFor="jhs_school" className="form-label fw-bold">
+                  SCHOOL NAME:
+                </label>
+                <input
+                  type="text"
+                  name="jhs_school"
+                  id="jhs_school"
+                  className="form-control"
+                  value={state.jhs_school}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="col-md-4">
+                <label htmlFor="jhs_school_type" className="form-label fw-bold">
+                  SCHOOL TYPE:
+                </label>
+                <br />
+                <div className="form-check form-check-inline">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="jhs_school_type"
+                    id="jhs_school_type"
+                    value={state.jhs_school_type ?? "private"}
+                    onChange={handleChange}
+                    required
+                  />
+                  <label className="form-check-label" htmlFor="jhs_school_type">
+                    Private
+                  </label>
+                </div>
+                <div className="form-check form-check-inline">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="shs_school_type"
+                    id="shs_school_type"
+                    value={state.jhs_school_type ?? "public"}
+                    onChange={handleChange}
+                    required
+                  />
+                  <label className="form-check-label" htmlFor="jhs_school_type">
+                    Public
+                  </label>
+                </div>
+              </div>
+
+              <hr className="my-2 invisible" />
+
+              <div className="col-md-8">
+                <label
+                  htmlFor="jhs_school_address"
+                  className="form-label fw-bold"
+                >
+                  SCHOOL ADDRESS:
+                </label>
+                <input
+                  type="text"
+                  name="jhs_school_address"
+                  id="jhs_school_address"
+                  className="form-control"
+                  value={state.jhs_school_address}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="col-md-4">
+                <label htmlFor="jhs_start_end" className="form-label fw-bold">
+                  SCHOOL YEAR (START-END):
+                </label>
+                <input
+                  type="text"
+                  name="jhs_start_end"
+                  id="jhs_start_end"
+                  className="form-control"
+                  value={state.jhs_start_end}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* <!-- End of Third Row --> */}
+
+        {/* <!-- Fourth Row --> */}
+        <div className="card cs-bg-secondary-rounded shadow w-75 mx-auto mb-5">
+          <div className="card-header cs-bg-fadeblue">
+            <div className="container d-flex justify-content-between align-items-center">
+              <div className="d-inline-flex gap-3 align-items-center">
+                <img
+                  src="/assets/icons/secondary.png"
+                  className="img-fluid"
+                  alt="Grant Icon"
+                  width={32}
+                  height={32}
+                />
+                <div className="fs-5 text-white fw-semibold">
+                  SENIOR HIGH SCHOOL
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="card-body">
+            <div className="row">
+              <div className="col-md-8">
+                <label htmlFor="shs_school" className="form-label fw-bold">
+                  SCHOOL NAME:
+                </label>
+                <input
+                  type="text"
+                  name="shs_school"
+                  id="shs_school"
+                  className="form-control"
+                  value={state.shs_school}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="col-md-4">
+                <label htmlFor="shs_school_type" className="form-label fw-bold">
+                  SCHOOL TYPE:
+                </label>
+                <br />
+                <div className="form-check form-check-inline">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="shs_school_type"
+                    id="shs_school_type"
+                    value={state.shs_school_type ?? "private"}
+                    onChange={handleChange}
+                    required
+                  />
+                  <label className="form-check-label" htmlFor="shs_school_type">
+                    Private
+                  </label>
+                </div>
+                <div className="form-check form-check-inline">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="shs_school_type"
+                    id="shs_school_type"
+                    value={state.shs_school_type ?? "public"}
+                    onChange={handleChange}
+                    required
+                  />
+                  <label className="form-check-label" htmlFor="shs_school_type">
+                    Public
+                  </label>
+                </div>
+              </div>
+
+              <hr className="my-2 invisible" />
+
+              <div className="col-md-8">
+                <label
+                  htmlFor="shs_school_address"
+                  className="form-label fw-bold"
+                >
+                  SCHOOL ADDRESS:
+                </label>
+                <input
+                  type="text"
+                  name="shs_school_address"
+                  id="shs_school_address"
+                  className="form-control"
+                  value={state.shs_school_address}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="col-md-4">
+                <label htmlFor="shs_start_end" className="form-label fw-bold">
+                  SCHOOL YEAR (START-END):
+                </label>
+                <input
+                  type="text"
+                  name="shs_start_end"
+                  id="shs_start_end"
+                  className="form-control"
+                  value={state.shs_start_end}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* <!-- End of Fourth Row --> */}
 
         {/* <!-- Buttons Per Sections --> */}
         <div className="mt-5 d-flex justify-content-between align-items-center w-75 mx-auto mb-5">

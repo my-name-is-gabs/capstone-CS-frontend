@@ -4,7 +4,7 @@ import FamilyBackground from "./ThirdForm/FamilyBackground";
 import OthersForm from "./FoutrhForm/OthersForm";
 import helperMenuContents from "../extras/helperData";
 import { useState, useReducer, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { formReducer, INITIAL_STATE } from "../reducer/formReducer";
 import CryptoJS from "crypto-js";
 
@@ -14,7 +14,6 @@ const BaseForm = () => {
   const [scholarId, setScholarId] = useState("");
   const [state, dispatch] = useReducer(formReducer, INITIAL_STATE);
   const location = useLocation();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const handleBeforeUnload = (e) => {
@@ -36,6 +35,22 @@ const BaseForm = () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, [state, location]);
+
+  useEffect(() => {
+    const handleOffline = (e) => {
+      e.preventDefault();
+      const encryptFormData = CryptoJS.AES.encrypt(
+        JSON.stringify(state),
+        import.meta.env.VITE_SECRET_KEY
+      );
+      localStorage.setItem("encryptedFormData", encryptFormData);
+      e.returnValue = "";
+    };
+    window.addEventListener("offline", handleOffline);
+    return () => {
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, [state]);
 
   useEffect(() => {
     const getScholarId = localStorage.getItem("formSecurityAccessData")
@@ -157,70 +172,6 @@ const BaseForm = () => {
         </div>
         <div className="offcanvas-body">
           {helperMenuContents[helperCount].body}
-        </div>
-      </div>
-
-      {/* <!-- Modal --> */}
-      <div
-        className="modal fade"
-        id="exampleModal"
-        tabIndex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-        data-bs-backdrop="false"
-      >
-        <div className="modal-dialog modal-lg">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h1 className="modal-title fs-5 fw-bold" id="exampleModalLabel">
-                AGREEMENT
-              </h1>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body">
-              <p className="p-3">
-                I hereby certify that <b>ALL</b> the answers given above are
-                <b> TRUE</b> and <b>CORRECT</b>. I further acknowledge that{" "}
-                <b>
-                  ANY ACT OF DISHONESTY OR FALSIFICATION MAY BE A GROUND FOR MY
-                  DISQUALIFICATION
-                </b>{" "}
-                from this scholarship program. I also understand that this
-                submission of application does <b>NOT AUTOMATICALLY QUALIFY</b>{" "}
-                me for the scholarship grant and that I will abide by the
-                decision of the ABC City Scholarship Screening Committee.
-              </p>
-            </div>
-            <div className="modal-footer">
-              {/* <button
-                type="button"
-                className="btn cs-btn-primary fw-bold fs-5 shadow-sm px-4"
-              >
-                I Understand
-              </button> */}
-              {/* <NavButton
-                linkRef="/"
-                btnBG="btn-warning"
-                className="btn cs-btn-primary fw-bold fs-5 shadow-sm px-4"
-                onClick={() => console.log(state)}
-              >
-                I Understand
-              </NavButton> */}
-              <button
-                className="btn cs-btn-primary fw-bold fs-5 shadow-sm px-4"
-                onClick={() => {
-                  navigate("/success");
-                }}
-              >
-                I Understand
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </>

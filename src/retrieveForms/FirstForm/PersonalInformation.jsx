@@ -1,21 +1,20 @@
 import { PropTypes } from "prop-types";
 import { NavLink } from "react-router-dom";
-// import { formReducer, INITIAL_STATE } from "../../reducer/formReducer";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { SubmitButton } from "../../components";
+import { barangayOptions, religionOptions } from "../../extras/selectionData";
 
 const PersonalInformation = ({
   setHelperCount,
   setStepCount,
   dispatcher,
   retrievedData,
-  // saveProgress,
 }) => {
   const fNameRef = useRef(null);
   const mNameRef = useRef(null);
   const lNameRef = useRef(null);
-  const sexRef = useRef(null);
-  const dobRef = useRef(null);
+
+  const [districtLevel, setDistrictLevel] = useState("one");
 
   const handleChange = (e) => {
     dispatcher({
@@ -37,14 +36,6 @@ const PersonalInformation = ({
     dispatcher({
       type: "PERSONAL_DATA",
       payload: { name: lNameRef.current.name, value: lNameRef.current.value },
-    });
-    dispatcher({
-      type: "PERSONAL_DATA",
-      payload: { name: sexRef.current.name, value: sexRef.current.value },
-    });
-    dispatcher({
-      type: "PERSONAL_DATA",
-      payload: { name: dobRef.current.name, value: dobRef.current.value },
     });
   };
 
@@ -180,7 +171,7 @@ const PersonalInformation = ({
                     className="form-control bg-body-secondary"
                     required
                     readOnly
-                    value={"John"}
+                    value={retrievedData?.firstName}
                   />
                 </div>
                 <div className="col-md-4">
@@ -195,7 +186,7 @@ const PersonalInformation = ({
                     className="form-control bg-body-secondary"
                     required
                     readOnly
-                    value={"D"}
+                    value={retrievedData?.middleName}
                   />
                 </div>
                 <div className="col-md-4">
@@ -210,48 +201,62 @@ const PersonalInformation = ({
                     className="form-control bg-body-secondary"
                     required
                     readOnly
-                    value={"Doe"}
+                    value={retrievedData?.lastName}
                   />
                 </div>
                 <hr className="my-2 invisible" />
 
                 <div className="col-md-4">
                   <label htmlFor="sex" className="form-label fw-bold">
-                    SEX:
+                    SEX: <span className="text-danger">*</span>
                   </label>
                   <input
-                    ref={sexRef}
                     type="text"
                     name="sex"
                     id="sex"
-                    className="form-control bg-body-secondary"
+                    className="form-control"
+                    onChange={handleChange}
+                    value={retrievedData?.sex}
                     required
-                    readOnly
-                    value={"Male"}
                   />
                 </div>
 
                 <div className="col-md-4">
                   <label htmlFor="dateOfBirth" className="form-label fw-bold">
-                    DATE OF BIRTH:
+                    DATE OF BIRTH: <span className="text-danger">*</span>
                   </label>
                   <input
-                    ref={dobRef}
-                    type="text"
+                    type="date"
                     name="dateOfBirth"
                     id="dateOfBirth"
-                    className="form-control bg-body-secondary"
+                    className="form-control"
+                    onChange={handleChange}
+                    value={retrievedData?.dateOfBirth}
                     required
-                    readOnly
-                    value={"08 January 1999"}
+                  />
+                </div>
+
+                <div className="col-md-4">
+                  <label htmlFor="email" className="form-label fw-bold">
+                    EMAIL: <span className="text-danger">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    className="form-control"
+                    onChange={handleChange}
+                    value={retrievedData?.email}
+                    required
                   />
                 </div>
 
                 <hr className="my-2 invisible" />
 
-                <div className="col-md-8">
+                <div className="col-md-12">
                   <label htmlFor="address" className="form-label fw-bold">
-                    ADDRESS (House No./Street):
+                    ADDRESS (House No./Street):{" "}
+                    <span className="text-danger">*</span>
                   </label>
                   <input
                     type="text"
@@ -263,9 +268,33 @@ const PersonalInformation = ({
                     required
                   />
                 </div>
-                <div className="col-md-4">
+
+                <hr className="my-2 invisible" />
+
+                <div className="col-md-6">
+                  <label htmlFor="district" className="form-label fw-bold">
+                    DISCTRICT: <span className="text-danger">*</span>
+                  </label>
+                  <select
+                    name="district"
+                    id="district"
+                    className="form-select"
+                    onChange={handleChange}
+                    value={retrievedData?.district}
+                    required
+                  >
+                    <option value="1" onClick={() => setDistrictLevel("one")}>
+                      1
+                    </option>
+                    <option value="2" onClick={() => setDistrictLevel("two")}>
+                      2
+                    </option>
+                  </select>
+                </div>
+
+                <div className="col-md-6">
                   <label htmlFor="barangay" className="form-label fw-bold">
-                    BARANGAY:
+                    BARANGAY: <span className="text-danger">*</span>
                   </label>
                   <select
                     name="barangay"
@@ -275,13 +304,53 @@ const PersonalInformation = ({
                     value={retrievedData?.barangay}
                     required
                   >
-                    <option selected="selected" disabled>
-                      Open this select menu
-                    </option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    {barangayOptions[districtLevel].map((brgy, i) => (
+                      <>
+                        <option key={i} value={brgy}>
+                          {brgy}
+                        </option>
+                      </>
+                    ))}
                   </select>
+                </div>
+
+                <hr className="my-2 invisible" />
+
+                <div className="col-md-6">
+                  <label htmlFor="barangay" className="form-label fw-bold">
+                    RELIGION: <span className="text-danger">*</span>
+                  </label>
+                  <select
+                    name="religion"
+                    id="religion"
+                    className="form-select"
+                    onChange={handleChange}
+                    value={retrievedData?.religion}
+                    required
+                  >
+                    {religionOptions.map((religionName, i) => (
+                      <>
+                        <option key={i} value={religionName}>
+                          {religionName}
+                        </option>
+                      </>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="col-md-6">
+                  <label htmlFor="fb_link" className="form-label fw-bold">
+                    FB LINK: <span className="text-danger">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="fb_link"
+                    id="fb_link"
+                    className="form-control"
+                    onChange={handleChange}
+                    value={retrievedData?.fb_link}
+                    required
+                  />
                 </div>
               </div>
             </div>

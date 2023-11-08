@@ -51,11 +51,8 @@ const StartApp = () => {
 
   useEffect(() => {
     const handleIdGeneration = () => {
-      // const numGenerator = () => {
-      //   return Math.ceil(Math.random() * 100000);
-      // };
       const currentYear = new Date().getFullYear();
-      const scholarId = `S-${currentYear}-${numGenerator}`;
+      const scholarId = `${currentYear}-APP-${numGenerator}`;
       setGeneratedId(scholarId);
     };
     handleIdGeneration();

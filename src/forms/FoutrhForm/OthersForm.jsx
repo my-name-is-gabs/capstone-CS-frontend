@@ -1,4 +1,7 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { PropTypes } from "prop-types";
+import { isMiscInfoValid } from "../../extras/handleFormError";
 
 const OthersForm = ({
   setHelperCount,
@@ -7,11 +10,23 @@ const OthersForm = ({
   state,
   saveProgress,
 }) => {
+  const [error, setError] = useState({});
+  const [openModal, setOpenModal] = useState(false);
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     dispatcher({
-      type: "OTHER_DATA",
+      type: "FORM_DATA",
       payload: { name: e.target.name, value: e.target.value },
     });
+  };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    let errors = isMiscInfoValid(state);
+    setError(errors);
+    if (Object.keys(errors).length > 0) return;
+    setOpenModal(true);
   };
 
   return (
@@ -55,7 +70,12 @@ const OthersForm = ({
       {/* End of stepper */}
 
       {/* <!-- FORMS Under Other Scholastic Information and Requirements --> */}
-      <form id="scholasticInfo" method="post">
+      <form
+        id="scholasticInfo"
+        encType="multipart/form-data"
+        method="post"
+        onSubmit={handleOnSubmit}
+      >
         {/* <!-- FIRST ROW --> */}
         <div className="card cs-bg-secondary-rounded shadow w-75 mx-auto mb-5">
           <div className="card-header cs-bg-fadeblue">
@@ -69,7 +89,7 @@ const OthersForm = ({
                   height={32}
                 />
                 <div className="fs-5 text-white fw-semibold">
-                  SCHOLASTIC INFORMATION
+                  MISCELLANEOUS INFORMATION
                 </div>
               </div>
               <button
@@ -86,25 +106,52 @@ const OthersForm = ({
           </div>
           <div className="card-body">
             <div className="row">
-              <div className="col-md-7">
+              <div className="col-md-12">
                 <label
-                  htmlFor="num_units_enrolled"
+                  htmlFor="registration_form"
                   className="form-label fw-bold"
                 >
-                  NO. UNITS ENROLLED:
+                  REGISTRATION FORM FILE:
                 </label>
                 <input
-                  type="number"
-                  name="num_units_enrolled"
-                  id="num_units_enrolled"
+                  type="file"
+                  name="registration_form"
+                  id="registration_form"
                   className="form-control"
                   onChange={handleChange}
-                  value={state.num_units_enrolled}
                   required
                 />
               </div>
-              <div className="col-md-5">
-                <label htmlFor="isLadderized" className="form-label fw-bold">
+
+              <hr className="my-2 invisible" />
+
+              <div className="col-md-4">
+                <label
+                  htmlFor="total_units_enrolled"
+                  className="form-label fw-bold"
+                >
+                  TOTAL UNITS ENROLLED:
+                </label>
+                {error.total_units_enrolled && (
+                  <>
+                    <span className="ms-2 text-danger">
+                      {error.total_units_enrolled}
+                    </span>
+                  </>
+                )}
+                <input
+                  type="number"
+                  name="total_units_enrolled"
+                  id="total_units_enrolled"
+                  className="form-control"
+                  onChange={handleChange}
+                  value={state.total_units_enrolled}
+                  required
+                />
+              </div>
+
+              <div className="col-md-4">
+                <label htmlFor="is_ladderized" className="form-label fw-bold">
                   LADDERIZED:
                 </label>
                 <br />
@@ -112,13 +159,13 @@ const OthersForm = ({
                   <input
                     className="form-check-input"
                     type="radio"
-                    name="isLadderized"
-                    id="isLadderized"
-                    value={state.isLadderized ?? "yes"}
+                    name="is_ladderized"
+                    id="is_ladderized"
+                    value={state.is_ladderized ?? "True"}
                     onChange={handleChange}
                     required
                   />
-                  <label className="form-check-label" htmlFor="isLadderized">
+                  <label className="form-check-label" htmlFor="is_ladderized">
                     Yes
                   </label>
                 </div>
@@ -126,61 +173,46 @@ const OthersForm = ({
                   <input
                     className="form-check-input"
                     type="radio"
-                    name="isLadderized"
-                    id="isLadderized"
-                    value={state.isLadderized ?? "no"}
+                    name="is_ladderized"
+                    id="is_ladderized"
+                    value={state.is_ladderized ?? "False"}
                     onChange={handleChange}
                     required
                   />
-                  <label className="form-check-label" htmlFor="isLadderized">
+                  <label className="form-check-label" htmlFor="is_ladderized">
                     No
                   </label>
                 </div>
               </div>
 
-              <hr className="my-2 invisible" />
-
-              <div className="col-md-6">
+              <div className="col-md-4">
                 <label
-                  htmlFor="num_sem_remaining"
+                  htmlFor="number_of_semesters_before_graduating"
                   className="form-label fw-bold"
                 >
                   NO. OF SEMESERS REMAINING:
                 </label>
+                {error.number_of_semesters_before_graduating && (
+                  <>
+                    <span className="ms-2 text-danger">
+                      {error.number_of_semesters_before_graduating}
+                    </span>
+                  </>
+                )}
                 <input
                   type="number"
-                  name="num_sem_remaining"
-                  id="num_sem_remaining"
+                  name="number_of_semesters_before_graduating"
+                  id="number_of_semesters_before_graduating"
                   className="form-control"
-                  value={state.num_sem_remaining}
+                  value={state.number_of_semesters_before_graduating}
                   onChange={handleChange}
                   required
                 />
               </div>
-              <div className="col-md-6">
-                <label htmlFor="student_status" className="form-label fw-bold">
-                  STUDENT STATUS:
-                </label>
-                <select
-                  name="student_status"
-                  id="student_status"
-                  className="form-select"
-                  value={state.student_status}
-                  onChange={handleChange}
-                  required
-                >
-                  <option selected="selected" disabled>
-                    Open this select menu
-                  </option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
-              </div>
 
               <hr className="my-2 invisible" />
 
-              <div className="col-md-6">
+              <div className="col-md-4">
                 <label htmlFor="transferee" className="form-label fw-bold">
                   TRANSFEREE:
                 </label>
@@ -195,7 +227,8 @@ const OthersForm = ({
                   required
                 />
               </div>
-              <div className="col-md-6">
+
+              <div className="col-md-4">
                 <label htmlFor="shiftee" className="form-label fw-bold">
                   SHIFTEE:
                 </label>
@@ -209,6 +242,34 @@ const OthersForm = ({
                   onChange={handleChange}
                   required
                 />
+              </div>
+
+              <div className="col-md-4">
+                <label htmlFor="student_status" className="form-label fw-bold">
+                  STUDENT STATUS:
+                </label>
+                {error.student_status && (
+                  <>
+                    <span className="ms-2 text-danger">
+                      {error.student_status}
+                    </span>
+                  </>
+                )}
+                <select
+                  name="student_status"
+                  id="student_status"
+                  className="form-select"
+                  value={state.student_status}
+                  onChange={handleChange}
+                  required
+                >
+                  <option selected="selected" defaultValue={null}>
+                    Open this select menu
+                  </option>
+                  <option value="REGULAR">Regular</option>
+                  <option value="IRREGULAR">Irregular</option>
+                  <option value="OCTOBERIAN">Octoberian</option>
+                </select>
               </div>
             </div>
           </div>
@@ -248,34 +309,58 @@ const OthersForm = ({
             >
               Back
             </button>
-            <button
-              type="button"
-              className="btn cs-btn-primary fw-bold fs-5 shadow-sm px-5"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-            >
-              Finish
+            <button className="btn cs-btn-primary fw-bold fs-5 shadow-sm px-5">
+              Submit
             </button>
           </div>
         </div>
       </form>
       {/* <!-- End of FORMS Under Other Scholastic Information and Requirements --> */}
 
-      {/* <!-- Buttons Per Sections --> */}
-      {/* <div className="mt-5 d-flex justify-content-end align-items-center w-75 mx-auto mb-5">
-        <div className="d-flex gap-3">
-          <a className="btn cs-btn-secondary fw-bold fs-5 shadow-sm px-5">
-            Cancel
-          </a>
-          <a
-            className="btn cs-btn-primary fw-bold fs-5 shadow-sm px-5"
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
-          >
-            Finish
-          </a>
+      {openModal && (
+        <div className="cs-modal-container">
+          <div className="cs-modal">
+            <div className="cs-modal-header">
+              <h1 className="modal-title fs-5 fw-bold" id="exampleModalLabel">
+                AGREEMENT
+              </h1>
+              <button
+                type="button"
+                className="btn-close"
+                aria-label="Close"
+                onClick={() => setOpenModal(false)}
+              ></button>
+            </div>
+            <div className="cs-modal-body">
+              <p className="p-3">
+                I hereby certify that <b>ALL</b> the answers given above are
+                <b> TRUE</b> and <b>CORRECT</b>. I further acknowledge that{" "}
+                <b>
+                  ANY ACT OF DISHONESTY OR FALSIFICATION MAY BE A GROUND FOR MY
+                  DISQUALIFICATION
+                </b>{" "}
+                from this scholarship program. I also understand that this
+                submission of application does <b>NOT AUTOMATICALLY QUALIFY</b>{" "}
+                me for the scholarship grant and that I will abide by the
+                decision of the ABC City Scholarship Screening Committee.
+              </p>
+            </div>
+            <div className="cs-modal-footer">
+              <button
+                className="btn cs-btn-primary fw-bold fs-5 shadow-sm px-4"
+                onClick={() => {
+                  console.log(state);
+                  localStorage.removeItem("encryptedFormData");
+                  localStorage.removeItem("formSecurityAccessData");
+                  navigate("/success");
+                }}
+              >
+                I Understand
+              </button>
+            </div>
+          </div>
         </div>
-      </div> */}
+      )}
     </>
   );
 };

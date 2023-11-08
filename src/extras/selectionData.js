@@ -1,0 +1,43 @@
+export const barangayOptions = {
+  one: [
+    "Bagumbayan",
+    "Bambang",
+    "Calzada",
+    "Hagonoy",
+    "Ibayo Tipas",
+    "Ligid Tipas",
+    "Lower Bicutan",
+    "New Lower Bicutan",
+    "Napindan",
+    "Palingon",
+    "San Miguel",
+    "Santa Ana",
+    "Tuktukan",
+    "Ususan",
+    "Wawa",
+  ],
+  two: [
+    "Bagong Tanyag",
+    "Central Bicutan",
+    "Central Signal Village",
+    "Fort Bonifacio",
+    "Katuparan",
+    "Maharlika Village",
+    "North Daang Hari",
+    "North Signal Village",
+    "Pinagsama",
+    "South Daang Hari",
+    "South Signal Village",
+    "Upper Bicutan",
+    "Western Bicutan",
+  ],
+};
+
+export const religionOptions = [
+  "ROMAN CATHOLIC",
+  "PROTESTANT",
+  "BAPTIST",
+  "IGLESIA NI CRISTO",
+  "ISLAM",
+  "EVANGELICAL CHRISTIAN",
+];
