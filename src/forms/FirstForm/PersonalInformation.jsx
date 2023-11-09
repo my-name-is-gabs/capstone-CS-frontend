@@ -22,20 +22,12 @@ const PersonalInformation = ({
     });
   };
 
-  // const handleDefaultValues = () => {
-  //   dispatcher({
-  //     type: "FORM_DATA",
-  //     payload: { name: fNameRef.current.name, value: fNameRef.current.value },
-  //   });
-  //   dispatcher({
-  //     type: "FORM_DATA",
-  //     payload: { name: mNameRef.current.name, value: mNameRef.current.value },
-  //   });
-  //   dispatcher({
-  //     type: "FORM_DATA",
-  //     payload: { name: lNameRef.current.name, value: lNameRef.current.value },
-  //   });
-  // };
+  const handleFile = (e) => {
+    dispatcher({
+      type: "FILE_DATA",
+      payload: { name: e.target.name, value: e.target.files[0] },
+    });
+  };
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -129,7 +121,7 @@ const PersonalInformation = ({
                     type="file"
                     id="national_id"
                     name="national_id"
-                    onChange={handleChange}
+                    onChange={handleFile}
                   />
                 </div>
 
@@ -271,6 +263,9 @@ const PersonalInformation = ({
                     value={state.barangay}
                     required
                   >
+                    <option selected defaultValue>
+                      Select a Barangay...
+                    </option>
                     {districtLevel &&
                       barangayOptions[districtLevel].map((brgy, i) => (
                         <>
@@ -298,7 +293,7 @@ const PersonalInformation = ({
                     required
                   >
                     <option selected defaultValue>
-                      Choose a religion...
+                      Select a religion...
                     </option>
                     {religionOptions.map((religionName, i) => (
                       <>

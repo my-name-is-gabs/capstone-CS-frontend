@@ -56,6 +56,12 @@ export const formReducer = (state, { type, payload }) => {
         [payload.name]: payload.value,
       };
 
+    case "FILE_DATA":
+      return {
+        ...state,
+        [payload.name]: payload.value,
+      };
+
     default:
       return state;
   }

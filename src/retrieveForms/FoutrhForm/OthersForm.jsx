@@ -4,13 +4,7 @@ import { PropTypes } from "prop-types";
 import { isMiscInfoValid } from "../../extras/handleFormError";
 import { SubmitButton } from "../../components";
 
-const OthersForm = ({
-  setHelperCount,
-  setStepCount,
-  dispatcher,
-  retrievedData,
-  state,
-}) => {
+const OthersForm = ({ setHelperCount, setStepCount, dispatcher, state }) => {
   const [error, setError] = useState({});
   const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
@@ -22,9 +16,16 @@ const OthersForm = ({
     });
   };
 
+  const handleFile = (e) => {
+    dispatcher({
+      type: "FILE_DATA",
+      payload: { name: e.target.name, value: e.target.files[0] },
+    });
+  };
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    let errors = isMiscInfoValid(retrievedData);
+    let errors = isMiscInfoValid(state);
     setError(errors);
     if (Object.keys(errors).length > 0) return;
     setOpenModal(true);
@@ -119,7 +120,7 @@ const OthersForm = ({
                   name="registration_form"
                   id="registration_form"
                   className="form-control"
-                  onChange={handleChange}
+                  onChange={handleFile}
                   required
                 />
               </div>
@@ -133,20 +134,16 @@ const OthersForm = ({
                 >
                   TOTAL UNITS ENROLLED: <span className="text-danger">*</span>
                 </label>
-                {error.total_units_enrolled && (
-                  <>
-                    <span className="ms-2 text-danger">
-                      {error.total_units_enrolled}
-                    </span>
-                  </>
-                )}
+                <span className="ms-2 text-danger">
+                  {error?.total_units_enrolled}
+                </span>
                 <input
                   type="number"
                   name="total_units_enrolled"
                   id="total_units_enrolled"
                   className="form-control"
                   onChange={handleChange}
-                  value={retrievedData?.total_units_enrolled}
+                  value={state.total_units_enrolled}
                   required
                 />
               </div>
@@ -162,7 +159,7 @@ const OthersForm = ({
                     type="radio"
                     name="is_ladderized"
                     id="is_ladderized"
-                    value={retrievedData?.is_ladderized ?? "True"}
+                    value={state.is_ladderized ?? "True"}
                     onChange={handleChange}
                     required
                   />
@@ -176,7 +173,7 @@ const OthersForm = ({
                     type="radio"
                     name="is_ladderized"
                     id="is_ladderized"
-                    value={retrievedData?.is_ladderized ?? "False"}
+                    value={state.is_ladderized ?? "False"}
                     onChange={handleChange}
                     required
                   />
@@ -206,7 +203,7 @@ const OthersForm = ({
                   name="number_of_semesters_before_graduating"
                   id="number_of_semesters_before_graduating"
                   className="form-control"
-                  value={retrievedData?.number_of_semesters_before_graduating}
+                  value={state.number_of_semesters_before_graduating}
                   onChange={handleChange}
                   required
                 />
@@ -224,7 +221,7 @@ const OthersForm = ({
                   id="transferee"
                   className="form-control"
                   placeholder="Name of the last school attended"
-                  value={retrievedData?.transferee}
+                  value={state.transferee}
                   onChange={handleChange}
                   required
                 />
@@ -240,7 +237,7 @@ const OthersForm = ({
                   id="shiftee"
                   className="form-control"
                   placeholder="Name of the last school attended"
-                  value={retrievedData?.shiftee}
+                  value={state.shiftee}
                   onChange={handleChange}
                   required
                 />
@@ -261,7 +258,7 @@ const OthersForm = ({
                   name="student_status"
                   id="student_status"
                   className="form-select"
-                  value={retrievedData?.student_status}
+                  value={state.student_status}
                   onChange={handleChange}
                   required
                 >
@@ -279,7 +276,7 @@ const OthersForm = ({
         {/* <!-- END OF FIRST ROW --> */}
 
         {/* <!-- Buttons Per Sections --> */}
-        <div className="mt-5 d-flex justify-content-between align-items-center w-75 mx-auto mb-5">
+        <div className="mt-5 d-flex justify-content-end align-items-center w-75 mx-auto mb-5">
           <div className="d-flex gap-3">
             <button
               type="button"

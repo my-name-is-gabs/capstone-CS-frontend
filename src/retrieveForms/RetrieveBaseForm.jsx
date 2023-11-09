@@ -3,8 +3,7 @@ import EducationalBackground from "./SecondForm/EducationalBackground";
 import FamilyBackground from "./ThirdForm/FamilyBackground";
 import OthersForm from "./FoutrhForm/OthersForm";
 import helperMenuContents from "../extras/helperData";
-import { useState, useReducer, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useState, useReducer, useEffect, useLayoutEffect } from "react";
 import { formReducer, INITIAL_STATE } from "../reducer/formReducer";
 import CryptoJS from "crypto-js";
 
@@ -13,30 +12,7 @@ const RetrieveBaseForm = () => {
   const [stepCount, setStepCount] = useState(1);
   const [scholarId, setScholarId] = useState("");
   const [state, dispatch] = useReducer(formReducer, INITIAL_STATE);
-  const [retrievedFormData, setRetrieveFormData] = useState(null);
-  const location = useLocation();
-
-  useEffect(() => {
-    const handleBeforeUnload = (e) => {
-      e.preventDefault();
-      const encryptFormData = CryptoJS.AES.encrypt(
-        JSON.stringify(state),
-        import.meta.env.VITE_SECRET_KEY
-      );
-      localStorage.setItem("encryptedFormData", encryptFormData);
-      e.returnValue = "";
-    };
-
-    if (location.pathname === "/forms") {
-      window.addEventListener("beforeunload", handleBeforeUnload, {
-        capture: true,
-      });
-    }
-
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, [state, location]);
+  const [retrievedFormData, setRetrieveFormData] = useState({});
 
   useEffect(() => {
     const getScholarId = localStorage.getItem("formSecurityAccessData")
@@ -57,7 +33,7 @@ const RetrieveBaseForm = () => {
     ///
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const getEncryptData = localStorage.getItem("encryptedFormData");
     const decryptFormData = CryptoJS.AES.decrypt(
       getEncryptData,
@@ -66,16 +42,9 @@ const RetrieveBaseForm = () => {
     setRetrieveFormData(
       JSON.parse(decryptFormData.toString(CryptoJS.enc.Utf8))
     );
-  }, [retrievedFormData]);
 
-  const saveProgress = () => {
-    const encryptFormData = CryptoJS.AES.encrypt(
-      JSON.stringify(state),
-      import.meta.env.VITE_SECRET_KEY
-    );
-    localStorage.setItem("encryptedFormData", encryptFormData);
-    alert("Progress Saved!");
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const PageDisplay = (step) => {
     switch (step) {
@@ -85,6 +54,7 @@ const RetrieveBaseForm = () => {
             setHelperCount={setHelperCount}
             setStepCount={setStepCount}
             dispatcher={dispatch}
+            state={state}
             retrievedData={retrievedFormData}
           />
         );
@@ -94,7 +64,7 @@ const RetrieveBaseForm = () => {
             setHelperCount={setHelperCount}
             setStepCount={setStepCount}
             dispatcher={dispatch}
-            retrievedData={retrievedFormData}
+            state={state}
           />
         );
       case 3:
@@ -103,8 +73,7 @@ const RetrieveBaseForm = () => {
             setHelperCount={setHelperCount}
             setStepCount={setStepCount}
             dispatcher={dispatch}
-            retrievedData={retrievedFormData}
-            saveProgress={saveProgress}
+            state={state}
           />
         );
       case 4:
@@ -113,7 +82,7 @@ const RetrieveBaseForm = () => {
             setHelperCount={setHelperCount}
             setStepCount={setStepCount}
             dispatcher={dispatch}
-            retrievedData={retrievedFormData}
+            state={state}
           />
         );
     }

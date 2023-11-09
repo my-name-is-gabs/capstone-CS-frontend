@@ -4,7 +4,7 @@ import FamilyBackground from "./ThirdForm/FamilyBackground";
 import OthersForm from "./FoutrhForm/OthersForm";
 import helperMenuContents from "../extras/helperData";
 import { useState, useReducer, useEffect } from "react";
-// import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { formReducer, INITIAL_STATE } from "../reducer/formReducer";
 import CryptoJS from "crypto-js";
 
@@ -13,28 +13,29 @@ const BaseForm = () => {
   const [stepCount, setStepCount] = useState(1);
   const [scholarId, setScholarId] = useState("");
   const [state, dispatch] = useReducer(formReducer, INITIAL_STATE);
-  // const location = useLocation();
+  const location = useLocation();
 
-  // useEffect(() => {
-  //   const handleBeforeUnload = (e) => {
-  //     e.preventDefault();
-  //     const encryptFormData = CryptoJS.AES.encrypt(
-  //       JSON.stringify(state),
-  //       import.meta.env.VITE_SECRET_KEY
-  //     );
-  //     localStorage.setItem("encryptedFormData", encryptFormData);
-  //     e.returnValue = "";
-  //   };
-  //   if (location.pathname === "/forms") {
-  //     window.addEventListener("beforeunload", handleBeforeUnload, {
-  //       capture: true,
-  //     });
-  //   }
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      e.preventDefault();
+      const encryptFormData = CryptoJS.AES.encrypt(
+        JSON.stringify(state),
+        import.meta.env.VITE_SECRET_KEY
+      );
+      localStorage.setItem("encryptedFormData", encryptFormData);
+      e.returnValue = "";
+    };
 
-  //   return () => {
-  //     window.removeEventListener("beforeunload", handleBeforeUnload);
-  //   };
-  // }, [state, location]);
+    if (window.location.pathname === "/forms") {
+      window.addEventListener("beforeunload", handleBeforeUnload, {
+        capture: true,
+      });
+    }
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [state, location]);
 
   useEffect(() => {
     const handleOffline = (e) => {
@@ -139,17 +140,6 @@ const BaseForm = () => {
           </div>
         </div>
         {PageDisplay(stepCount)}
-        {/* <div className="mt-5 d-flex justify-content-end align-items-center w-75 mx-auto mb-5">
-          <div className="d-flex gap-3">
-            {FormReturnButton()}
-            {FormProceedButton()}
-          </div>
-        </div> */}
-        {/* <div className="mt-5 d-flex justify-content-start align-items-center w-75 mx-auto mb-5">
-          <button className="btn btn-success rounded-pill cs-btn-border fw-bold fs-5 shadow-sm px-5 mb-5">
-            Save
-          </button>
-        </div> */}
       </div>
 
       {/* Offcanvas */}

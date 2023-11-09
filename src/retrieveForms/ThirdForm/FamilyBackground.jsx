@@ -8,7 +8,7 @@ const FamilyBackground = ({
   setHelperCount,
   setStepCount,
   dispatcher,
-  retrievedData,
+  state,
 }) => {
   const [error, setError] = useState({});
 
@@ -21,7 +21,7 @@ const FamilyBackground = ({
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    let errors = isGuardianInfoValid(retrievedData);
+    let errors = isGuardianInfoValid(state);
     setError(errors);
     if (Object.keys(errors).length > 0) return;
     setStepCount((step) => step + 1);
@@ -116,7 +116,7 @@ const FamilyBackground = ({
                   name="guardian_complete_name"
                   id="guardian_complete_name"
                   className="form-control"
-                  value={retrievedData?.guardian_complete_name}
+                  value={state.guardian_complete_name}
                   onChange={handleChange}
                   required
                 />
@@ -136,7 +136,7 @@ const FamilyBackground = ({
                   name="guardian_complete_address"
                   id="guardian_complete_address"
                   className="form-control"
-                  value={retrievedData?.guardian_complete_address}
+                  value={state.guardian_complete_address}
                   onChange={handleChange}
                   required
                 />
@@ -163,7 +163,7 @@ const FamilyBackground = ({
                   name="guardian_contact_number"
                   id="guardian_contact_number"
                   className="form-control"
-                  value={retrievedData?.guardian_contact_number}
+                  value={state.guardian_contact_number}
                   onChange={handleChange}
                   required
                 />
@@ -181,7 +181,7 @@ const FamilyBackground = ({
                   name="guardian_occupation"
                   id="guardian_occupation"
                   className="form-control"
-                  value={retrievedData?.guardian_occupation}
+                  value={state.guardian_occupation}
                   onChange={handleChange}
                   required
                 />
@@ -199,7 +199,7 @@ const FamilyBackground = ({
                   name="guardian_place_of_work"
                   id="guardian_place_of_work"
                   className="form-control"
-                  value={retrievedData?.guardian_place_of_work}
+                  value={state.guardian_place_of_work}
                   onChange={handleChange}
                   required
                 />
@@ -219,7 +219,7 @@ const FamilyBackground = ({
                   name="guardian_educational_attainment"
                   id="guardian_educational_attainment"
                   className="form-control"
-                  value={retrievedData?.guardian_educational_attainment}
+                  value={state.guardian_educational_attainment}
                   onChange={handleChange}
                   required
                 />
@@ -249,7 +249,7 @@ const FamilyBackground = ({
         {/* <!-- END OF FIRST ROW --> */}
 
         {/* <!-- Buttons Per Sections --> */}
-        <div className="mt-5 d-flex justify-content-between align-items-center w-75 mx-auto mb-5">
+        <div className="mt-5 d-flex justify-content-end align-items-center w-75 mx-auto mb-5">
           <div className="d-flex gap-3">
             <button
               type="button"
@@ -271,7 +271,7 @@ FamilyBackground.propTypes = {
   setHelperCount: PropTypes.func,
   setStepCount: PropTypes.func,
   dispatcher: PropTypes.func,
-  retrievedData: PropTypes.object,
+  state: PropTypes.object,
   saveProgress: PropTypes.func,
 };
 

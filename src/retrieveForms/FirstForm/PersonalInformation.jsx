@@ -1,6 +1,6 @@
 import { PropTypes } from "prop-types";
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { SubmitButton } from "../../components";
 import { barangayOptions, religionOptions } from "../../extras/selectionData";
 import { isPersonalInfoValid } from "../../extras/handleFormError";
@@ -9,10 +9,21 @@ const PersonalInformation = ({
   setHelperCount,
   setStepCount,
   dispatcher,
+  state,
   retrievedData,
 }) => {
   const [districtLevel, setDistrictLevel] = useState("");
   const [error, setError] = useState({});
+
+  useLayoutEffect(() => {
+    Object.entries(retrievedData).forEach((entry) => {
+      const [key, value] = entry;
+      dispatcher({
+        type: "FORM_DATA",
+        payload: { name: key, value: value },
+      });
+    });
+  }, [dispatcher, retrievedData]);
 
   const handleChange = (e) => {
     dispatcher({
@@ -21,9 +32,16 @@ const PersonalInformation = ({
     });
   };
 
+  const handleFile = ({ target }) => {
+    dispatcher({
+      type: "FILE_DATA",
+      payload: { name: target.name, value: target.files[0] },
+    });
+  };
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    let errors = isPersonalInfoValid(retrievedData);
+    let errors = isPersonalInfoValid(state);
     setError(errors);
     if (Object.keys(errors).length > 0) return;
     setStepCount((step) => step + 1);
@@ -113,7 +131,7 @@ const PersonalInformation = ({
                     type="file"
                     id="national_id"
                     name="national_id"
-                    onChange={handleChange}
+                    onChange={handleFile}
                   />
                 </div>
 
@@ -129,7 +147,7 @@ const PersonalInformation = ({
                     id="scholar_type"
                     className="form-select"
                     onChange={handleChange}
-                    value={retrievedData?.scholar_type}
+                    value={state.scholar_type}
                     required
                   >
                     <option selected="selected" defaultValue>
@@ -156,7 +174,7 @@ const PersonalInformation = ({
                     id="sex"
                     className="form-select"
                     onChange={handleChange}
-                    value={retrievedData?.sex}
+                    value={state.sex}
                     required
                   >
                     <option selected defaultValue>
@@ -177,7 +195,7 @@ const PersonalInformation = ({
                     id="dateOfBirth"
                     className="form-control"
                     onChange={handleChange}
-                    value={retrievedData?.dateOfBirth}
+                    value={state.dateOfBirth}
                     required
                   />
                 </div>
@@ -192,7 +210,7 @@ const PersonalInformation = ({
                     id="email"
                     className="form-control"
                     onChange={handleChange}
-                    value={retrievedData?.email}
+                    value={state.email}
                     required
                   />
                 </div>
@@ -210,7 +228,7 @@ const PersonalInformation = ({
                     id="address"
                     className="form-control"
                     onChange={handleChange}
-                    value={retrievedData?.address}
+                    value={state.address}
                     required
                   />
                 </div>
@@ -227,7 +245,7 @@ const PersonalInformation = ({
                     id="district"
                     className="form-select"
                     onChange={handleChange}
-                    value={retrievedData?.district}
+                    value={state.district}
                     required
                   >
                     <option selected defaultValue>
@@ -252,9 +270,12 @@ const PersonalInformation = ({
                     id="barangay"
                     className="form-select"
                     onChange={handleChange}
-                    value={retrievedData?.barangay}
+                    value={state.barangay}
                     required
                   >
+                    <option selected defaultValue={null}>
+                      Select a barangay...
+                    </option>
                     {districtLevel &&
                       barangayOptions[districtLevel].map((brgy, i) => (
                         <>
@@ -277,12 +298,12 @@ const PersonalInformation = ({
                     name="religion"
                     id="religion"
                     className="form-select"
+                    value={state.religion}
                     onChange={handleChange}
-                    value={retrievedData?.religion}
                     required
                   >
                     <option selected defaultValue>
-                      Choose a religion...
+                      Select a religion...
                     </option>
                     {religionOptions.map((religionName, i) => (
                       <>
@@ -304,7 +325,7 @@ const PersonalInformation = ({
                     id="fb_link"
                     className="form-control"
                     onChange={handleChange}
-                    value={retrievedData?.fb_link}
+                    value={state.fb_link}
                     required
                   />
                 </div>
@@ -313,15 +334,7 @@ const PersonalInformation = ({
           </div>
 
           {/* <!-- Buttons Per Sections --> */}
-          <div className="mt-5 d-flex justify-content-between align-items-center w-75 mx-auto mb-5">
-            <div className="align-self-start">
-              <button
-                type="button"
-                className="btn btn-success rounded-pill cs-btn-border fw-bold fs-5 shadow-sm px-5"
-              >
-                Save Progress
-              </button>
-            </div>
+          <div className="mt-5 d-flex justify-content-end align-items-center w-75 mx-auto mb-5">
             <div className="d-flex gap-3">
               <NavLink
                 to="/startscholar"
@@ -343,6 +356,7 @@ PersonalInformation.propTypes = {
   setHelperCount: PropTypes.func,
   setStepCount: PropTypes.func,
   dispatcher: PropTypes.func,
+  state: PropTypes.object,
   retrievedData: PropTypes.object,
 };
 

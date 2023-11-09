@@ -8,7 +8,7 @@ const EducationalBackground = ({
   setHelperCount,
   setStepCount,
   dispatcher,
-  retrievedData,
+  state,
 }) => {
   const [error, setError] = useState({});
 
@@ -21,7 +21,7 @@ const EducationalBackground = ({
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    let errors = isEducInfoValid(retrievedData);
+    let errors = isEducInfoValid(state);
     setError(errors);
     if (Object.keys(errors).length > 0) return;
     setStepCount((step) => step + 1);
@@ -112,7 +112,7 @@ const EducationalBackground = ({
                   id="university_attending"
                   className="form-control"
                   onChange={handleChange}
-                  value={retrievedData?.university_attending}
+                  value={state.university_attending}
                   required
                 />
               </div>
@@ -127,7 +127,7 @@ const EducationalBackground = ({
                   id="course_taking"
                   className="form-control"
                   onChange={handleChange}
-                  value={retrievedData?.course_taking}
+                  value={state.course_taking}
                   required
                 />
               </div>
@@ -145,7 +145,7 @@ const EducationalBackground = ({
                   id="year_level"
                   className="form-control"
                   onChange={handleChange}
-                  value={retrievedData?.year_level}
+                  value={state.year_level}
                   required
                 />
               </div>
@@ -161,7 +161,7 @@ const EducationalBackground = ({
                     type="radio"
                     name="is_graduating"
                     id="is_graduating"
-                    value={retrievedData?.is_graduating ?? "True"}
+                    value="True"
                     onChange={handleChange}
                     required
                   />
@@ -175,7 +175,7 @@ const EducationalBackground = ({
                     type="radio"
                     name="is_graduating"
                     id="is_graduating"
-                    value={retrievedData?.is_graduating ?? "False"}
+                    value="False"
                     onChange={handleChange}
                     required
                   />
@@ -189,19 +189,15 @@ const EducationalBackground = ({
                 <label htmlFor="course_duration" className="form-label fw-bold">
                   COURSE DURATION: <span className="text-danger">*</span>
                 </label>
-                {error.course_duration && (
-                  <>
-                    <span className="ms-2 text-danger">
-                      {error.course_duration}
-                    </span>
-                  </>
-                )}
+                <span className="ms-2 text-danger">
+                  {error?.course_duration}
+                </span>
                 <select
                   name="course_duration"
                   id="course_duration"
                   className="form-select"
                   onChange={handleChange}
-                  value={retrievedData?.course_duration}
+                  value={state.course_duration}
                   required
                 >
                   <option selected defaultValue={null}>
@@ -249,7 +245,7 @@ const EducationalBackground = ({
                   name="elementary_school"
                   id="elementary_school"
                   className="form-control"
-                  value={retrievedData?.elementary_school}
+                  value={state.elementary_school}
                   onChange={handleChange}
                   required
                 />
@@ -269,7 +265,7 @@ const EducationalBackground = ({
                     type="radio"
                     name="elementary_school_type"
                     id="elementary_school_type"
-                    value={retrievedData?.elementary_school_type ?? "private"}
+                    value="private"
                     onChange={handleChange}
                     required
                   />
@@ -284,9 +280,9 @@ const EducationalBackground = ({
                   <input
                     className="form-check-input"
                     type="radio"
-                    name="shs_school_type"
-                    id="shs_school_type"
-                    value={retrievedData?.elementary_school_type ?? "public"}
+                    name="elementary_school_type"
+                    id="elementary_school_type"
+                    value="public"
                     onChange={handleChange}
                     required
                   />
@@ -313,7 +309,10 @@ const EducationalBackground = ({
                   name="elementary_school_address"
                   id="elementary_school_address"
                   className="form-control"
-                  value={retrievedData?.elementary_school_address}
+                  value={
+                    state.elementary_school_address ||
+                    state.elementary_school_address
+                  }
                   onChange={handleChange}
                   required
                 />
@@ -332,7 +331,7 @@ const EducationalBackground = ({
                   name="elementary_start_end"
                   id="elementary_start_end"
                   className="form-control"
-                  value={retrievedData?.elementary_start_end}
+                  value={state.elementary_start_end}
                   onChange={handleChange}
                   required
                 />
@@ -371,7 +370,7 @@ const EducationalBackground = ({
                   name="jhs_school"
                   id="jhs_school"
                   className="form-control"
-                  value={retrievedData?.jhs_school}
+                  value={state.jhs_school}
                   onChange={handleChange}
                   required
                 />
@@ -388,7 +387,7 @@ const EducationalBackground = ({
                     type="radio"
                     name="jhs_school_type"
                     id="jhs_school_type"
-                    value={retrievedData?.jhs_school_type ?? "private"}
+                    value="private"
                     onChange={handleChange}
                     required
                   />
@@ -400,9 +399,9 @@ const EducationalBackground = ({
                   <input
                     className="form-check-input"
                     type="radio"
-                    name="shs_school_type"
-                    id="shs_school_type"
-                    value={retrievedData?.jhs_school_type ?? "public"}
+                    name="jhs_school_type"
+                    id="jhs_school_type"
+                    value="public"
                     onChange={handleChange}
                     required
                   />
@@ -426,7 +425,7 @@ const EducationalBackground = ({
                   name="jhs_school_address"
                   id="jhs_school_address"
                   className="form-control"
-                  value={retrievedData?.jhs_school_address}
+                  value={state.jhs_school_address}
                   onChange={handleChange}
                   required
                 />
@@ -441,7 +440,7 @@ const EducationalBackground = ({
                   name="jhs_start_end"
                   id="jhs_start_end"
                   className="form-control"
-                  value={retrievedData?.jhs_start_end}
+                  value={state.jhs_start_end}
                   onChange={handleChange}
                   required
                 />
@@ -480,7 +479,7 @@ const EducationalBackground = ({
                   name="shs_school"
                   id="shs_school"
                   className="form-control"
-                  value={retrievedData?.shs_school}
+                  value={state.shs_school}
                   onChange={handleChange}
                   required
                 />
@@ -497,7 +496,7 @@ const EducationalBackground = ({
                     type="radio"
                     name="shs_school_type"
                     id="shs_school_type"
-                    value={retrievedData?.shs_school_type ?? "private"}
+                    value={state?.shs_school_type ?? "private"}
                     onChange={handleChange}
                     required
                   />
@@ -511,7 +510,7 @@ const EducationalBackground = ({
                     type="radio"
                     name="shs_school_type"
                     id="shs_school_type"
-                    value={retrievedData?.shs_school_type ?? "public"}
+                    value={state?.shs_school_type ?? "public"}
                     onChange={handleChange}
                     required
                   />
@@ -535,7 +534,7 @@ const EducationalBackground = ({
                   name="shs_school_address"
                   id="shs_school_address"
                   className="form-control"
-                  value={retrievedData?.shs_school_address}
+                  value={state.shs_school_address}
                   onChange={handleChange}
                   required
                 />
@@ -550,7 +549,7 @@ const EducationalBackground = ({
                   name="shs_start_end"
                   id="shs_start_end"
                   className="form-control"
-                  value={retrievedData?.shs_start_end}
+                  value={state.shs_start_end}
                   onChange={handleChange}
                   required
                 />
@@ -561,7 +560,7 @@ const EducationalBackground = ({
         {/* <!-- End of Fourth Row --> */}
 
         {/* <!-- Buttons Per Sections --> */}
-        <div className="mt-5 d-flex justify-content-between align-items-center w-75 mx-auto mb-5">
+        <div className="mt-5 d-flex justify-content-end align-items-center w-75 mx-auto mb-5">
           <div className="d-flex gap-3">
             <button
               type="button"
@@ -583,6 +582,7 @@ EducationalBackground.propTypes = {
   setHelperCount: PropTypes.func,
   setStepCount: PropTypes.func,
   dispatcher: PropTypes.func,
+  state: PropTypes.object,
   retrievedData: PropTypes.object,
   saveProgress: PropTypes.func,
 };

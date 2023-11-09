@@ -22,6 +22,13 @@ const OthersForm = ({
     });
   };
 
+  const handleFile = (e) => {
+    dispatcher({
+      type: "FILE_DATA",
+      payload: { name: e.target.name, value: e.target.files[0] },
+    });
+  };
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
     let errors = isMiscInfoValid(state);
@@ -119,7 +126,7 @@ const OthersForm = ({
                   name="registration_form"
                   id="registration_form"
                   className="form-control"
-                  onChange={handleChange}
+                  onChange={handleFile}
                   required
                 />
               </div>
