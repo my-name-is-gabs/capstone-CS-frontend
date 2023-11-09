@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PropTypes } from "prop-types";
 import { isMiscInfoValid } from "../../extras/handleFormError";
+import { SubmitButton } from "../../components";
 
 const OthersForm = ({
   setHelperCount,
@@ -111,7 +112,7 @@ const OthersForm = ({
                   htmlFor="registration_form"
                   className="form-label fw-bold"
                 >
-                  REGISTRATION FORM FILE:
+                  REGISTRATION FORM FILE: <span className="text-danger">*</span>
                 </label>
                 <input
                   type="file"
@@ -130,7 +131,7 @@ const OthersForm = ({
                   htmlFor="total_units_enrolled"
                   className="form-label fw-bold"
                 >
-                  TOTAL UNITS ENROLLED:
+                  TOTAL UNITS ENROLLED: <span className="text-danger">*</span>
                 </label>
                 {error.total_units_enrolled && (
                   <>
@@ -152,7 +153,7 @@ const OthersForm = ({
 
               <div className="col-md-4">
                 <label htmlFor="is_ladderized" className="form-label fw-bold">
-                  LADDERIZED:
+                  LADDERIZED: <span className="text-danger">*</span>
                 </label>
                 <br />
                 <div className="form-check form-check-inline">
@@ -190,7 +191,8 @@ const OthersForm = ({
                   htmlFor="number_of_semesters_before_graduating"
                   className="form-label fw-bold"
                 >
-                  NO. OF SEMESERS REMAINING:
+                  NO. OF SEMESERS REMAINING:{" "}
+                  <span className="text-danger">*</span>
                 </label>
                 {error.number_of_semesters_before_graduating && (
                   <>
@@ -214,7 +216,7 @@ const OthersForm = ({
 
               <div className="col-md-4">
                 <label htmlFor="transferee" className="form-label fw-bold">
-                  TRANSFEREE:
+                  TRANSFEREE: <span className="text-danger">*</span>
                 </label>
                 <input
                   type="text"
@@ -230,7 +232,7 @@ const OthersForm = ({
 
               <div className="col-md-4">
                 <label htmlFor="shiftee" className="form-label fw-bold">
-                  SHIFTEE:
+                  SHIFTEE: <span className="text-danger">*</span>
                 </label>
                 <input
                   type="text"
@@ -246,7 +248,7 @@ const OthersForm = ({
 
               <div className="col-md-4">
                 <label htmlFor="student_status" className="form-label fw-bold">
-                  STUDENT STATUS:
+                  STUDENT STATUS: <span className="text-danger">*</span>
                 </label>
                 {error.student_status && (
                   <>
@@ -276,20 +278,6 @@ const OthersForm = ({
         </div>
         {/* <!-- END OF FIRST ROW --> */}
 
-        {/* <!-- SECOND ROW --> */}
-        {/* <div className="card cs-bg-secondary-rounded shadow w-75 mx-auto mb-5">
-          <div className="card-header cs-bg-fadeblue">
-            <i className="fa-solid fa-file"></i>
-            <span className="text-white ms-2 fw-bold lead">
-              REQUIRED DOCUMENTS
-            </span>
-          </div>
-          <div className="card-body">
-            <h1>body</h1>
-          </div>
-        </div> */}
-        {/* <!-- END OF SECOND ROW --> */}
-
         {/* <!-- Buttons Per Sections --> */}
         <div className="mt-5 d-flex justify-content-between align-items-center w-75 mx-auto mb-5">
           <div className="align-self-start">
@@ -309,9 +297,7 @@ const OthersForm = ({
             >
               Back
             </button>
-            <button className="btn cs-btn-primary fw-bold fs-5 shadow-sm px-5">
-              Submit
-            </button>
+            <SubmitButton>Submit</SubmitButton>
           </div>
         </div>
       </form>

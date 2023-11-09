@@ -28,6 +28,9 @@ export const isEducInfoValid = (value) => {
   if (!value.course_duration) {
     error.course_duration = "Please enter course duration";
   }
+  if (value.year_level < 1) {
+    error.year_level = "Please insert valid number";
+  }
   return error;
 };
 

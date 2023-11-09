@@ -1,8 +1,9 @@
 import { PropTypes } from "prop-types";
 import { NavLink } from "react-router-dom";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { SubmitButton } from "../../components";
 import { barangayOptions, religionOptions } from "../../extras/selectionData";
+import { isPersonalInfoValid } from "../../extras/handleFormError";
 
 const PersonalInformation = ({
   setHelperCount,
@@ -10,33 +11,22 @@ const PersonalInformation = ({
   dispatcher,
   retrievedData,
 }) => {
-  const fNameRef = useRef(null);
-  const mNameRef = useRef(null);
-  const lNameRef = useRef(null);
-
-  const [districtLevel, setDistrictLevel] = useState("one");
+  const [districtLevel, setDistrictLevel] = useState("");
+  const [error, setError] = useState({});
 
   const handleChange = (e) => {
     dispatcher({
-      type: "PERSONAL_DATA",
+      type: "FORM_DATA",
       payload: { name: e.target.name, value: e.target.value },
     });
-    handleDefaultValues();
   };
 
-  const handleDefaultValues = () => {
-    dispatcher({
-      type: "PERSONAL_DATA",
-      payload: { name: fNameRef.current.name, value: fNameRef.current.value },
-    });
-    dispatcher({
-      type: "PERSONAL_DATA",
-      payload: { name: mNameRef.current.name, value: mNameRef.current.value },
-    });
-    dispatcher({
-      type: "PERSONAL_DATA",
-      payload: { name: lNameRef.current.name, value: lNameRef.current.value },
-    });
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    let errors = isPersonalInfoValid(retrievedData);
+    setError(errors);
+    if (Object.keys(errors).length > 0) return;
+    setStepCount((step) => step + 1);
   };
 
   return (
@@ -84,25 +74,20 @@ const PersonalInformation = ({
 
         <form
           action=""
+          encType="multipart/form-data"
           method="post"
-          onSubmit={(e) => {
-            e.preventDefault();
-            setStepCount((step) => step + 1);
-          }}
+          onSubmit={handleOnSubmit}
         >
-          <div className="card cs-bg-secondary-rounded shadow w-75 mx-auto mb-5">
+          {/* First Row */}
+          <div
+            className={`card cs-bg-secondary-rounded shadow w-75 mx-auto mb-5`}
+          >
             <div className="card-header cs-bg-fadeblue">
               <div className="container d-flex justify-content-between align-items-center">
                 <div className="d-inline-flex gap-3 align-items-center">
-                  <img
-                    src="/assets/icons/Grant.png"
-                    className="img-fluid"
-                    alt="Grant Icon"
-                    width={32}
-                    height={32}
-                  />
+                  <i className="fa-solid fa-user-large fs-3"></i>
                   <div className="fs-5 text-white fw-semibold">
-                    SCHOLARSHIP TYPE
+                    PERSONAL INFORMATION
                   </div>
                 </div>
                 <button
@@ -118,107 +103,68 @@ const PersonalInformation = ({
               </div>
             </div>
             <div className="card-body">
-              <div className="col-md-5">
-                <label htmlFor="scholarshipType" className="form-label fw-bold">
-                  Type:
-                </label>
-                <select
-                  name="scholar_type"
-                  id="scholarshpType"
-                  className="form-select"
-                  onChange={handleChange}
-                  value={retrievedData?.scholar_type}
-                  required
-                >
-                  <option selected="selected" disabled>
-                    Open this select menu...
-                  </option>
-                  <option value="Premier">Premier</option>
-                  <option value="Full">Full</option>
-                  <option value="Priority">Priority</option>
-                  <option value="Basic">Basic</option>
-                  <option value="SUC/LUC">SUC/LUC</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          {/* Second Row */}
-          <div
-            className={`card cs-bg-secondary-rounded shadow w-75 mx-auto mb-5`}
-          >
-            <div className="card-header cs-bg-fadeblue">
-              <div className="container d-flex justify-content-between align-items-center">
-                <div className="d-inline-flex gap-3 align-items-center">
-                  <i className="fa-solid fa-user-large fs-3"></i>
-                  <div className="fs-5 text-white fw-semibold">
-                    PERSONAL INFORMATION
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="card-body">
               <div className="row">
-                <div className="col-md-4">
-                  <label htmlFor="firstname" className="form-label fw-bold">
-                    FIRST NAME:
+                <div className="col-md-6">
+                  <label htmlFor="national_id" className="form-label fw-bold">
+                    Upload National ID: <span className="text-danger">*</span>
                   </label>
                   <input
-                    ref={fNameRef}
-                    type="text"
-                    name="firstName"
-                    id="firstname"
-                    className="form-control bg-body-secondary"
-                    required
-                    readOnly
-                    value={retrievedData?.firstName}
+                    className="form-control"
+                    type="file"
+                    id="national_id"
+                    name="national_id"
+                    onChange={handleChange}
                   />
                 </div>
-                <div className="col-md-4">
-                  <label htmlFor="middleName" className="form-label fw-bold">
-                    MIDDLE NAME:
+
+                <div className="col-md-6">
+                  <label htmlFor="scholar_type" className="form-label fw-bold">
+                    SCHOLARSHIP TYPE: <span className="text-danger">*</span>
                   </label>
-                  <input
-                    ref={mNameRef}
-                    type="text"
-                    name="middleName"
-                    id="middleName"
-                    className="form-control bg-body-secondary"
+                  <span className="ms-2 text-danger">
+                    {error?.scholar_type}
+                  </span>
+                  <select
+                    name="scholar_type"
+                    id="scholar_type"
+                    className="form-select"
+                    onChange={handleChange}
+                    value={retrievedData?.scholar_type}
                     required
-                    readOnly
-                    value={retrievedData?.middleName}
-                  />
+                  >
+                    <option selected="selected" defaultValue>
+                      Choose Scholar Type...
+                    </option>
+                    <option value="BASIC PLUS SUC">BASIC PLUS SUC</option>
+                    <option value="SUC_LCU">SUC/LCU</option>
+                    <option value="BASIC SCHOLARSHIP">BASIC SCHOLARSHIP</option>
+                    <option value="HONOR">HONOR</option>
+                    <option value="PRIORITY">PRIORITY</option>
+                    <option value="PREMIER">PREMIER</option>
+                  </select>
                 </div>
-                <div className="col-md-4">
-                  <label htmlFor="lastName" className="form-label fw-bold">
-                    LAST NAME:
-                  </label>
-                  <input
-                    ref={lNameRef}
-                    type="text"
-                    name="lastName"
-                    id="lastName"
-                    className="form-control bg-body-secondary"
-                    required
-                    readOnly
-                    value={retrievedData?.lastName}
-                  />
-                </div>
+
                 <hr className="my-2 invisible" />
 
                 <div className="col-md-4">
-                  <label htmlFor="sex" className="form-label fw-bold">
+                  <label htmlFor="district" className="form-label fw-bold">
                     SEX: <span className="text-danger">*</span>
                   </label>
-                  <input
-                    type="text"
+                  <span className="ms-2 text-danger">{error?.sex}</span>
+                  <select
                     name="sex"
                     id="sex"
-                    className="form-control"
+                    className="form-select"
                     onChange={handleChange}
                     value={retrievedData?.sex}
                     required
-                  />
+                  >
+                    <option selected defaultValue>
+                      Choose...
+                    </option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
                 </div>
 
                 <div className="col-md-4">
@@ -275,6 +221,7 @@ const PersonalInformation = ({
                   <label htmlFor="district" className="form-label fw-bold">
                     DISCTRICT: <span className="text-danger">*</span>
                   </label>
+                  <span className="ms-2 text-danger">{error?.district}</span>
                   <select
                     name="district"
                     id="district"
@@ -283,6 +230,9 @@ const PersonalInformation = ({
                     value={retrievedData?.district}
                     required
                   >
+                    <option selected defaultValue>
+                      Choose a district...
+                    </option>
                     <option value="1" onClick={() => setDistrictLevel("one")}>
                       1
                     </option>
@@ -296,6 +246,7 @@ const PersonalInformation = ({
                   <label htmlFor="barangay" className="form-label fw-bold">
                     BARANGAY: <span className="text-danger">*</span>
                   </label>
+                  <span className="ms-2 text-danger">{error?.barangay}</span>
                   <select
                     name="barangay"
                     id="barangay"
@@ -304,13 +255,14 @@ const PersonalInformation = ({
                     value={retrievedData?.barangay}
                     required
                   >
-                    {barangayOptions[districtLevel].map((brgy, i) => (
-                      <>
-                        <option key={i} value={brgy}>
-                          {brgy}
-                        </option>
-                      </>
-                    ))}
+                    {districtLevel &&
+                      barangayOptions[districtLevel].map((brgy, i) => (
+                        <>
+                          <option key={i} value={brgy}>
+                            {brgy}
+                          </option>
+                        </>
+                      ))}
                   </select>
                 </div>
 
@@ -320,6 +272,7 @@ const PersonalInformation = ({
                   <label htmlFor="barangay" className="form-label fw-bold">
                     RELIGION: <span className="text-danger">*</span>
                   </label>
+                  <span className="ms-2 text-danger">{error?.religion}</span>
                   <select
                     name="religion"
                     id="religion"
@@ -328,6 +281,9 @@ const PersonalInformation = ({
                     value={retrievedData?.religion}
                     required
                   >
+                    <option selected defaultValue>
+                      Choose a religion...
+                    </option>
                     {religionOptions.map((religionName, i) => (
                       <>
                         <option key={i} value={religionName}>
@@ -357,16 +313,15 @@ const PersonalInformation = ({
           </div>
 
           {/* <!-- Buttons Per Sections --> */}
-          <div className="mt-5 d-flex justify-content-end align-items-center w-75 mx-auto mb-5">
-            {/* <div className="align-self-start">
+          <div className="mt-5 d-flex justify-content-between align-items-center w-75 mx-auto mb-5">
+            <div className="align-self-start">
               <button
                 type="button"
                 className="btn btn-success rounded-pill cs-btn-border fw-bold fs-5 shadow-sm px-5"
-                onClick={() => saveProgress()}
               >
                 Save Progress
               </button>
-            </div> */}
+            </div>
             <div className="d-flex gap-3">
               <NavLink
                 to="/startscholar"
@@ -389,7 +344,6 @@ PersonalInformation.propTypes = {
   setStepCount: PropTypes.func,
   dispatcher: PropTypes.func,
   retrievedData: PropTypes.object,
-  saveProgress: PropTypes.func,
 };
 
 export default PersonalInformation;

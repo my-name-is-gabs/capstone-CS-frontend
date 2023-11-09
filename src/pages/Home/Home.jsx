@@ -5,7 +5,7 @@ import "./home.css";
 
 const Home = () => {
   const param = useParams();
-  const { message } = param;
+  let { message } = param;
   const [isShown, setIsShown] = useState(true);
 
   useEffect(() => {
@@ -24,8 +24,11 @@ const Home = () => {
           role="alert"
         >
           Thank you for your participation. Your scholarship application for the
-          <strong> Nth Semester</strong> of <strong>S.Y 20XX-20XX</strong> has
-          been successfully submitted. Please keep your eyes on our email in
+          <strong> Nth Semester</strong> of{" "}
+          <strong>
+            S.Y {new Date().getFullYear()}-{new Date().getFullYear() + 1}
+          </strong>{" "}
+          has been successfully submitted. Please keep your eyes on our email in
           regards to your application’s status.
           <button
             type="button"

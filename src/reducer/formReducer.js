@@ -1,9 +1,7 @@
 export const INITIAL_STATE = {
   // PERSONAL INFORMATION
+  national_id: null,
   scholar_type: null,
-  firstName: null,
-  middleName: null,
-  lastName: null,
   sex: null,
   dateOfBirth: null,
   email: null,
@@ -12,24 +10,23 @@ export const INITIAL_STATE = {
   barangay: null,
   religion: null,
   fb_link: null,
-  // EDUCATIONAL INFO
-  // College Level
+  // EDUCATIONAL INFO College Level
   university_attending: null,
   course_taking: null,
   year_level: null,
   is_graduating: null,
   course_duration: null,
-  // ELEMENTARY
+  // EDUCATIONAL INFO ELEMENTARY
   elementary_school: null,
   elementary_school_type: null,
   elementary_school_address: null,
   elementary_start_end: null,
-  // JUNIOR HS
+  //EDUCATIONAL INFO JUNIOR HS
   jhs_school: null,
   jhs_school_type: null,
   jhs_school_address: null,
   jhs_start_end: null,
-  // SENIOR HS
+  // EDUCATIONAL INFO SENIOR HS
   shs_school: null,
   shs_school_type: null,
   shs_school_address: null,
@@ -50,34 +47,6 @@ export const INITIAL_STATE = {
   shiftee: null,
   student_status: null,
 };
-
-// export const formReducer = (state, action) => {
-//   switch (action.type) {
-//     case "PERSONAL_DATA":
-//       return {
-//         ...state,
-//         [action.payload.name]: action.payload.value,
-//       };
-//     case "EDUC_DATA":
-//       return {
-//         ...state,
-//         [action.payload.name]: action.payload.value,
-//       };
-//     case "FAMILY_DATA":
-//       return {
-//         ...state,
-//         [action.payload.name]: action.payload.value,
-//       };
-//     case "OTHER_DATA":
-//       return {
-//         ...state,
-//         [action.payload.name]: action.payload.value,
-//       };
-
-//     default:
-//       return state;
-//   }
-// };
 
 export const formReducer = (state, { type, payload }) => {
   switch (type) {

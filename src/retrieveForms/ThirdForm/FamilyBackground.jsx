@@ -1,22 +1,30 @@
 /* eslint-disable react/no-unescaped-entities */
 import { PropTypes } from "prop-types";
-// import { useReducer } from "react";
-// import { formReducer, INITIAL_retrievedData? } from "../../reducer/formReducer";
+import { isGuardianInfoValid } from "../../extras/handleFormError";
+import { useState } from "react";
+import { SubmitButton } from "../../components";
 
 const FamilyBackground = ({
   setHelperCount,
   setStepCount,
   dispatcher,
-  // saveProgress,
   retrievedData,
 }) => {
-  // const [retrievedData?, dispatch] = useReducer(formReducer, INITIAL_retrievedData?);
+  const [error, setError] = useState({});
 
   const handleChange = (e) => {
     dispatcher({
-      type: "EDUC_DATA",
+      type: "FORM_DATA",
       payload: { name: e.target.name, value: e.target.value },
     });
+  };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    let errors = isGuardianInfoValid(retrievedData);
+    setError(errors);
+    if (Object.keys(errors).length > 0) return;
+    setStepCount((step) => step + 1);
   };
 
   return (
@@ -62,10 +70,9 @@ const FamilyBackground = ({
       {/* <!-- Forms Under Family Background --> */}
       <form
         id="familyBackground"
+        encType="multipart/form-data"
         method="post"
-        onSubmit={() => {
-          setStepCount((step) => step + 1);
-        }}
+        onSubmit={handleOnSubmit}
       >
         {/* <!-- FIRST ROW --> */}
         <div className="card cs-bg-secondary-rounded shadow w-75 mx-auto mb-5">
@@ -80,7 +87,7 @@ const FamilyBackground = ({
                   height={32}
                 />
                 <div className="fs-5 text-white fw-semibold">
-                  FATHER'S INFORMATION
+                  GUARDIAN'S BACKGROUND INFORMATION
                 </div>
               </div>
               <button
@@ -97,132 +104,141 @@ const FamilyBackground = ({
           </div>
           <div className="card-body">
             <div className="row">
-              <div className="col-md-4">
-                <label
-                  htmlFor="father_firstName"
-                  className="form-label fw-bold"
-                >
-                  FIRST NAME:
-                </label>
-                <input
-                  type="text"
-                  name="father_firstName"
-                  id="father_firstName"
-                  className="form-control"
-                  value={retrievedData?.father_firstName}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="col-md-4">
-                <label
-                  htmlFor="father_middleName"
-                  className="form-label fw-bold"
-                >
-                  MIDDLE NAME:
-                </label>
-                <input
-                  type="text"
-                  name="father_middleName"
-                  id="father_middleName"
-                  className="form-control"
-                  value={retrievedData?.father_middleName}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="col-md-4">
-                <label htmlFor="father_lastName" className="form-label fw-bold">
-                  LAST NAME:
-                </label>
-                <input
-                  type="text"
-                  name="father_lastName"
-                  id="father_lastName"
-                  className="form-control"
-                  value={retrievedData?.father_lastName}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <hr className="my-2 invisible" />
-              <div className="col-md-8">
-                <label htmlFor="father_address" className="form-label fw-bold">
-                  COMPLETE ADDRESS:
-                </label>
-                <input
-                  type="text"
-                  name="father_address"
-                  id="father_address"
-                  className="form-control"
-                  value={retrievedData?.father_address}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="col-md-4">
-                <label htmlFor="father_contact" className="form-label fw-bold">
-                  CONTACT NUMBER:
-                </label>
-                <input
-                  type="text"
-                  name="father_contact"
-                  id="father_contact"
-                  className="form-control"
-                  value={retrievedData?.father_contact}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <hr className="my-2 invisible" />
-              <div className="col-md-4">
-                <label
-                  htmlFor="father_occupation"
-                  className="form-label fw-bold"
-                >
-                  OCCUPATION:
-                </label>
-                <input
-                  type="text"
-                  name="father_occupation"
-                  id="father_occupation"
-                  className="form-control"
-                  value={retrievedData?.father_occupation}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="col-md-8">
-                <label
-                  htmlFor="father_placeOfWork"
-                  className="form-label fw-bold"
-                >
-                  PLACE OF WORK:
-                </label>
-                <input
-                  type="text"
-                  name="father_placeOfWork"
-                  id="father_placeOfWork"
-                  className="form-control"
-                  value={retrievedData?.father_placeOfWork}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <hr className="my-2 invisible" />
               <div className="col-md-12">
                 <label
-                  htmlFor="father_educAttainment"
+                  htmlFor="guardian_complete_name"
                   className="form-label fw-bold"
                 >
-                  EDUCATIONAL ATTAINMENT:
+                  FULL NAME: <span className="text-danger">*</span>
                 </label>
                 <input
                   type="text"
-                  name="father_educAttainment"
-                  id="father_educAttainment"
+                  name="guardian_complete_name"
+                  id="guardian_complete_name"
                   className="form-control"
-                  value={retrievedData?.father_educAttainment}
+                  value={retrievedData?.guardian_complete_name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <hr className="my-2 invisible" />
+
+              <div className="col-md-12">
+                <label
+                  htmlFor="guardian_complete_address"
+                  className="form-label fw-bold"
+                >
+                  COMPLETE ADDRESS: <span className="text-danger">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="guardian_complete_address"
+                  id="guardian_complete_address"
+                  className="form-control"
+                  value={retrievedData?.guardian_complete_address}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <hr className="my-2 invisible" />
+
+              <div className="col-md-4">
+                <label
+                  htmlFor="guardian_contact_number"
+                  className="form-label fw-bold"
+                >
+                  CONTACT NUMBER: <span className="text-danger">*</span>
+                </label>
+                {error.guardian_contact_number && (
+                  <>
+                    <span className="ms-2 text-danger">
+                      {error.guardian_contact_number}
+                    </span>
+                  </>
+                )}
+                <input
+                  type="tel"
+                  name="guardian_contact_number"
+                  id="guardian_contact_number"
+                  className="form-control"
+                  value={retrievedData?.guardian_contact_number}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="col-md-4">
+                <label
+                  htmlFor="guardian_occupation"
+                  className="form-label fw-bold"
+                >
+                  OCCUPATION: <span className="text-danger">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="guardian_occupation"
+                  id="guardian_occupation"
+                  className="form-control"
+                  value={retrievedData?.guardian_occupation}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="col-md-4">
+                <label
+                  htmlFor="guardian_place_of_work"
+                  className="form-label fw-bold"
+                >
+                  PLACE OF WORK: <span className="text-danger">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="guardian_place_of_work"
+                  id="guardian_place_of_work"
+                  className="form-control"
+                  value={retrievedData?.guardian_place_of_work}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <hr className="my-2 invisible" />
+
+              <div className="col-md-12">
+                <label
+                  htmlFor="guardian_educational_attainment"
+                  className="form-label fw-bold"
+                >
+                  EDUCATIONAL ATTAINMENT: <span className="text-danger">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="guardian_educational_attainment"
+                  id="guardian_educational_attainment"
+                  className="form-control"
+                  value={retrievedData?.guardian_educational_attainment}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <hr className="my-2 invisible" />
+
+              <div className="col-md-12">
+                <label
+                  htmlFor="guardians_voter_certificate"
+                  className="form-label fw-bold"
+                >
+                  VOTER CERTIFICATE: <span className="text-danger">*</span>
+                </label>
+                <input
+                  type="file"
+                  name="guardians_voter_certificate"
+                  id="guardians_voter_certificate"
+                  className="form-control"
                   onChange={handleChange}
                   required
                 />
@@ -232,182 +248,8 @@ const FamilyBackground = ({
         </div>
         {/* <!-- END OF FIRST ROW --> */}
 
-        {/* <!-- SECOND ROW --> */}
-        <div className="card cs-bg-secondary-rounded shadow w-75 mx-auto mb-5">
-          <div className="card-header cs-bg-fadeblue">
-            <div className="container d-flex justify-content-between align-items-center">
-              <div className="d-inline-flex gap-3 align-items-center">
-                <img
-                  src="/assets/icons/mother.png"
-                  className="img-fluid"
-                  alt="Grant Icon"
-                  width={32}
-                  height={32}
-                />
-                <div className="fs-5 text-white fw-semibold">
-                  MOTHER'S INFORMATION
-                </div>
-              </div>
-              <button
-                className="cs-btn-nolayout"
-                type="button"
-                data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasRight"
-                aria-controls="offcanvasRight"
-                onClick={() => setHelperCount(5)}
-              >
-                <i className="fs-2 fa-regular fa-circle-question"></i>
-              </button>
-            </div>
-          </div>
-          <div className="card-body">
-            <div className="row">
-              <div className="col-md-4">
-                <label
-                  htmlFor="mother_firstName"
-                  className="form-label fw-bold"
-                >
-                  FIRST NAME:
-                </label>
-                <input
-                  type="text"
-                  name="mother_firstName"
-                  id="mother_firstName"
-                  className="form-control"
-                  value={retrievedData?.mother_firstName}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="col-md-4">
-                <label
-                  htmlFor="mother_middleName"
-                  className="form-label fw-bold"
-                >
-                  MIDDLE NAME:
-                </label>
-                <input
-                  type="text"
-                  name="mother_middleName"
-                  id="mother_middleName"
-                  className="form-control"
-                  value={retrievedData?.mother_middleName}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="col-md-4">
-                <label htmlFor="mother_lastName" className="form-label fw-bold">
-                  LAST NAME:
-                </label>
-                <input
-                  type="text"
-                  name="mother_lastName"
-                  id="mother_lastName"
-                  className="form-control"
-                  value={retrievedData?.mother_lastName}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <hr className="my-2 invisible" />
-              <div className="col-md-8">
-                <label htmlFor="mother_address" className="form-label fw-bold">
-                  COMPLETE ADDRESS:
-                </label>
-                <input
-                  type="text"
-                  name="mother_address"
-                  id="mother_address"
-                  className="form-control"
-                  value={retrievedData?.mother_address}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="col-md-4">
-                <label htmlFor="mother_contact" className="form-label fw-bold">
-                  CONTACT NUMBER:
-                </label>
-                <input
-                  type="text"
-                  name="mother_contact"
-                  id="mother_contact"
-                  className="form-control"
-                  value={retrievedData?.mother_contact}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <hr className="my-2 invisible" />
-              <div className="col-md-4">
-                <label
-                  htmlFor="mother_occupation"
-                  className="form-label fw-bold"
-                >
-                  OCCUPATION:
-                </label>
-                <input
-                  type="text"
-                  name="mother_occupation"
-                  id="mother_occupation"
-                  className="form-control"
-                  value={retrievedData?.mother_occupation}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="col-md-8">
-                <label
-                  htmlFor="mother_placeOfWork"
-                  className="form-label fw-bold"
-                >
-                  PLACE OF WORK:
-                </label>
-                <input
-                  type="text"
-                  name="mother_placeOfWork"
-                  id="mother_placeOfWork"
-                  className="form-control"
-                  value={retrievedData?.mother_placeOfWork}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <hr className="my-2 invisible" />
-              <div className="col-md-12">
-                <label
-                  htmlFor="mother_educAttainment"
-                  className="form-label fw-bold"
-                >
-                  EDUCATIONAL ATTAINMENT:
-                </label>
-                <input
-                  type="text"
-                  name="mother_educAttainment"
-                  id="mother_educAttainment"
-                  className="form-control"
-                  value={retrievedData?.mother_educAttainment}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* <!-- END OF SECOND ROW --> */}
-
         {/* <!-- Buttons Per Sections --> */}
         <div className="mt-5 d-flex justify-content-between align-items-center w-75 mx-auto mb-5">
-          <div className="align-self-start">
-            {/* <button
-              type="button"
-              className="btn btn-success rounded-pill cs-btn-border fw-bold fs-5 shadow-sm px-5"
-              onClick={() => saveProgress()}
-            >
-              Save Progress
-            </button> */}
-          </div>
           <div className="d-flex gap-3">
             <button
               type="button"
@@ -416,9 +258,7 @@ const FamilyBackground = ({
             >
               Back
             </button>
-            <button className="btn cs-btn-primary fw-bold fs-5 shadow-sm px-5">
-              Next
-            </button>
+            <SubmitButton>Next</SubmitButton>
           </div>
         </div>
       </form>

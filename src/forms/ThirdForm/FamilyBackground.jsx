@@ -2,6 +2,7 @@
 import { PropTypes } from "prop-types";
 import { isGuardianInfoValid } from "../../extras/handleFormError";
 import { useState } from "react";
+import { SubmitButton } from "../../components";
 
 const FamilyBackground = ({
   setHelperCount,
@@ -109,7 +110,7 @@ const FamilyBackground = ({
                   htmlFor="guardian_complete_name"
                   className="form-label fw-bold"
                 >
-                  FULL NAME:
+                  FULL NAME: <span className="text-danger">*</span>
                 </label>
                 <input
                   type="text"
@@ -129,7 +130,7 @@ const FamilyBackground = ({
                   htmlFor="guardian_complete_address"
                   className="form-label fw-bold"
                 >
-                  COMPLETE ADDRESS:
+                  COMPLETE ADDRESS: <span className="text-danger">*</span>
                 </label>
                 <input
                   type="text"
@@ -149,7 +150,7 @@ const FamilyBackground = ({
                   htmlFor="guardian_contact_number"
                   className="form-label fw-bold"
                 >
-                  CONTACT NUMBER:
+                  CONTACT NUMBER: <span className="text-danger">*</span>
                 </label>
                 {error.guardian_contact_number && (
                   <>
@@ -174,7 +175,7 @@ const FamilyBackground = ({
                   htmlFor="guardian_occupation"
                   className="form-label fw-bold"
                 >
-                  OCCUPATION:
+                  OCCUPATION: <span className="text-danger">*</span>
                 </label>
                 <input
                   type="text"
@@ -192,7 +193,7 @@ const FamilyBackground = ({
                   htmlFor="guardian_place_of_work"
                   className="form-label fw-bold"
                 >
-                  PLACE OF WORK:
+                  PLACE OF WORK: <span className="text-danger">*</span>
                 </label>
                 <input
                   type="text"
@@ -212,7 +213,7 @@ const FamilyBackground = ({
                   htmlFor="guardian_educational_attainment"
                   className="form-label fw-bold"
                 >
-                  EDUCATIONAL ATTAINMENT:
+                  EDUCATIONAL ATTAINMENT: <span className="text-danger">*</span>
                 </label>
                 <input
                   type="text"
@@ -232,7 +233,7 @@ const FamilyBackground = ({
                   htmlFor="guardians_voter_certificate"
                   className="form-label fw-bold"
                 >
-                  VOTER CERTIFICATE:
+                  VOTER CERTIFICATE: <span className="text-danger">*</span>
                 </label>
                 <input
                   type="file"
@@ -267,9 +268,7 @@ const FamilyBackground = ({
             >
               Back
             </button>
-            <button className="btn cs-btn-primary fw-bold fs-5 shadow-sm px-5">
-              Next
-            </button>
+            <SubmitButton>Next</SubmitButton>
           </div>
         </div>
       </form>

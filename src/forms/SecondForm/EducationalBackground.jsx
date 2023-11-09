@@ -2,6 +2,7 @@
 import { PropTypes } from "prop-types";
 import { isEducInfoValid } from "../../extras/handleFormError";
 import { useState } from "react";
+import { SubmitButton } from "../../components";
 
 const EducationalBackground = ({
   setHelperCount,
@@ -104,7 +105,7 @@ const EducationalBackground = ({
                   htmlFor="university_attending"
                   className="form-label fw-bold"
                 >
-                  UNIVERSITY ATTENDING:
+                  UNIVERSITY ATTENDING: <span className="text-danger">*</span>
                 </label>
                 <input
                   type="text"
@@ -119,7 +120,7 @@ const EducationalBackground = ({
 
               <div className="col-md-6">
                 <label htmlFor="course_taking" className="form-label fw-bold">
-                  COURSE TAKING:
+                  COURSE TAKING: <span className="text-danger">*</span>
                 </label>
                 <input
                   type="text"
@@ -136,10 +137,11 @@ const EducationalBackground = ({
 
               <div className="col-md-4">
                 <label htmlFor="year_level" className="form-label fw-bold">
-                  YEAR LEVEL:
+                  YEAR LEVEL: <span className="text-danger">*</span>
                 </label>
+                <span className="ms-2 text-danger">{error?.year_level}</span>
                 <input
-                  type="text"
+                  type="number"
                   name="year_level"
                   id="year_level"
                   className="form-control"
@@ -151,7 +153,7 @@ const EducationalBackground = ({
 
               <div className="col-md-4">
                 <label htmlFor="is_graduating" className="form-label fw-bold">
-                  IS GRADUATING:
+                  IS GRADUATING: <span className="text-danger">*</span>
                 </label>
                 <br />
                 <div className="form-check form-check-inline">
@@ -241,7 +243,7 @@ const EducationalBackground = ({
                   htmlFor="elementary_school"
                   className="form-label fw-bold"
                 >
-                  SCHOOL NAME:
+                  SCHOOL NAME: <span className="text-danger">*</span>
                 </label>
                 <input
                   type="text"
@@ -259,7 +261,7 @@ const EducationalBackground = ({
                   htmlFor="elementary_school_type"
                   className="form-label fw-bold"
                 >
-                  SCHOOL TYPE:
+                  SCHOOL TYPE: <span className="text-danger">*</span>
                 </label>
                 <br />
                 <div className="form-check form-check-inline">
@@ -305,7 +307,7 @@ const EducationalBackground = ({
                   htmlFor="elementary_school_address"
                   className="form-label fw-bold"
                 >
-                  SCHOOL ADDRESS:
+                  SCHOOL ADDRESS: <span className="text-danger">*</span>
                 </label>
                 <input
                   type="text"
@@ -323,7 +325,8 @@ const EducationalBackground = ({
                   htmlFor="elementary_start_end"
                   className="form-label fw-bold"
                 >
-                  SCHOOL YEAR (START-END):
+                  SCHOOL YEAR (START-END):{" "}
+                  <span className="text-danger">*</span>
                 </label>
                 <input
                   type="text"
@@ -362,7 +365,7 @@ const EducationalBackground = ({
             <div className="row">
               <div className="col-md-8">
                 <label htmlFor="jhs_school" className="form-label fw-bold">
-                  SCHOOL NAME:
+                  SCHOOL NAME: <span className="text-danger">*</span>
                 </label>
                 <input
                   type="text"
@@ -377,7 +380,7 @@ const EducationalBackground = ({
 
               <div className="col-md-4">
                 <label htmlFor="jhs_school_type" className="form-label fw-bold">
-                  SCHOOL TYPE:
+                  SCHOOL TYPE: <span className="text-danger">*</span>
                 </label>
                 <br />
                 <div className="form-check form-check-inline">
@@ -417,7 +420,7 @@ const EducationalBackground = ({
                   htmlFor="jhs_school_address"
                   className="form-label fw-bold"
                 >
-                  SCHOOL ADDRESS:
+                  SCHOOL ADDRESS: <span className="text-danger">*</span>
                 </label>
                 <input
                   type="text"
@@ -432,7 +435,7 @@ const EducationalBackground = ({
 
               <div className="col-md-4">
                 <label htmlFor="jhs_start_end" className="form-label fw-bold">
-                  SCHOOL YEAR (START-END):
+                  SCHOOL YEAR START-END: <span className="text-danger">*</span>
                 </label>
                 <input
                   type="text"
@@ -471,7 +474,7 @@ const EducationalBackground = ({
             <div className="row">
               <div className="col-md-8">
                 <label htmlFor="shs_school" className="form-label fw-bold">
-                  SCHOOL NAME:
+                  SCHOOL NAME: <span className="text-danger">*</span>
                 </label>
                 <input
                   type="text"
@@ -486,7 +489,7 @@ const EducationalBackground = ({
 
               <div className="col-md-4">
                 <label htmlFor="shs_school_type" className="form-label fw-bold">
-                  SCHOOL TYPE:
+                  SCHOOL TYPE: <span className="text-danger">*</span>
                 </label>
                 <br />
                 <div className="form-check form-check-inline">
@@ -526,7 +529,7 @@ const EducationalBackground = ({
                   htmlFor="shs_school_address"
                   className="form-label fw-bold"
                 >
-                  SCHOOL ADDRESS:
+                  SCHOOL ADDRESS: <span className="text-danger">*</span>
                 </label>
                 <input
                   type="text"
@@ -541,7 +544,7 @@ const EducationalBackground = ({
 
               <div className="col-md-4">
                 <label htmlFor="shs_start_end" className="form-label fw-bold">
-                  SCHOOL YEAR (START-END):
+                  SCHOOL YEAR START-END: <span className="text-danger">*</span>
                 </label>
                 <input
                   type="text"
@@ -577,9 +580,7 @@ const EducationalBackground = ({
             >
               Back
             </button>
-            <button className="btn cs-btn-primary fw-bold fs-5 shadow-sm px-5">
-              Next
-            </button>
+            <SubmitButton>Next</SubmitButton>
           </div>
         </div>
       </form>
