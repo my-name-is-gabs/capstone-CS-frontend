@@ -9,6 +9,7 @@ const FamilyBackground = ({
   setStepCount,
   dispatcher,
   state,
+  saveProgress,
 }) => {
   const [error, setError] = useState({});
 
@@ -151,22 +152,24 @@ const FamilyBackground = ({
                 >
                   CONTACT NUMBER: <span className="text-danger">*</span>
                 </label>
-                {error.guardian_contact_number && (
-                  <>
-                    <span className="ms-2 text-danger">
-                      {error.guardian_contact_number}
-                    </span>
-                  </>
-                )}
-                <input
-                  type="tel"
-                  name="guardian_contact_number"
-                  id="guardian_contact_number"
-                  className="form-control"
-                  value={state.guardian_contact_number}
-                  onChange={handleChange}
-                  required
-                />
+                <span className="ms-2 text-danger">
+                  {error?.guardian_contact_number}
+                </span>
+                <div className="input-group">
+                  <span className="input-group-text" id="basic-addon1">
+                    +63
+                  </span>
+
+                  <input
+                    type="tel"
+                    name="guardian_contact_number"
+                    id="guardian_contact_number"
+                    className="form-control"
+                    value={state.guardian_contact_number}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
               </div>
 
               <div className="col-md-4">
@@ -249,7 +252,16 @@ const FamilyBackground = ({
         {/* <!-- END OF FIRST ROW --> */}
 
         {/* <!-- Buttons Per Sections --> */}
-        <div className="mt-5 d-flex justify-content-end align-items-center w-75 mx-auto mb-5">
+        <div className="mt-5 d-flex justify-content-between align-items-center w-75 mx-auto mb-5">
+          <div className="align-self-start">
+            <button
+              type="button"
+              className="btn btn-success rounded-pill cs-btn-border fw-bold fs-5 shadow-sm px-5"
+              onClick={() => saveProgress()}
+            >
+              Save Progress
+            </button>
+          </div>
           <div className="d-flex gap-3">
             <button
               type="button"

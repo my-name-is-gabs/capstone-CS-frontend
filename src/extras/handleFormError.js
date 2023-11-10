@@ -4,8 +4,8 @@ export const isPersonalInfoValid = (value) => {
     error.scholar_type = "Please choose scholarship type";
   }
 
-  if (!value.sex) {
-    error.sex = "Please select your sexual identity";
+  if (!value.gender) {
+    error.gender = "Please select your gender";
   }
 
   if (!value.district) {
@@ -42,9 +42,7 @@ export const isGuardianInfoValid = (value) => {
 
   if (!value.guardian_contact_number) {
     error.guardian_contact_number = "Please enter contact number";
-  } else if (
-    !/[0][0-9]{3}-[0-9]{3}-[0-9]{4}/.test(value.guardian_contact_number)
-  ) {
+  } else if (!/[0-9]{3}[0-9]{3}[0-9]{4}/.test(value.guardian_contact_number)) {
     error.guardian_contact_number =
       "Please enter valid contact number 09xx-xxx-xxxx";
   }

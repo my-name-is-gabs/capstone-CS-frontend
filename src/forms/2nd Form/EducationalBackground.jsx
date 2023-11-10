@@ -401,8 +401,8 @@ const EducationalBackground = ({
                   <input
                     className="form-check-input"
                     type="radio"
-                    name="shs_school_type"
-                    id="shs_school_type"
+                    name="jhs_school_type"
+                    id="jhs_school_type"
                     value={state.jhs_school_type ?? "public"}
                     onChange={handleChange}
                     required

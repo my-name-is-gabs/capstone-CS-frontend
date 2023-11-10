@@ -166,15 +166,15 @@ const PersonalInformation = ({
 
                 <div className="col-md-4">
                   <label htmlFor="district" className="form-label fw-bold">
-                    SEX: <span className="text-danger">*</span>
+                    GENDER: <span className="text-danger">*</span>
                   </label>
-                  <span className="ms-2 text-danger">{error?.sex}</span>
+                  <span className="ms-2 text-danger">{error?.gender}</span>
                   <select
-                    name="sex"
-                    id="sex"
+                    name="gender"
+                    id="gender"
                     className="form-select"
                     onChange={handleChange}
-                    value={state.sex}
+                    value={state.gender}
                     required
                   >
                     <option selected defaultValue>

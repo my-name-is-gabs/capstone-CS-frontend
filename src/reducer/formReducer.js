@@ -2,7 +2,7 @@ export const INITIAL_STATE = {
   // PERSONAL INFORMATION
   national_id: null,
   scholar_type: null,
-  sex: null,
+  gender: null,
   dateOfBirth: null,
   email: null,
   address: null,
