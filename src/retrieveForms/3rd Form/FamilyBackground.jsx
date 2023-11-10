@@ -152,7 +152,7 @@ const FamilyBackground = ({
                   CONTACT NUMBER: <span className="text-danger">*</span>
                 </label>
                 <span className="ms-2 text-danger">
-                  {error.guardian_contact_number}
+                  {error?.guardian_contact_number}
                 </span>
                 <div className="input-group">
                   <span className="input-group-text" id="basic-addon1">

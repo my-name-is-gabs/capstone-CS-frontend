@@ -1,7 +1,7 @@
-import PersonalInformation from "./FirstForm/PersonalInformation";
-import EducationalBackground from "./SecondForm/EducationalBackground";
-import FamilyBackground from "./ThirdForm/FamilyBackground";
-import OthersForm from "./FoutrhForm/OthersForm";
+import PersonalInformation from "./1st Form/PersonalInformation";
+import EducationalBackground from "./2nd Form/EducationalBackground";
+import FamilyBackground from "./3rd Form/FamilyBackground";
+import OthersForm from "./4th Form/OthersForm";
 import helperMenuContents from "../extras/helperData";
 import { useState, useReducer, useEffect } from "react";
 import { useLocation } from "react-router-dom";

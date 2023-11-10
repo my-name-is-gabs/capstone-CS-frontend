@@ -191,13 +191,9 @@ const OthersForm = ({ setHelperCount, setStepCount, dispatcher, state }) => {
                   NO. OF SEMESERS REMAINING:{" "}
                   <span className="text-danger">*</span>
                 </label>
-                {error.number_of_semesters_before_graduating && (
-                  <>
-                    <span className="ms-2 text-danger">
-                      {error.number_of_semesters_before_graduating}
-                    </span>
-                  </>
-                )}
+                <span className="ms-2 text-danger">
+                  {error?.number_of_semesters_before_graduating}
+                </span>
                 <input
                   type="number"
                   name="number_of_semesters_before_graduating"
@@ -247,13 +243,9 @@ const OthersForm = ({ setHelperCount, setStepCount, dispatcher, state }) => {
                 <label htmlFor="student_status" className="form-label fw-bold">
                   STUDENT STATUS: <span className="text-danger">*</span>
                 </label>
-                {error.student_status && (
-                  <>
-                    <span className="ms-2 text-danger">
-                      {error.student_status}
-                    </span>
-                  </>
-                )}
+                <span className="ms-2 text-danger">
+                  {error?.student_status}
+                </span>
                 <select
                   name="student_status"
                   id="student_status"

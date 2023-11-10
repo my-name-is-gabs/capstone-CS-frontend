@@ -190,13 +190,9 @@ const EducationalBackground = ({
                 <label htmlFor="course_duration" className="form-label fw-bold">
                   COURSE DURATION: <span className="text-danger">*</span>
                 </label>
-                {error.course_duration && (
-                  <>
-                    <span className="ms-2 text-danger">
-                      {error.course_duration}
-                    </span>
-                  </>
-                )}
+                <span className="ms-2 text-danger">
+                  {error?.course_duration}
+                </span>
                 <select
                   name="course_duration"
                   id="course_duration"
