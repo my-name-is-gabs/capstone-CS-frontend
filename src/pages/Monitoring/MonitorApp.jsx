@@ -6,8 +6,16 @@ import StepLabel from "@mui/material/StepLabel";
 import { grey } from "@mui/material/colors";
 import { dummyData } from "../../extras/dummyData";
 import "./monitorApp.css";
+import { useEffect, useState } from "react";
 
 const MonitorApp = () => {
+  const [activeStep, setActiveStep] = useState(0);
+
+  useEffect(() => {
+    const findActive = dummyData.find((value) => value.isActive === true);
+    setActiveStep(findActive.currentStep);
+  }, []);
+
   const stepStyle = {
     "& .Mui-active": {
       "& .MuiSvgIcon-root": {
@@ -25,7 +33,7 @@ const MonitorApp = () => {
     <>
       <div className="container mt-5">
         <Box sx={{ width: "100%" }}>
-          <Stepper activeStep={3} sx={stepStyle} alternativeLabel>
+          <Stepper activeStep={activeStep} sx={stepStyle} alternativeLabel>
             <Step>
               <StepLabel>Application Submitted</StepLabel>
             </Step>
