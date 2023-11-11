@@ -2,7 +2,9 @@ import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
+// import StepContent from "@mui/material/StepContent";
 import { grey } from "@mui/material/colors";
+import { dummyData } from "../../extras/dummyData";
 import "./monitorApp.css";
 
 const MonitorApp = () => {
@@ -23,7 +25,7 @@ const MonitorApp = () => {
     <>
       <div className="container mt-5">
         <Box sx={{ width: "100%" }}>
-          <Stepper activeStep={1} sx={stepStyle} alternativeLabel>
+          <Stepper activeStep={3} sx={stepStyle} alternativeLabel>
             <Step>
               <StepLabel>Application Submitted</StepLabel>
             </Step>
@@ -59,55 +61,45 @@ const MonitorApp = () => {
 
               <div className="d-block">
                 <h5 className="fw-bold">E-mail Address:</h5>
-                <p>johndoe123@gmail.com</p>
+                <p className="text-break">johndoe123@gmail.com</p>
               </div>
             </div>
           </div>
 
           {/* CONTAINER 2 */}
           <div className="col-md-8 p-5 cs-bg-secondary rounded shadow">
-            <div className="monitor--data-container">
-              <div className="dt--container">
-                <strong>10/11/23 - 13:58 PM</strong>
-              </div>
-              <div className="monitor--text">
-                Scholarship Application submitted.
-              </div>
-            </div>
-
-            <div className="monitor--data-container">
-              <div className="dt--container">
-                <strong>10/11/23 - 13:58 PM</strong>
-              </div>
-              <div className="monitor--text">
-                Scholarship Application retrieved by [Scholarship Officer’s
-                Name].
-              </div>
-            </div>
-
-            <div className="monitor--data-container">
-              <div className="dt--container">
-                <strong>10/11/23 - 13:58 PM</strong>
-              </div>
-              <div className="monitor--text">
-                Scholarship Application is being reviewed and evaluated.
-              </div>
-            </div>
-
-            <div className="monitor--data-container">
-              <div className="dt--container">
-                <strong>10/11/23 - 13:58 PM</strong>
-              </div>
-              <div className="monitor--text">Category A is being reviewed.</div>
-            </div>
-
-            <div className="monitor--data-container">
-              <div className="dt--container">
-                <strong>10/11/23 - 13:58 PM</strong>
-              </div>
-              <div className="monitor--text">
-                Evaluation of your scholarship application is finished.
-              </div>
+            <div className="cs-monitor-container">
+              {dummyData.map((value, index) => (
+                <>
+                  {value.isActive && <div className="cs-monitor-line"></div>}
+                  <div key={index} className="cs-monitor-card">
+                    <div className="cs-monitor-dt">
+                      <span className={value.isActive && "fw-bold"}>
+                        {value.date}
+                      </span>{" "}
+                      <br />{" "}
+                      <small
+                        className={`text-secondary ${
+                          value.isActive && "fw-bold"
+                        }`}
+                      >
+                        {value.time}
+                      </small>
+                    </div>
+                    <img
+                      src={`/assets/${
+                        value.isActive ? "bead-blue.png" : "bead-grey.png"
+                      }`}
+                      className="mx-3"
+                      width={16}
+                      alt="bead-grey"
+                    />
+                    <div className="cs-monitor-desc text-break">
+                      {value.description}
+                    </div>
+                  </div>
+                </>
+              ))}
             </div>
           </div>
         </div>

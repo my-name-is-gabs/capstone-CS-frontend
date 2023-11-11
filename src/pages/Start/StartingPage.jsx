@@ -115,7 +115,7 @@ const StartingPage = () => {
                       </div>
                     </div>
                   )}
-                  <div className="mx-4 mb-3">
+                  {/* <div className="mx-4 mb-3">
                     <div className="cs-monitor-div p-4">
                       <p className="mb-4">
                         If you already applied and have an existing account you
@@ -124,9 +124,19 @@ const StartingPage = () => {
                       </p>
                       <NavLink to="/monitor">Monitor your Application</NavLink>
                     </div>
-                  </div>
+                  </div> */}
                 </>
               )}
+              <div className="mx-4 mb-3">
+                <div className="cs-monitor-div p-4">
+                  <p className="mb-4">
+                    If you already applied and have an existing account you can
+                    monitor and check the progress of your scholarship
+                    application.
+                  </p>
+                  <NavLink to="/monitor">Monitor your Application</NavLink>
+                </div>
+              </div>
             </form>
           </div>
 
