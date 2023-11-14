@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import AuthContext from "../../context/AuthContext";
 import "../clientcss.css";
-import MonitorApp from "../Monitor/MonitorApp";
+import RenewalForm from "../Renewal/RenewalForm";
 import HomeScholar from "./HomeScholar";
 import Inquiries from "../Inquiries/Inquiries";
 
@@ -15,7 +15,7 @@ const ClientLandingPage = () => {
         return <HomeScholar user={scholar.username} />;
 
       case 2:
-        return <MonitorApp />;
+        return <RenewalForm />;
 
       case 3:
         return <Inquiries />;
@@ -67,7 +67,7 @@ const ClientLandingPage = () => {
                 }
                 onClick={() => setPageStep(2)}
               >
-                <i className="fa-solid fa-bars-progress"></i> Monitor
+                <i className="fa-solid fa-file-pen"></i> Renew
               </li>
               <li
                 className={
@@ -78,6 +78,16 @@ const ClientLandingPage = () => {
                 onClick={() => setPageStep(3)}
               >
                 <i className="fa-solid fa-message"></i> Inquiries
+              </li>
+              <li
+                className={
+                  pageStep === 4
+                    ? "scholar-nav-link active"
+                    : "scholar-nav-link"
+                }
+                onClick={() => setPageStep(4)}
+              >
+                <i className="fa-solid fa-gear"></i> Settings
               </li>
             </ul>
 
