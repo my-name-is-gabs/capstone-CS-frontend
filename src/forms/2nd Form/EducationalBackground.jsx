@@ -125,9 +125,9 @@ const EducationalBackground = ({
                   <option selected defaultValue={null}>
                     Choose university...
                   </option>
-                  {universityOptions.map((item, i) => (
-                    <option key={i} value={i + 1}>
-                      {item}
+                  {universityOptions.map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.name}
                     </option>
                   ))}
                 </select>
