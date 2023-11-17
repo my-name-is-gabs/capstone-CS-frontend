@@ -17,8 +17,8 @@ export const INITIAL_STATE = {
   // 2  Educ
   university_attending: 0, // Num Type
   registration_form: "",
-  total_units_enrolled: 0, // Num type
-  is_ladderized: false, // Bool type
+  total_units_enrolled: 0, // Num type // under misc section
+  is_ladderized: false, // Bool type // under misc section
   course_taking: 0, // num type
   year_level: "",
   is_graduating: false, // bool type

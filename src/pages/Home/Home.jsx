@@ -18,7 +18,7 @@ const Home = () => {
     <>
       {message === "success" ? (
         <div
-          className={`alert alert-info alert-dismissible fade show ${
+          className={`alert alert-info alert-dismissible fade show text-center ${
             isShown ? "" : "d-none"
           }`}
           role="alert"
