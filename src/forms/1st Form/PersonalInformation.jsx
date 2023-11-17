@@ -148,7 +148,7 @@ const PersonalInformation = ({
                     <option value="BASIC PLUS SUC">BASIC PLUS SUC</option>
                     <option value="SUC_LCU">SUC/LCU</option>
                     <option value="BASIC SCHOLARSHIP">BASIC SCHOLARSHIP</option>
-                    <option value="HONOR">HONOR</option>
+                    <option value="HONORS">HONORS</option>
                     <option value="PRIORITY">PRIORITY</option>
                     <option value="PREMIER">PREMIER</option>
                   </select>
