@@ -4,6 +4,7 @@ import { PropTypes } from "prop-types";
 import { isMiscInfoValid } from "../../extras/handleFormError";
 import { SubmitButton } from "../../components";
 import axios from "axios";
+import { BASE_URL } from "../../constant";
 
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
@@ -28,15 +29,11 @@ const OthersForm = ({
     }
 
     try {
-      const res = await axios.post(
-        "http://127.0.0.1:8000/applications/",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const res = await axios.post(`${BASE_URL}/applications/`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       console.log(res.data);
       if (res.status === 200) {
         navigate("/success");

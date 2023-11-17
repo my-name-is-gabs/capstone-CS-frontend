@@ -46,6 +46,16 @@ const RetrieveBaseForm = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    Object.entries(retrievedFormData).forEach((entry) => {
+      const [key, value] = entry;
+      dispatch({
+        type: "FORM_DATA",
+        payload: { name: key, value: value },
+      });
+    });
+  }, [dispatch, retrievedFormData]);
+
   const PageDisplay = (step) => {
     switch (step) {
       case 1:

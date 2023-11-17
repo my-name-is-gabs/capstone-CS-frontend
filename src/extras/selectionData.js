@@ -228,8 +228,8 @@ export const courseTakingOptions = [
 ];
 
 export const universityOptions = [
-  "WORLD CITI COLLEGES",
-  "WIDE-AERO SCHOOL OF AVIATION",
+  { id: 161, name: "WORLD CITI COLLEGES" },
+  { id: 160, name: "WIDE-AERO SCHOOL OF AVIATION" },
   "WEST BAY COLLEGE",
   "WCC AERONAUTICAL TECHNOLOGICAL COLLEGE",
   "UNIVERSITY OF THE PHILIPPINES",
