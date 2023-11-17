@@ -8,20 +8,20 @@ export const INITIAL_STATE = {
   email_address: "",
   personalized_facebook_link: "",
   religion: "",
-  gender: "", // Num type
+  gender: 0, // Num type
   scholarship_type: "",
   semester: "",
   informative_copy_of_grades: "",
   is_applyingForMerit: "",
   voter_certificate: "",
   // 2  Educ
-  university_attending: "", // Num Type
+  university_attending: 0, // Num Type
   registration_form: "",
-  total_units_enrolled: "", // Num type
-  is_ladderized: "", // Bool type
-  course_taking: "", // num type
+  total_units_enrolled: 0, // Num type
+  is_ladderized: false, // Bool type
+  course_taking: 0, // num type
   year_level: "",
-  is_graduating: "", // bool type
+  is_graduating: false, // bool type
   course_duration: "",
   // EDUCATIONAL INFO ELEMENTARY
   elementary_school: "",
@@ -47,7 +47,7 @@ export const INITIAL_STATE = {
   guardian_educational_attainment: "",
   guardians_voter_certificate: "",
   // MISCELLANEOUS INFORMATION
-  number_of_semesters_before_graduating: "", // num type
+  number_of_semesters_before_graduating: 0, // num type
   transferee: "",
   shiftee: "",
   student_status: "",
