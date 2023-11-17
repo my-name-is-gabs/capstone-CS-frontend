@@ -1,51 +1,56 @@
 export const INITIAL_STATE = {
-  // PERSONAL INFORMATION
-  national_id: null,
-  scholar_type: null,
-  gender: null,
-  dateOfBirth: null,
-  email: null,
-  address: null,
-  district: null,
-  barangay: null,
-  religion: null,
-  fb_link: null,
-  // EDUCATIONAL INFO College Level
-  university_attending: null,
-  course_taking: null,
-  year_level: null,
-  is_graduating: null,
-  course_duration: null,
+  // 1 Personal info
+  application_reference_id: "",
+  national_id: "",
+  birthdate: "",
+  house_address: "",
+  barangay: "",
+  email_address: "",
+  personalized_facebook_link: "",
+  religion: "",
+  gender: "", // Num type
+  scholarship_type: "",
+  semester: "",
+  informative_copy_of_grades: "",
+  is_applyingForMerit: "",
+  voter_certificate: "",
+  // 2  Educ
+  university_attending: "", // Num Type
+  registration_form: "",
+  total_units_enrolled: "", // Num type
+  is_ladderized: "", // Bool type
+  course_taking: "", // num type
+  year_level: "",
+  is_graduating: "", // bool type
+  course_duration: "",
   // EDUCATIONAL INFO ELEMENTARY
-  elementary_school: null,
-  elementary_school_type: null,
-  elementary_school_address: null,
-  elementary_start_end: null,
+  elementary_school: "",
+  elementary_school_type: "",
+  elementary_school_address: "",
+  elementary_start_end: "",
   //EDUCATIONAL INFO JUNIOR HS
-  jhs_school: null,
-  jhs_school_type: null,
-  jhs_school_address: null,
-  jhs_start_end: null,
+  jhs_school: "",
+  jhs_school_type: "",
+  jhs_school_address: "",
+  jhs_start_end: "",
   // EDUCATIONAL INFO SENIOR HS
-  shs_school: null,
-  shs_school_type: null,
-  shs_school_address: null,
-  shs_start_end: null,
+  shs_school: "",
+  shs_school_type: "",
+  shs_school_address: "",
+  shs_start_end: "",
   // GUARDIAN'S BACKGROUND
-  guardian_complete_name: null,
-  guardian_complete_address: null,
-  guardian_contact_number: null,
-  guardian_occupation: null,
-  guardian_place_of_work: null,
-  guardian_educational_attainment: null,
+  guardian_complete_name: "",
+  guardian_complete_address: "",
+  guardian_contact_number: "",
+  guardian_occupation: "",
+  guardian_place_of_work: "",
+  guardian_educational_attainment: "",
+  guardians_voter_certificate: "",
   // MISCELLANEOUS INFORMATION
-  registration_form: null,
-  total_units_enrolled: null,
-  is_ladderized: null,
-  number_of_semesters_before_graduating: null,
-  transferee: null,
-  shiftee: null,
-  student_status: null,
+  number_of_semesters_before_graduating: "", // num type
+  transferee: "",
+  shiftee: "",
+  student_status: "",
 };
 
 export const formReducer = (state, { type, payload }) => {

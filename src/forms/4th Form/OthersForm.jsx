@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { PropTypes } from "prop-types";
 import { isMiscInfoValid } from "../../extras/handleFormError";
 import { SubmitButton } from "../../components";
+import axios from "axios";
 
 const OthersForm = ({
   setHelperCount,
@@ -15,10 +16,51 @@ const OthersForm = ({
   const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
 
+  const sendingData = async () => {
+    const formData = new FormData();
+
+    for (const [key, value] of Object.entries(state)) {
+      formData.append(key, value);
+    }
+
+    try {
+      const res = await axios.post(
+        "http://127.0.0.1:8000/applications/",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log(res.data);
+      if (res.status === 200) {
+        navigate("/success");
+      }
+    } catch (err) {
+      if (err.response) {
+        alert("Server responded with status code: " + err.response.status);
+        console.error("Response data: " + err.response.data);
+      } else if (err.request) {
+        alert("No response received");
+        console.error(err.request);
+      } else {
+        alert("Error creating request: " + err.message);
+      }
+    }
+
+    localStorage.removeItem("encryptedFormData");
+    localStorage.removeItem("formSecurityAccessData");
+    localStorage.removeItem("_grecaptcha");
+  };
+
   const handleChange = (e) => {
     dispatcher({
       type: "FORM_DATA",
-      payload: { name: e.target.name, value: e.target.value },
+      payload: {
+        name: e.target.name,
+        value: e.target.value,
+      },
     });
   };
 
@@ -114,7 +156,30 @@ const OthersForm = ({
           </div>
           <div className="card-body">
             <div className="row">
-              <div className="col-md-12">
+              <div className="col-md-4">
+                <label htmlFor="semester" className="form-label fw-bold">
+                  SEMESTER: <span className="text-danger">*</span>
+                </label>
+                <span className="ms-2 text-danger">{error?.semester}</span>
+                <select
+                  name="semester"
+                  id="semester"
+                  className="form-select"
+                  value={state.semester}
+                  onChange={handleChange}
+                  required
+                >
+                  <option selected="selected" defaultValue={null}>
+                    Open this select menu
+                  </option>
+                  <option value="FIRST SEMESTER">FIRST SEMESTER</option>
+                  <option value="SECOND SEMESTER">SECOND SEMESTER</option>
+                </select>
+              </div>
+
+              <hr className="my-2 invisible" />
+
+              <div className="col-md-4">
                 <label
                   htmlFor="registration_form"
                   className="form-label fw-bold"
@@ -129,6 +194,46 @@ const OthersForm = ({
                   onChange={handleFile}
                   required
                 />
+              </div>
+
+              <div className="col-md-4">
+                <label
+                  htmlFor="informative_copy_of_grades"
+                  className="form-label fw-bold"
+                >
+                  INFORMATIVE COPY OF GRADES:{" "}
+                  <span className="text-danger">*</span>
+                </label>
+                <input
+                  type="file"
+                  name="informative_copy_of_grades"
+                  id="informative_copy_of_grades"
+                  className="form-control"
+                  onChange={handleFile}
+                  required
+                />
+              </div>
+
+              <div className="col-md-4">
+                <label className="form-label fw-bold">
+                  APPLYING FOR MERIT: <span className="text-danger">*</span>
+                </label>
+                <div className="form-check">
+                  <label
+                    className="form-check-label"
+                    htmlFor="is_applyingForMerit"
+                  >
+                    Click if yes
+                  </label>
+                  <input
+                    type="checkbox"
+                    name="is_applyingForMerit"
+                    id="is_applyingForMerit"
+                    className="form-check-input"
+                    value="true"
+                    onChange={handleChange}
+                  />
+                </div>
               </div>
 
               <hr className="my-2 invisible" />
@@ -164,12 +269,15 @@ const OthersForm = ({
                     className="form-check-input"
                     type="radio"
                     name="is_ladderized"
-                    id="is_ladderized"
-                    value={state.is_ladderized ?? "True"}
+                    id="is_ladderized_yes"
+                    value={state.is_ladderized ?? "true"}
                     onChange={handleChange}
                     required
                   />
-                  <label className="form-check-label" htmlFor="is_ladderized">
+                  <label
+                    className="form-check-label"
+                    htmlFor="is_ladderized_yes"
+                  >
                     Yes
                   </label>
                 </div>
@@ -178,12 +286,15 @@ const OthersForm = ({
                     className="form-check-input"
                     type="radio"
                     name="is_ladderized"
-                    id="is_ladderized"
-                    value={state.is_ladderized ?? "False"}
+                    id="is_ladderized_no"
+                    value={state.is_ladderized ?? "false"}
                     onChange={handleChange}
                     required
                   />
-                  <label className="form-check-label" htmlFor="is_ladderized">
+                  <label
+                    className="form-check-label"
+                    htmlFor="is_ladderized_no"
+                  >
                     No
                   </label>
                 </div>
@@ -215,7 +326,8 @@ const OthersForm = ({
 
               <div className="col-md-4">
                 <label htmlFor="transferee" className="form-label fw-bold">
-                  TRANSFEREE: <span className="text-danger">*</span>
+                  TRANSFEREE: (if not put N/A)
+                  <span className="text-danger">*</span>
                 </label>
                 <input
                   type="text"
@@ -231,7 +343,8 @@ const OthersForm = ({
 
               <div className="col-md-4">
                 <label htmlFor="shiftee" className="form-label fw-bold">
-                  SHIFTEE: <span className="text-danger">*</span>
+                  SHIFTEE: (if not put N/A)
+                  <span className="text-danger">*</span>
                 </label>
                 <input
                   type="text"
@@ -329,12 +442,7 @@ const OthersForm = ({
             <div className="cs-modal-footer">
               <button
                 className="btn cs-btn-primary fw-bold fs-5 shadow-sm px-4"
-                onClick={() => {
-                  console.log(state);
-                  localStorage.removeItem("encryptedFormData");
-                  localStorage.removeItem("formSecurityAccessData");
-                  navigate("/success");
-                }}
+                onClick={sendingData}
               >
                 I Understand
               </button>

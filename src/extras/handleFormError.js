@@ -1,15 +1,11 @@
 export const isPersonalInfoValid = (value) => {
   let error = {};
-  if (!value.scholar_type) {
-    error.scholar_type = "Please choose scholarship type";
+  if (!value.scholarship_type) {
+    error.scholarship_type = "Please choose scholarship type";
   }
 
   if (!value.gender) {
     error.gender = "Please select your gender";
-  }
-
-  if (!value.district) {
-    error.district = "Please choose your district";
   }
 
   if (!value.barangay) {
@@ -27,6 +23,12 @@ export const isEducInfoValid = (value) => {
   let error = {};
   if (!value.course_duration) {
     error.course_duration = "Please enter course duration";
+  }
+  if (!value.course_taking) {
+    error.course_taking = "Please enter your course";
+  }
+  if (!value.university_attending) {
+    error.university_attending = "Please enter your university";
   }
   if (value.year_level < 1) {
     error.year_level = "Please insert valid number";
@@ -65,6 +67,10 @@ export const isMiscInfoValid = (value) => {
 
   if (!value.student_status) {
     error.student_status = "Please enter a value";
+  }
+
+  if (!value.semester) {
+    error.semester = "Please enter a value";
   }
   return error;
 };

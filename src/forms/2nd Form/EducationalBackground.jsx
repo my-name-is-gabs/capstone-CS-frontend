@@ -3,6 +3,10 @@ import { PropTypes } from "prop-types";
 import { isEducInfoValid } from "../../extras/handleFormError";
 import { useState } from "react";
 import { SubmitButton } from "../../components";
+import {
+  courseTakingOptions,
+  universityOptions,
+} from "../../extras/selectionData";
 
 const EducationalBackground = ({
   setHelperCount,
@@ -107,30 +111,50 @@ const EducationalBackground = ({
                 >
                   UNIVERSITY ATTENDING: <span className="text-danger">*</span>
                 </label>
-                <input
-                  type="text"
+                <span className="ms-2 text-danger">
+                  {error?.university_attending}
+                </span>
+                <select
                   name="university_attending"
                   id="university_attending"
-                  className="form-control"
+                  className="form-select"
                   onChange={handleChange}
                   value={state.university_attending}
                   required
-                />
+                >
+                  <option selected defaultValue={null}>
+                    Choose university...
+                  </option>
+                  {universityOptions.map((item, i) => (
+                    <option key={i} value={i + 1}>
+                      {item}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div className="col-md-6">
                 <label htmlFor="course_taking" className="form-label fw-bold">
                   COURSE TAKING: <span className="text-danger">*</span>
                 </label>
-                <input
-                  type="text"
+                <span className="ms-2 text-danger">{error?.course_taking}</span>
+                <select
                   name="course_taking"
                   id="course_taking"
-                  className="form-control"
+                  className="form-select"
                   onChange={handleChange}
                   value={state.course_taking}
                   required
-                />
+                >
+                  <option selected defaultValue={null}>
+                    Choose course...
+                  </option>
+                  {courseTakingOptions.map((item, i) => (
+                    <option key={i} value={i + 1}>
+                      {item}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <hr className="my-2 invisible" />
@@ -140,15 +164,23 @@ const EducationalBackground = ({
                   YEAR LEVEL: <span className="text-danger">*</span>
                 </label>
                 <span className="ms-2 text-danger">{error?.year_level}</span>
-                <input
-                  type="number"
+                <select
                   name="year_level"
                   id="year_level"
-                  className="form-control"
+                  className="form-select"
                   onChange={handleChange}
                   value={state.year_level}
                   required
-                />
+                >
+                  <option selected defaultValue={null}>
+                    Choose...
+                  </option>
+                  <option value="FIRST YEAR">FIRST YEAR</option>
+                  <option value="SECOND YEAR">SECOND YEAR</option>
+                  <option value="THIRD YEAR">THIRD YEAR</option>
+                  <option value="FOURTH YEAR">FOURTH YEAR</option>
+                  <option value="FIFTH YEAR">FIFTH YEAR</option>
+                </select>
               </div>
 
               <div className="col-md-4">
@@ -162,7 +194,7 @@ const EducationalBackground = ({
                     type="radio"
                     name="is_graduating"
                     id="is_graduating"
-                    value={state.is_graduating ?? "True"}
+                    value={state.is_graduating ?? "true"}
                     onChange={handleChange}
                     required
                   />
@@ -176,7 +208,7 @@ const EducationalBackground = ({
                     type="radio"
                     name="is_graduating"
                     id="is_graduating"
-                    value={state.is_graduating ?? "False"}
+                    value={state.is_graduating ?? "false"}
                     onChange={handleChange}
                     required
                   />
@@ -265,14 +297,14 @@ const EducationalBackground = ({
                     className="form-check-input"
                     type="radio"
                     name="elementary_school_type"
-                    id="elementary_school_type"
-                    value={state.elementary_school_type ?? "private"}
+                    id="elementary_school_type_private"
+                    value={"PRIVATE"}
                     onChange={handleChange}
                     required
                   />
                   <label
                     className="form-check-label"
-                    htmlFor="elementary_school_type"
+                    htmlFor="elementary_school_type_private"
                   >
                     Private
                   </label>
@@ -281,15 +313,15 @@ const EducationalBackground = ({
                   <input
                     className="form-check-input"
                     type="radio"
-                    name="shs_school_type"
-                    id="shs_school_type"
-                    value={state.elementary_school_type ?? "public"}
+                    name="elementary_school_type"
+                    id="elementary_school_type_public"
+                    value={"PUBLIC"}
                     onChange={handleChange}
                     required
                   />
                   <label
                     className="form-check-label"
-                    htmlFor="elementary_school_type"
+                    htmlFor="elementary_school_type_public"
                   >
                     Public
                   </label>
@@ -321,7 +353,7 @@ const EducationalBackground = ({
                   htmlFor="elementary_start_end"
                   className="form-label fw-bold"
                 >
-                  SCHOOL YEAR (START-END):{" "}
+                  S.Y. GRADUATED (START-END):{" "}
                   <span className="text-danger">*</span>
                 </label>
                 <input
@@ -384,12 +416,15 @@ const EducationalBackground = ({
                     className="form-check-input"
                     type="radio"
                     name="jhs_school_type"
-                    id="jhs_school_type"
-                    value={state.jhs_school_type ?? "private"}
+                    id="jhs_school_type_private"
+                    value={"PRIVATE"}
                     onChange={handleChange}
                     required
                   />
-                  <label className="form-check-label" htmlFor="jhs_school_type">
+                  <label
+                    className="form-check-label"
+                    htmlFor="jhs_school_type_private"
+                  >
                     Private
                   </label>
                 </div>
@@ -398,12 +433,15 @@ const EducationalBackground = ({
                     className="form-check-input"
                     type="radio"
                     name="jhs_school_type"
-                    id="jhs_school_type"
-                    value={state.jhs_school_type ?? "public"}
+                    id="jhs_school_type_public"
+                    value={"PUBLIC"}
                     onChange={handleChange}
                     required
                   />
-                  <label className="form-check-label" htmlFor="jhs_school_type">
+                  <label
+                    className="form-check-label"
+                    htmlFor="jhs_school_type_public"
+                  >
                     Public
                   </label>
                 </div>
@@ -431,7 +469,8 @@ const EducationalBackground = ({
 
               <div className="col-md-4">
                 <label htmlFor="jhs_start_end" className="form-label fw-bold">
-                  SCHOOL YEAR START-END: <span className="text-danger">*</span>
+                  S.Y. GRADUATED (START-END):{" "}
+                  <span className="text-danger">*</span>
                 </label>
                 <input
                   type="text"
@@ -493,12 +532,15 @@ const EducationalBackground = ({
                     className="form-check-input"
                     type="radio"
                     name="shs_school_type"
-                    id="shs_school_type"
-                    value={state.shs_school_type ?? "private"}
+                    id="shs_school_type_private"
+                    value={"PRIVATE"}
                     onChange={handleChange}
                     required
                   />
-                  <label className="form-check-label" htmlFor="shs_school_type">
+                  <label
+                    className="form-check-label"
+                    htmlFor="shs_school_type_private"
+                  >
                     Private
                   </label>
                 </div>
@@ -507,12 +549,15 @@ const EducationalBackground = ({
                     className="form-check-input"
                     type="radio"
                     name="shs_school_type"
-                    id="shs_school_type"
-                    value={state.shs_school_type ?? "public"}
+                    id="shs_school_type_public"
+                    value={"PUBLIC"}
                     onChange={handleChange}
                     required
                   />
-                  <label className="form-check-label" htmlFor="shs_school_type">
+                  <label
+                    className="form-check-label"
+                    htmlFor="shs_school_type_public"
+                  >
                     Public
                   </label>
                 </div>
@@ -540,7 +585,8 @@ const EducationalBackground = ({
 
               <div className="col-md-4">
                 <label htmlFor="shs_start_end" className="form-label fw-bold">
-                  SCHOOL YEAR START-END: <span className="text-danger">*</span>
+                  S.Y. GRADUATED (START-END):{" "}
+                  <span className="text-danger">*</span>
                 </label>
                 <input
                   type="text"

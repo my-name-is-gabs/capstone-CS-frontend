@@ -68,7 +68,11 @@ const BaseForm = () => {
     );
 
     setScholarId(decryptedData.application_id);
-  }, []);
+    dispatch({
+      type: "FORM_DATA",
+      payload: { name: "application_reference_id", value: scholarId },
+    });
+  }, [scholarId]);
 
   const saveProgress = () => {
     const encryptFormData = CryptoJS.AES.encrypt(

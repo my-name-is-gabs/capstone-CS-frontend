@@ -20,6 +20,13 @@ const FamilyBackground = ({
     });
   };
 
+  const handleFile = (e) => {
+    dispatcher({
+      type: "FILE_DATA",
+      payload: { name: e.target.name, value: e.target.files[0] },
+    });
+  };
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
     let errors = isGuardianInfoValid(state);
@@ -232,7 +239,7 @@ const FamilyBackground = ({
 
               <div className="col-md-12">
                 <label
-                  htmlFor="guardians_voter_certificate"
+                  htmlFor="guardian_voter_certificate"
                   className="form-label fw-bold"
                 >
                   VOTER CERTIFICATE: <span className="text-danger">*</span>
@@ -240,9 +247,9 @@ const FamilyBackground = ({
                 <input
                   type="file"
                   name="guardians_voter_certificate"
-                  id="guardians_voter_certificate"
+                  id="guardian_voter_certificate"
                   className="form-control"
-                  onChange={handleChange}
+                  onChange={handleFile}
                   required
                 />
               </div>

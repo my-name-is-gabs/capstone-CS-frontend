@@ -1,0 +1,81 @@
+/* eslint-disable no-undef */
+// eslint-disable-next-line no-unused-vars
+const testObj = {
+  // 1
+  application_reference_id: state.application_reference_id,
+  national_id: state.national_id,
+  birthdate: state.birthdate,
+  house_address: state.house_address,
+  barangay: state.barangay,
+  email_address: state.email_address,
+  personalized_facebook_link: state.personalized_facebook_link,
+  religion: state.religion,
+  gender: Number(state.gender),
+  scholarship_type: state.scholarship_type,
+  semester: state.semester,
+  informative_copy_of_grades: state.informative_copy_of_grades,
+  is_applyingForMerit: Boolean(state.is_applyingForMerit),
+  voter_certificate: state.voter_certificate,
+  // 2
+  university_attending: Number(state.university_attending),
+  registration_form: state.registration_form,
+  total_units_enrolled: Number(state.total_units_enrolled),
+  is_ladderized: Boolean(state.is_ladderized),
+  course_taking: Number(state.course_taking),
+  year_level: state.year_level,
+  is_graduating: Boolean(state.is_graduating),
+  course_duration: state.course_duration,
+  // EDUCATIONAL INFO ELEMENTARY
+  elementary_school: state.elementary_school,
+  elementary_school_type: state.elementary_school_type,
+  elementary_school_address: state.elementary_school_address,
+  elementary_start_end: state.elementary_start_end,
+  //EDUCATIONAL INFO JUNIOR HS
+  jhs_school: state.jhs_school,
+  jhs_school_type: state.jhs_school_type,
+  jhs_school_address: state.jhs_school_address,
+  jhs_start_end: state.jhs_start_end,
+  // EDUCATIONAL INFO SENIOR HS
+  shs_school: state.shs_school,
+  shs_school_type: state.shs_school_type,
+  shs_school_address: state.shs_school_address,
+  shs_start_end: state.shs_start_end,
+  // GUARDIAN'S BACKGROUND
+  guardian_complete_name: state.guardian_complete_name,
+  guardian_complete_address: state.guardian_complete_address,
+  guardian_contact_number: state.guardian_contact_number,
+  guardian_occupation: state.guardian_occupation,
+  guardian_place_of_work: state.guardian_place_of_work,
+  guardian_educational_attainment: state.guardian_educational_attainment,
+  guardians_voter_certificate: state.guardians_voter_certificate,
+  // MISCELLANEOUS INFORMATION
+  number_of_semesters_before_graduating: Number(
+    state.number_of_semesters_before_graduating
+  ),
+  transferee: state.transferee,
+  shiftee: state.shiftee,
+  student_status: state.student_status,
+};
+
+
+
+
+// if (key === "gender") {
+      //   formData.append(key, Number(value));
+      // } else if (key === "is_applying_for_merit") {
+      //   formData.append(key, Boolean(value));
+      // } else if (key === "university_attending") {
+      //   formData.append(key, Number(value));
+      // } else if (key === "total_units_enrolled") {
+      //   formData.append(key, Number(value));
+      // } else if (key === "is_ladderized") {
+      //   formData.append(key, Boolean(value));
+      // } else if (key === "course_taking") {
+      //   formData.append(key, Number(value));
+      // } else if (key === "is_graduating") {
+      //   formData.append(key, Boolean(value));
+      // } else if (key === "number_of_semesters_before_graduating") {
+      //   formData.append(key, Number(value));
+      // } else {
+      //   formData.append(key, value);
+      // }

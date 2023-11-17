@@ -12,7 +12,6 @@ const PersonalInformation = ({
   state,
   saveProgress,
 }) => {
-  const [districtLevel, setDistrictLevel] = useState("");
   const [error, setError] = useState({});
 
   const handleChange = (e) => {
@@ -126,18 +125,21 @@ const PersonalInformation = ({
                 </div>
 
                 <div className="col-md-6">
-                  <label htmlFor="scholar_type" className="form-label fw-bold">
+                  <label
+                    htmlFor="scholarship_type"
+                    className="form-label fw-bold"
+                  >
                     SCHOLARSHIP TYPE: <span className="text-danger">*</span>
                   </label>
                   <span className="ms-2 text-danger">
-                    {error?.scholar_type}
+                    {error?.scholarship_type}
                   </span>
                   <select
-                    name="scholar_type"
-                    id="scholar_type"
+                    name="scholarship_type"
+                    id="scholarship_type"
                     className="form-select"
                     onChange={handleChange}
-                    value={state.scholar_type}
+                    value={state.scholarship_type}
                     required
                   >
                     <option selected="selected" defaultValue>
@@ -155,7 +157,7 @@ const PersonalInformation = ({
                 <hr className="my-2 invisible" />
 
                 <div className="col-md-4">
-                  <label htmlFor="district" className="form-label fw-bold">
+                  <label htmlFor="gender" className="form-label fw-bold">
                     GENDER: <span className="text-danger">*</span>
                   </label>
                   <span className="ms-2 text-danger">{error?.gender}</span>
@@ -170,22 +172,22 @@ const PersonalInformation = ({
                     <option selected defaultValue>
                       Choose...
                     </option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
+                    <option value={1}>Male</option>
+                    <option value={2}>Female</option>
                   </select>
                 </div>
 
                 <div className="col-md-4">
-                  <label htmlFor="dateOfBirth" className="form-label fw-bold">
+                  <label htmlFor="birthdate" className="form-label fw-bold">
                     DATE OF BIRTH: <span className="text-danger">*</span>
                   </label>
                   <input
                     type="date"
-                    name="dateOfBirth"
-                    id="dateOfBirth"
+                    name="birthdate"
+                    id="birthdate"
                     className="form-control"
                     onChange={handleChange}
-                    value={state.dateOfBirth}
+                    value={state.birthdate}
                     required
                   />
                 </div>
@@ -196,11 +198,11 @@ const PersonalInformation = ({
                   </label>
                   <input
                     type="email"
-                    name="email"
+                    name="email_address"
                     id="email"
                     className="form-control"
                     onChange={handleChange}
-                    value={state.email}
+                    value={state.email_address}
                     required
                   />
                 </div>
@@ -214,11 +216,11 @@ const PersonalInformation = ({
                   </label>
                   <input
                     type="text"
-                    name="address"
+                    name="house_address"
                     id="address"
                     className="form-control"
                     onChange={handleChange}
-                    value={state.address}
+                    value={state.house_address}
                     required
                   />
                 </div>
@@ -226,28 +228,17 @@ const PersonalInformation = ({
                 <hr className="my-2 invisible" />
 
                 <div className="col-md-6">
-                  <label htmlFor="district" className="form-label fw-bold">
-                    DISCTRICT: <span className="text-danger">*</span>
+                  <label htmlFor="voter_cert" className="form-label fw-bold">
+                    VOTER CERTIFICATE: <span className="text-danger">*</span>
                   </label>
-                  <span className="ms-2 text-danger">{error?.district}</span>
-                  <select
-                    name="district"
-                    id="district"
-                    className="form-select"
-                    onChange={handleChange}
-                    value={state.district}
+                  <input
+                    type="file"
+                    name="voter_certificate"
+                    id="voter_cert"
+                    className="form-control"
+                    onChange={handleFile}
                     required
-                  >
-                    <option selected defaultValue>
-                      Choose a district...
-                    </option>
-                    <option value="1" onClick={() => setDistrictLevel("one")}>
-                      1
-                    </option>
-                    <option value="2" onClick={() => setDistrictLevel("two")}>
-                      2
-                    </option>
-                  </select>
+                  />
                 </div>
 
                 <div className="col-md-6">
@@ -266,14 +257,13 @@ const PersonalInformation = ({
                     <option selected defaultValue>
                       Select a Barangay...
                     </option>
-                    {districtLevel &&
-                      barangayOptions[districtLevel].map((brgy, i) => (
-                        <>
-                          <option key={i} value={brgy}>
-                            {brgy}
-                          </option>
-                        </>
-                      ))}
+                    {barangayOptions.map((brgy, i) => (
+                      <>
+                        <option key={i} value={brgy}>
+                          {brgy}
+                        </option>
+                      </>
+                    ))}
                   </select>
                 </div>
 
@@ -311,11 +301,11 @@ const PersonalInformation = ({
                   </label>
                   <input
                     type="text"
-                    name="fb_link"
+                    name="personalized_facebook_link"
                     id="fb_link"
                     className="form-control"
                     onChange={handleChange}
-                    value={state.fb_link}
+                    value={state.personalized_facebook_link}
                     required
                   />
                 </div>
@@ -338,6 +328,11 @@ const PersonalInformation = ({
               <NavLink
                 to="/startscholar"
                 className="btn cs-btn-secondary fw-bold fs-5 shadow-sm px-5"
+                onClick={() => {
+                  localStorage.removeItem("encryptedFormData");
+                  localStorage.removeItem("formSecurityAccessData");
+                  localStorage.removeItem("_grecaptcha");
+                }}
               >
                 Cancel
               </NavLink>
