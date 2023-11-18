@@ -4,7 +4,7 @@ import FamilyBackground from "./3rd Form/FamilyBackground";
 import OthersForm from "./4th Form/OthersForm";
 import helperMenuContents from "../extras/helperData";
 import { useState, useReducer, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 import { formReducer, INITIAL_STATE } from "../reducer/formReducer";
 import CryptoJS from "crypto-js";
 
@@ -13,29 +13,29 @@ const BaseForm = () => {
   const [stepCount, setStepCount] = useState(1);
   const [scholarId, setScholarId] = useState("");
   const [state, dispatch] = useReducer(formReducer, INITIAL_STATE);
-  const location = useLocation();
+  // const location = useLocation();
 
-  useEffect(() => {
-    const handleBeforeUnload = (e) => {
-      e.preventDefault();
-      const encryptFormData = CryptoJS.AES.encrypt(
-        JSON.stringify(state),
-        import.meta.env.VITE_SECRET_KEY
-      );
-      localStorage.setItem("encryptedFormData", encryptFormData);
-      e.returnValue = "";
-    };
+  // useEffect(() => {
+  //   const handleBeforeUnload = (e) => {
+  //     e.preventDefault();
+  //     const encryptFormData = CryptoJS.AES.encrypt(
+  //       JSON.stringify(state),
+  //       import.meta.env.VITE_SECRET_KEY
+  //     );
+  //     localStorage.setItem("encryptedFormData", encryptFormData);
+  //     e.returnValue = "";
+  //   };
 
-    if (window.location.pathname === "/forms") {
-      window.addEventListener("beforeunload", handleBeforeUnload, {
-        capture: true,
-      });
-    }
+  //   if (window.location.pathname === "/forms") {
+  //     window.addEventListener("beforeunload", handleBeforeUnload, {
+  //       capture: true,
+  //     });
+  //   }
 
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, [state, location]);
+  //   return () => {
+  //     window.removeEventListener("beforeunload", handleBeforeUnload);
+  //   };
+  // }, [state, location]);
 
   useEffect(() => {
     const handleOffline = (e) => {
@@ -125,6 +125,9 @@ const BaseForm = () => {
             saveProgress={saveProgress}
           />
         );
+
+      default:
+        return;
     }
   };
 
@@ -132,12 +135,6 @@ const BaseForm = () => {
     <>
       <div className="container mt-5 position-relative">
         <div className="p-2 border border-3 border-dark rounded d-flex justify-content-around align-items-center bg-light mb-4 w-25 mx-auto">
-          {/* <input
-            ref={applicantIdRef}
-            type="hidden"
-            name="application_id"
-            value={generatedId}
-          /> */}
           <div className="d-flex flex-column justify-content-center py-2">
             <h6 className="fw-bold">Your Application ID is:</h6>
             <p className="text-center text-danger fw-bold">{scholarId}</p>

@@ -6,7 +6,6 @@ import { SubmitButton } from "../../components";
 import axios from "axios";
 import { BASE_URL } from "../../constant";
 
-axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.withCredentials = true;
 
@@ -36,7 +35,7 @@ const OthersForm = ({
       });
       console.log(res.data);
       if (res.status === 200) {
-        navigate("/success");
+        navigate("/reviewForm");
       }
     } catch (err) {
       if (err.response) {
@@ -49,10 +48,6 @@ const OthersForm = ({
         alert("Error creating request: " + err.message);
       }
     }
-
-    localStorage.removeItem("encryptedFormData");
-    localStorage.removeItem("formSecurityAccessData");
-    localStorage.removeItem("_grecaptcha");
   };
 
   const handleChange = (e) => {

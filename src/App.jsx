@@ -17,6 +17,7 @@ import Login from "./client/login/Login";
 import ClientLandingPage from "./client/home/ClientLandingPage";
 import PrivateRouting from "./utils/PrivateRouting";
 import FormProtectedRoute from "./utils/FormProtectedRoute";
+import ReviewForm from "./forms/5th Form/ReviewForm";
 
 function App() {
   const { pathname } = useLocation();
@@ -39,6 +40,7 @@ function App() {
         <Route element={<FormProtectedRoute />}>
           <Route path="/startapp" element={<StartApp />} />
           <Route path="/forms" element={<BaseForm />} />
+          <Route path="/reviewForm" element={<ReviewForm />} />
         </Route>
         <Route path="/retrieve" element={<RetrieveApp />} />
         <Route element={<FormProtectedRoute />}>
