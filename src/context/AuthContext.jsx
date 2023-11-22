@@ -78,6 +78,9 @@ export const AuthProvider = ({ children }) => {
   const [startApp, setStartApp] = useState(false);
   //end of handling Form routing
 
+  // handling MONITOR routing
+  const [monitorApp, setMonitorApp] = useState(false);
+
   // handling retrieval of form data
   const [retrieveApp, setRetrieveApp] = useState(false);
 
@@ -93,6 +96,8 @@ export const AuthProvider = ({ children }) => {
         setStartApp,
         retrieveApp,
         setRetrieveApp,
+        monitorApp,
+        setMonitorApp,
       }}
     >
       {children}

@@ -19,7 +19,7 @@ import PrivateRouting from "./utils/PrivateRouting";
 import FormProtectedRoute from "./utils/FormProtectedRoute";
 import ReviewAndProcess from "./pages/Review/ReviewAndProcess";
 import PageNotFound from "./PageNotFound";
-// import SurveyPage from "./pages/Survey/SurveyPage";
+import MonitorRoute from "./utils/MonitorRoute";
 
 function App() {
   const { pathname } = useLocation();
@@ -47,12 +47,17 @@ function App() {
             element={<ReviewAndProcess />}
           />
         </Route>
+        {/* Retrieve routing */}
         <Route path="/retrieve" element={<RetrieveApp />} />
         <Route element={<FormProtectedRoute />}>
           <Route path="/retrieveForm" element={<RetrieveBaseForm />} />
         </Route>
+        {/* Monitor Routing */}
         <Route path="/monitor" element={<Monitor />} />
-        <Route path="/monitorapp" element={<MonitorApp />} />
+        <Route element={<MonitorRoute />}>
+          <Route path="/monitor/:id" element={<MonitorApp />} />
+        </Route>
+
         <Route path="/login" element={<Login />} />
         {/* private routing in reactjs */}
         <Route element={<PrivateRouting />}>

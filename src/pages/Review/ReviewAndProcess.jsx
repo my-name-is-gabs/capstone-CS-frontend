@@ -31,8 +31,6 @@ const ReviewAndProcess = () => {
         const res = await axios.get(
           `${BASE_URL}/applications/review-and-process/${id}` // New and current method
         );
-        console.log("from /applications/review-and-process/ GET method");
-        console.log(res);
         if (res.status === 200) {
           setFormData(() => res.data);
           setUnivName(() =>
