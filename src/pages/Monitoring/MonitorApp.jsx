@@ -14,6 +14,7 @@ import { BASE_URL } from "../../constant";
 const MonitorApp = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [scholarTrack, setScholarTrack] = useState([]);
+  const [scholarInfo, setScholarInfo] = useState({});
   const { id } = useParams();
 
   const dateTimeOption = useMemo(() => {
@@ -24,17 +25,13 @@ const MonitorApp = () => {
     };
   }, []);
 
-  // useEffect(() => {
-  //   const findActive = dummyData.find((value) => value.isActive === true);
-  //   setActiveStep(findActive.currentStep);
-  // }, []);
-
   useEffect(() => {
     const fetchingData = async () => {
       try {
         const res = await axios.get(`${BASE_URL}/applications/tracking/${id}`);
-        setScholarTrack(res.data);
-        setActiveStep(res.data[0].current_step);
+        setScholarInfo(res.data);
+        setScholarTrack(res.data.status_updates);
+        setActiveStep(res.data.status_updates[0].current_step);
       } catch (error) {
         console.error(error);
       }
@@ -94,12 +91,18 @@ const MonitorApp = () => {
 
               <div className="d-block">
                 <h5 className="fw-bold">Applicant Name:</h5>
-                <p>John Doe</p>
+                <p>{`${
+                  String(scholarInfo.firstname).slice(0, 1) +
+                  String(scholarInfo.firstname).slice(1).toLowerCase()
+                } ${String(scholarInfo.middlename).slice(0, 1)}. ${
+                  String(scholarInfo.lastname).slice(0, 1) +
+                  String(scholarInfo.lastname).slice(1).toLowerCase()
+                }`}</p>
               </div>
 
               <div className="d-block">
                 <h5 className="fw-bold">E-mail Address:</h5>
-                <p className="text-break">johndoe123@gmail.com</p>
+                <p className="text-break">{scholarInfo.email_address}</p>
               </div>
             </div>
           </div>
