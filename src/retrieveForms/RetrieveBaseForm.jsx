@@ -4,6 +4,7 @@ import FamilyBackground from "./3rd Form/FamilyBackground";
 import OthersForm from "./4th Form/OthersForm";
 import helperMenuContents from "../extras/helperData";
 import { useState, useReducer, useEffect, useLayoutEffect } from "react";
+import ReviewForm from "./5th Form/ReviewForm";
 import { formReducer, INITIAL_STATE } from "../reducer/formReducer";
 import CryptoJS from "crypto-js";
 
@@ -65,7 +66,6 @@ const RetrieveBaseForm = () => {
             setStepCount={setStepCount}
             dispatcher={dispatch}
             state={state}
-            retrievedData={retrievedFormData}
           />
         );
       case 2:
@@ -95,6 +95,12 @@ const RetrieveBaseForm = () => {
             state={state}
           />
         );
+
+      case 5:
+        return <ReviewForm setStepCount={setStepCount} state={state} />;
+
+      default:
+        return;
     }
   };
 

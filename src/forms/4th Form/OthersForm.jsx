@@ -1,10 +1,8 @@
 import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import { PropTypes } from "prop-types";
 import { isMiscInfoValid } from "../../extras/handleFormError";
 import { SubmitButton } from "../../components";
 import axios from "axios";
-// import { BASE_URL } from "../../constant";
 
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.withCredentials = true;
@@ -17,39 +15,6 @@ const OthersForm = ({
   saveProgress,
 }) => {
   const [error, setError] = useState({});
-  // const [openModal, setOpenModal] = useState(false);
-  // const navigate = useNavigate();
-
-  // const sendingData = async () => {
-  //   const formData = new FormData();
-
-  //   for (const [key, value] of Object.entries(state)) {
-  //     formData.append(key, value);
-  //   }
-
-  //   try {
-  //     const res = await axios.post(`${BASE_URL}/applications/`, formData, {
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //       },
-  //     });
-  //     console.log(res.data);
-  //     if (res.status === 200) {
-  //       navigate(`/reviewForm/${state.application_reference_id}`); // Latest version
-  //       // navigate("/reviewForm");
-  //     }
-  //   } catch (err) {
-  //     if (err.response) {
-  //       alert("Server responded with status code: " + err.response.status);
-  //       console.error("Response data: " + err.response.data);
-  //     } else if (err.request) {
-  //       alert("No response received");
-  //       console.error(err.request);
-  //     } else {
-  //       alert("Error creating request: " + err.message);
-  //     }
-  //   }
-  // };
 
   const handleChange = (e) => {
     dispatcher({
@@ -166,7 +131,7 @@ const OthersForm = ({
                   onChange={handleChange}
                   required
                 >
-                  <option selected="selected" defaultValue={null}>
+                  <option selected="selected" defaultValue="">
                     Open this select menu
                   </option>
                   <option value="FIRST SEMESTER">FIRST SEMESTER</option>
@@ -370,7 +335,7 @@ const OthersForm = ({
                   onChange={handleChange}
                   required
                 >
-                  <option selected="selected" defaultValue={null}>
+                  <option selected="selected" defaultValue="">
                     Open this select menu
                   </option>
                   <option value="REGULAR">Regular</option>
@@ -407,46 +372,6 @@ const OthersForm = ({
         </div>
       </form>
       {/* <!-- End of FORMS Under Other Scholastic Information and Requirements --> */}
-
-      {/* {openModal && (
-        <div className="cs-modal-container">
-          <div className="cs-modal">
-            <div className="cs-modal-header">
-              <h1 className="modal-title fs-5 fw-bold" id="exampleModalLabel">
-                AGREEMENT
-              </h1>
-              <button
-                type="button"
-                className="btn-close"
-                aria-label="Close"
-                onClick={() => setOpenModal(false)}
-              ></button>
-            </div>
-            <div className="cs-modal-body">
-              <p className="p-3">
-                I hereby certify that <b>ALL</b> the answers given above are
-                <b> TRUE</b> and <b>CORRECT</b>. I further acknowledge that{" "}
-                <b>
-                  ANY ACT OF DISHONESTY OR FALSIFICATION MAY BE A GROUND FOR MY
-                  DISQUALIFICATION
-                </b>{" "}
-                from this scholarship program. I also understand that this
-                submission of application does <b>NOT AUTOMATICALLY QUALIFY</b>{" "}
-                me for the scholarship grant and that I will abide by the
-                decision of the ABC City Scholarship Screening Committee.
-              </p>
-            </div>
-            <div className="cs-modal-footer">
-              <button
-                className="btn cs-btn-primary fw-bold fs-5 shadow-sm px-4"
-                onClick={sendingData}
-              >
-                I Understand
-              </button>
-            </div>
-          </div>
-        </div>
-      )} */}
     </>
   );
 };

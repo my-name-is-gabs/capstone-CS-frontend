@@ -86,9 +86,7 @@ const PersonalInformation = ({
           onSubmit={handleOnSubmit}
         >
           {/* First Row */}
-          <div
-            className={`card cs-bg-secondary-rounded shadow w-75 mx-auto mb-5`}
-          >
+          <div className="card cs-bg-secondary-rounded shadow w-75 mx-auto mb-5">
             <div className="card-header cs-bg-fadeblue">
               <div className="container d-flex justify-content-between align-items-center">
                 <div className="d-inline-flex gap-3 align-items-center">
@@ -329,6 +327,10 @@ const PersonalInformation = ({
                 to="/startscholar"
                 className="btn cs-btn-secondary fw-bold fs-5 shadow-sm px-5"
                 onClick={() => {
+                  const response = confirm(
+                    "All the data will be lost. Are you sure you want to cancel?"
+                  );
+                  if (!response) return;
                   localStorage.removeItem("encryptedFormData");
                   localStorage.removeItem("formSecurityAccessData");
                   localStorage.removeItem("_grecaptcha");

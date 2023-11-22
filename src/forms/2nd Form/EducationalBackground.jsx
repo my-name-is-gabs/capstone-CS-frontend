@@ -122,7 +122,7 @@ const EducationalBackground = ({
                   value={state.university_attending}
                   required
                 >
-                  <option selected defaultValue={null}>
+                  <option selected defaultValue="">
                     Choose university...
                   </option>
                   {universityOptions.map((item) => (
@@ -146,7 +146,7 @@ const EducationalBackground = ({
                   value={state.course_taking}
                   required
                 >
-                  <option selected defaultValue={null}>
+                  <option selected defaultValue="">
                     Choose course...
                   </option>
                   {courseTakingOptions.map((item, i) => (
@@ -172,7 +172,7 @@ const EducationalBackground = ({
                   value={state.year_level}
                   required
                 >
-                  <option selected defaultValue={null}>
+                  <option selected defaultValue="">
                     Choose...
                   </option>
                   <option value="FIRST YEAR">FIRST YEAR</option>
@@ -239,7 +239,7 @@ const EducationalBackground = ({
                   value={state.course_duration}
                   required
                 >
-                  <option selected defaultValue={null}>
+                  <option selected defaultValue="">
                     Choose...
                   </option>
                   <option value="THREE YEARS">THREE (3) YEARS</option>
