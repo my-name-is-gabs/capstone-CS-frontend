@@ -193,12 +193,15 @@ const EducationalBackground = ({
                     className="form-check-input"
                     type="radio"
                     name="is_graduating"
-                    id="is_graduating"
-                    value={state.is_graduating ?? "true"}
+                    id="is_graduating_true"
+                    value={1}
                     onChange={handleChange}
                     required
                   />
-                  <label className="form-check-label" htmlFor="is_graduating">
+                  <label
+                    className="form-check-label"
+                    htmlFor="is_graduating_true"
+                  >
                     Yes
                   </label>
                 </div>
@@ -207,12 +210,15 @@ const EducationalBackground = ({
                     className="form-check-input"
                     type="radio"
                     name="is_graduating"
-                    id="is_graduating"
-                    value={state.is_graduating ?? "false"}
+                    id="is_graduating_false"
+                    value={0}
                     onChange={handleChange}
                     required
                   />
-                  <label className="form-check-label" htmlFor="inlineRadio1">
+                  <label
+                    className="form-check-label"
+                    htmlFor="is_graduating_false"
+                  >
                     No
                   </label>
                 </div>

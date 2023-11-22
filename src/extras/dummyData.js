@@ -29,7 +29,7 @@ export const dummyData = [
     date: "Nov 10",
     time: "12:26 PM",
     description: "Evaluation of your scholarship application is finished.",
-    currentStep: 4,
+    currentStep: 3,
     isActive: true,
   },
   // {

@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { PropTypes } from "prop-types";
 import { isMiscInfoValid } from "../../extras/handleFormError";
 import { SubmitButton } from "../../components";
 import axios from "axios";
-import { BASE_URL } from "../../constant";
+// import { BASE_URL } from "../../constant";
 
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.withCredentials = true;
@@ -17,38 +17,39 @@ const OthersForm = ({
   saveProgress,
 }) => {
   const [error, setError] = useState({});
-  const [openModal, setOpenModal] = useState(false);
-  const navigate = useNavigate();
+  // const [openModal, setOpenModal] = useState(false);
+  // const navigate = useNavigate();
 
-  const sendingData = async () => {
-    const formData = new FormData();
+  // const sendingData = async () => {
+  //   const formData = new FormData();
 
-    for (const [key, value] of Object.entries(state)) {
-      formData.append(key, value);
-    }
+  //   for (const [key, value] of Object.entries(state)) {
+  //     formData.append(key, value);
+  //   }
 
-    try {
-      const res = await axios.post(`${BASE_URL}/applications/`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      console.log(res.data);
-      if (res.status === 200) {
-        navigate("/reviewForm");
-      }
-    } catch (err) {
-      if (err.response) {
-        alert("Server responded with status code: " + err.response.status);
-        console.error("Response data: " + err.response.data);
-      } else if (err.request) {
-        alert("No response received");
-        console.error(err.request);
-      } else {
-        alert("Error creating request: " + err.message);
-      }
-    }
-  };
+  //   try {
+  //     const res = await axios.post(`${BASE_URL}/applications/`, formData, {
+  //       headers: {
+  //         "Content-Type": "multipart/form-data",
+  //       },
+  //     });
+  //     console.log(res.data);
+  //     if (res.status === 200) {
+  //       navigate(`/reviewForm/${state.application_reference_id}`); // Latest version
+  //       // navigate("/reviewForm");
+  //     }
+  //   } catch (err) {
+  //     if (err.response) {
+  //       alert("Server responded with status code: " + err.response.status);
+  //       console.error("Response data: " + err.response.data);
+  //     } else if (err.request) {
+  //       alert("No response received");
+  //       console.error(err.request);
+  //     } else {
+  //       alert("Error creating request: " + err.message);
+  //     }
+  //   }
+  // };
 
   const handleChange = (e) => {
     dispatcher({
@@ -72,7 +73,7 @@ const OthersForm = ({
     let errors = isMiscInfoValid(state);
     setError(errors);
     if (Object.keys(errors).length > 0) return;
-    setOpenModal(true);
+    setStepCount((step) => step + 1);
   };
 
   return (
@@ -217,16 +218,16 @@ const OthersForm = ({
                 <div className="form-check">
                   <label
                     className="form-check-label"
-                    htmlFor="is_applyingForMerit"
+                    htmlFor="is_applying_for_merit"
                   >
                     Click if yes
                   </label>
                   <input
                     type="checkbox"
-                    name="is_applyingForMerit"
-                    id="is_applyingForMerit"
+                    name="is_applying_for_merit"
+                    id="is_applying_for_merit"
                     className="form-check-input"
-                    value="true"
+                    value={1}
                     onChange={handleChange}
                   />
                 </div>
@@ -266,7 +267,7 @@ const OthersForm = ({
                     type="radio"
                     name="is_ladderized"
                     id="is_ladderized_yes"
-                    value={state.is_ladderized ?? "true"}
+                    value={1}
                     onChange={handleChange}
                     required
                   />
@@ -283,7 +284,7 @@ const OthersForm = ({
                     type="radio"
                     name="is_ladderized"
                     id="is_ladderized_no"
-                    value={state.is_ladderized ?? "false"}
+                    value={0}
                     onChange={handleChange}
                     required
                   />
@@ -401,13 +402,13 @@ const OthersForm = ({
             >
               Back
             </button>
-            <SubmitButton>Submit</SubmitButton>
+            <SubmitButton>Next</SubmitButton>
           </div>
         </div>
       </form>
       {/* <!-- End of FORMS Under Other Scholastic Information and Requirements --> */}
 
-      {openModal && (
+      {/* {openModal && (
         <div className="cs-modal-container">
           <div className="cs-modal">
             <div className="cs-modal-header">
@@ -445,7 +446,7 @@ const OthersForm = ({
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 };

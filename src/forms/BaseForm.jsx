@@ -7,6 +7,7 @@ import { useState, useReducer, useEffect } from "react";
 // import { useLocation } from "react-router-dom";
 import { formReducer, INITIAL_STATE } from "../reducer/formReducer";
 import CryptoJS from "crypto-js";
+import ReviewForm from "./5th Form/ReviewForm";
 
 const BaseForm = () => {
   const [helperCount, setHelperCount] = useState(0);
@@ -125,6 +126,9 @@ const BaseForm = () => {
             saveProgress={saveProgress}
           />
         );
+
+      case 5:
+        return <ReviewForm setStepCount={setStepCount} state={state} />;
 
       default:
         return;

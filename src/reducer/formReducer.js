@@ -12,16 +12,16 @@ export const INITIAL_STATE = {
   scholarship_type: "",
   semester: "",
   informative_copy_of_grades: "",
-  is_applyingForMerit: "",
+  is_applying_for_merit: 0, // Bool Type
   voter_certificate: "",
   // 2  Educ
   university_attending: 0, // Num Type
   registration_form: "",
-  total_units_enrolled: 0, // Num type // under misc section
-  is_ladderized: false, // Bool type // under misc section
+  total_units_enrolled: "", // Num type // under misc section
+  is_ladderized: 0, // Bool type // under misc section
   course_taking: 0, // num type
   year_level: "",
-  is_graduating: false, // bool type
+  is_graduating: 0, // bool type
   course_duration: "",
   // EDUCATIONAL INFO ELEMENTARY
   elementary_school: "",
@@ -47,7 +47,7 @@ export const INITIAL_STATE = {
   guardian_educational_attainment: "",
   guardians_voter_certificate: "",
   // MISCELLANEOUS INFORMATION
-  number_of_semesters_before_graduating: 0, // num type
+  number_of_semesters_before_graduating: "", // num type
   transferee: "",
   shiftee: "",
   student_status: "",
@@ -62,6 +62,12 @@ export const formReducer = (state, { type, payload }) => {
       };
 
     case "FILE_DATA":
+      return {
+        ...state,
+        [payload.name]: payload.value,
+      };
+
+    case "RETRIEVED_DATA":
       return {
         ...state,
         [payload.name]: payload.value,

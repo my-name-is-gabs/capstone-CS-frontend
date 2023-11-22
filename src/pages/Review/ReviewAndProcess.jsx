@@ -1,52 +1,81 @@
-/* eslint-disable react/prop-types */
-// import { useEffect } from "react";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../../constant";
-// import { useState } from "react";
+import { useState } from "react";
 import { SubmitButton } from "../../components";
 import { useNavigate } from "react-router-dom";
-// import { useParams } from "react-router-dom";
 import {
   universityOptions,
   courseTakingOptions,
 } from "../../extras/selectionData";
-import { useState } from "react";
 import LoadingPage from "../../utils/LoadingPage";
 
-axios.defaults.xsrfHeaderName = "X-CSRFToken";
-axios.defaults.withCredentials = true;
-
-const ReviewForm = ({ setStepCount, state }) => {
+const ReviewAndProcess = () => {
+  const [getFormData, setFormData] = useState({});
+  const [openModal, setOpenModal] = useState(false);
+  const [getUnivName, setUnivName] = useState({});
   const navigate = useNavigate();
-  const [getUnivName] = useState(() =>
-    universityOptions.find((value) => value.id == state.university_attending)
-  );
+  const param = useParams();
+  const { id } = param;
   const [isLoading, setLoading] = useState(false);
 
-  const sendingData = async () => {
+  useEffect(() => {
+    const fetchDataFromAPI = async () => {
+      try {
+        const res = await axios.get(
+          `${BASE_URL}/applications/review-and-process/${id}` // New and current method
+        );
+        console.log("from /applications/review-and-process/ GET method");
+        console.log(res);
+        if (res.status === 200) {
+          setFormData(() => res.data);
+          setUnivName(() =>
+            universityOptions.find(
+              (value) => value.id == res.data.university_attending
+            )
+          );
+        }
+      } catch (err) {
+        setLoading(false);
+        if (err.response) {
+          alert("Server responded with status code: " + err.response.status);
+          console.error("Response data: " + err.response.data);
+        } else if (err.request) {
+          alert("No response received");
+          console.error(err.request);
+        } else {
+          alert("Error creating request: " + err.message);
+        }
+      }
+    };
+    fetchDataFromAPI();
+  }, [setFormData, id]);
+
+  const handleSubmission = async (e) => {
+    e.preventDefault();
     setLoading(true);
     const formData = new FormData();
 
-    for (const [key, value] of Object.entries(state)) {
+    for (const [key, value] of Object.entries(getFormData)) {
       formData.append(key, value);
     }
 
     try {
-      const res = await axios.post(`${BASE_URL}/applications/`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      localStorage.removeItem("encryptedFormData");
-      localStorage.removeItem("formSecurityAccessData");
-      localStorage.removeItem("_grecaptcha");
-      if (res.status === 200) {
+      const res = await axios.post(
+        `${BASE_URL}/applications/review-and-process/${id}/`, // New and current method
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      if (res.status === 201) {
         setLoading(false);
-        navigate(`/review_and_process/${state.application_reference_id}`);
+        navigate("/success");
       }
     } catch (err) {
-      setLoading(false);
       if (err.response) {
         alert("Server responded with status code: " + err.response.status);
         console.error("Response data: " + err.response.data);
@@ -59,11 +88,92 @@ const ReviewForm = ({ setStepCount, state }) => {
     }
   };
 
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    setOpenModal(true);
+  };
+
   return (
     <>
       {isLoading && <LoadingPage />}
+      <div className="p-2 border border-3 border-dark rounded d-flex justify-content-around align-items-center bg-light mb-4 w-25 mx-auto mt-5">
+        <div className="d-flex flex-column justify-content-center py-2">
+          <h6 className="fw-bold">Your Application ID is:</h6>
+          <p className="text-center text-danger fw-bold">
+            {getFormData.application_reference_id}
+          </p>
+        </div>
+      </div>
+
       <div className="text-danger text-center fw-bold mt-5 mb-2">
-        **Please take time to review your details before submitting the form**
+        **Double check if the provided name is correct. If not please change it
+        with your correct name.**
+      </div>
+
+      {/* NATIONAL ID INFO */}
+      <div className="card cs-bg-secondary-rounded shadow w-75 mx-auto mb-5 mt-1">
+        <div className="card-header cs-bg-fadeblue">
+          <div className="container d-flex justify-content-between align-items-center">
+            <div className="d-inline-flex gap-3 align-items-center">
+              <i className="fa-solid fa-user-large fs-3"></i>
+              <div className="fs-5 text-white fw-semibold">
+                INFO FROM NATIONAL ID
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="card-body">
+          <div className="row">
+            <div className="col-md-4">
+              <label htmlFor="firstname" className="form-label fw-bold">
+                FIRST NAME:
+              </label>
+              <input
+                type="text"
+                name="firstname"
+                id="firstname"
+                className="form-control"
+                value={getFormData.firstname}
+                onChange={(e) =>
+                  setFormData({ ...getFormData, firstname: e.target.value })
+                }
+              />
+            </div>
+
+            <div className="col-md-4">
+              <label htmlFor="middlename" className="form-label fw-bold">
+                MIDDLE NAME:
+              </label>
+
+              <input
+                type="text"
+                name="middlename"
+                id="middlename"
+                className="form-control"
+                value={getFormData.middlename}
+                onChange={(e) =>
+                  setFormData({ ...getFormData, middlename: e.target.value })
+                }
+              />
+            </div>
+
+            <div className="col-md-4">
+              <label htmlFor="lastname" className="form-label fw-bold">
+                LAST NAME:
+              </label>
+              <input
+                type="text"
+                name="lastname"
+                id="lastname"
+                className="form-control"
+                value={getFormData.lastname}
+                onChange={(e) =>
+                  setFormData({ ...getFormData, lastname: e.target.value })
+                }
+              />
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* PERSONAL INFO SECTION */}
@@ -87,8 +197,8 @@ const ReviewForm = ({ setStepCount, state }) => {
               <input
                 name="scholarship_type"
                 id="scholarship_type"
-                className="form-control"
-                value={state.scholarship_type}
+                className="form-control bg-secondary-subtle"
+                value={getFormData.scholarship_type}
                 readOnly
               />
             </div>
@@ -103,8 +213,8 @@ const ReviewForm = ({ setStepCount, state }) => {
               <input
                 name="gender"
                 id="gender"
-                className="form-control"
-                value={state.gender == 1 ? "Male" : "Female"}
+                className="form-control bg-secondary-subtle"
+                value={getFormData.gender == 1 ? "Male" : "Female"}
                 readOnly
               />
             </div>
@@ -117,8 +227,8 @@ const ReviewForm = ({ setStepCount, state }) => {
                 type="date"
                 name="birthdate"
                 id="birthdate"
-                className="form-control"
-                value={state.birthdate}
+                className="form-control bg-secondary-subtle"
+                value={getFormData.birthdate}
                 readOnly
               />
             </div>
@@ -131,8 +241,8 @@ const ReviewForm = ({ setStepCount, state }) => {
                 type="email"
                 name="email_address"
                 id="email"
-                className="form-control"
-                value={state.email_address}
+                className="form-control bg-secondary-subtle"
+                value={getFormData.email_address}
                 readOnly
               />
             </div>
@@ -147,8 +257,8 @@ const ReviewForm = ({ setStepCount, state }) => {
                 type="text"
                 name="house_address"
                 id="address"
-                className="form-control"
-                value={state.house_address}
+                className="form-control bg-secondary-subtle"
+                value={getFormData.house_address}
                 readOnly
               />
             </div>
@@ -162,8 +272,8 @@ const ReviewForm = ({ setStepCount, state }) => {
               <input
                 name="barangay"
                 id="barangay"
-                className="form-control"
-                value={state.barangay}
+                className="form-control bg-secondary-subtle"
+                value={getFormData.barangay}
                 readOnly
               />
             </div>
@@ -177,8 +287,8 @@ const ReviewForm = ({ setStepCount, state }) => {
               <input
                 name="religion"
                 id="religion"
-                className="form-control"
-                value={state.religion}
+                className="form-control bg-secondary-subtle"
+                value={getFormData.religion}
                 readOnly
               />
             </div>
@@ -191,8 +301,8 @@ const ReviewForm = ({ setStepCount, state }) => {
                 type="text"
                 name="personalized_facebook_link"
                 id="fb_link"
-                className="form-control"
-                value={state.personalized_facebook_link}
+                className="form-control bg-secondary-subtle"
+                value={getFormData.personalized_facebook_link}
                 readOnly
               />
             </div>
@@ -231,9 +341,10 @@ const ReviewForm = ({ setStepCount, state }) => {
               <input
                 name="university_attending"
                 id="university_attending"
-                className="form-control"
+                className="form-control bg-secondary-subtle"
                 readOnly
-                value={getUnivName.name}
+                // value={getFormData.university_attending}
+                value={getUnivName}
               />
             </div>
 
@@ -244,9 +355,10 @@ const ReviewForm = ({ setStepCount, state }) => {
               <input
                 name="course_taking"
                 id="course_taking"
-                className="form-control"
+                className="form-control bg-secondary-subtle"
                 readOnly
-                value={courseTakingOptions[state.course_taking]}
+                // value={getFormData.course_taking}
+                value={courseTakingOptions[getFormData.course_taking]}
               />
             </div>
 
@@ -259,9 +371,9 @@ const ReviewForm = ({ setStepCount, state }) => {
               <input
                 name="year_level"
                 id="year_level"
-                className="form-control"
+                className="form-control bg-secondary-subtle"
                 readOnly
-                value={state.year_level}
+                value={getFormData.year_level}
               />
             </div>
 
@@ -271,11 +383,11 @@ const ReviewForm = ({ setStepCount, state }) => {
               </label>
               <br />
               <input
-                className="form-control"
+                className="form-control bg-secondary-subtle"
                 type="text"
                 name="is_graduating"
                 id="is_graduating"
-                value={state.is_graduating ? "Yes" : "No"}
+                value={getFormData.is_graduating ? "Yes" : "No"}
                 readOnly
               />
             </div>
@@ -287,9 +399,9 @@ const ReviewForm = ({ setStepCount, state }) => {
               <input
                 name="course_duration"
                 id="course_duration"
-                className="form-control"
+                className="form-control bg-secondary-subtle"
                 readOnly
-                value={state.course_duration}
+                value={getFormData.course_duration}
               />
             </div>
           </div>
@@ -325,8 +437,8 @@ const ReviewForm = ({ setStepCount, state }) => {
                 type="text"
                 name="elementary_school"
                 id="elementary_school"
-                className="form-control"
-                value={state.elementary_school}
+                className="form-control bg-secondary-subtle"
+                value={getFormData.elementary_school}
                 readOnly
               />
             </div>
@@ -339,11 +451,11 @@ const ReviewForm = ({ setStepCount, state }) => {
                 SCHOOL TYPE:
               </label>
               <input
-                className="form-control"
+                className="form-control bg-secondary-subtle"
                 type="text"
                 name="elementary_school_type"
                 id="elementary_school_type_private"
-                value={state.elementary_school_type}
+                value={getFormData.elementary_school_type}
                 readOnly
               />
             </div>
@@ -361,8 +473,8 @@ const ReviewForm = ({ setStepCount, state }) => {
                 type="text"
                 name="elementary_school_address"
                 id="elementary_school_address"
-                className="form-control"
-                value={state.elementary_school_address}
+                className="form-control bg-secondary-subtle"
+                value={getFormData.elementary_school_address}
                 readOnly
               />
             </div>
@@ -378,8 +490,8 @@ const ReviewForm = ({ setStepCount, state }) => {
                 type="text"
                 name="elementary_start_end"
                 id="elementary_start_end"
-                className="form-control"
-                value={state.elementary_start_end}
+                className="form-control bg-secondary-subtle"
+                value={getFormData.elementary_start_end}
                 readOnly
               />
             </div>
@@ -416,8 +528,8 @@ const ReviewForm = ({ setStepCount, state }) => {
                 type="text"
                 name="jhs_school"
                 id="jhs_school"
-                className="form-control"
-                value={state.jhs_school}
+                className="form-control bg-secondary-subtle"
+                value={getFormData.jhs_school}
                 readOnly
               />
             </div>
@@ -427,11 +539,11 @@ const ReviewForm = ({ setStepCount, state }) => {
                 SCHOOL TYPE:
               </label>
               <input
-                className="form-control"
+                className="form-control bg-secondary-subtle"
                 type="text"
                 name="jhs_school_type"
                 id="jhs_school_type_private"
-                value={state.jhs_school_type}
+                value={getFormData.jhs_school_type}
                 readOnly
               />
             </div>
@@ -449,8 +561,8 @@ const ReviewForm = ({ setStepCount, state }) => {
                 type="text"
                 name="jhs_school_address"
                 id="jhs_school_address"
-                className="form-control"
-                value={state.jhs_school_address}
+                className="form-control bg-secondary-subtle"
+                value={getFormData.jhs_school_address}
                 readOnly
               />
             </div>
@@ -463,8 +575,8 @@ const ReviewForm = ({ setStepCount, state }) => {
                 type="text"
                 name="jhs_start_end"
                 id="jhs_start_end"
-                className="form-control"
-                value={state.jhs_start_end}
+                className="form-control bg-secondary-subtle"
+                value={getFormData.jhs_start_end}
                 readOnly
               />
             </div>
@@ -501,8 +613,8 @@ const ReviewForm = ({ setStepCount, state }) => {
                 type="text"
                 name="shs_school"
                 id="shs_school"
-                className="form-control"
-                value={state.shs_school}
+                className="form-control bg-secondary-subtle"
+                value={getFormData.shs_school}
                 readOnly
               />
             </div>
@@ -512,11 +624,11 @@ const ReviewForm = ({ setStepCount, state }) => {
                 SCHOOL TYPE:
               </label>
               <input
-                className="form-control"
+                className="form-control bg-secondary-subtle"
                 type="text"
                 name="shs_school_type"
                 id="shs_school_type_private"
-                value={state.shs_school_type}
+                value={getFormData.shs_school_type}
                 readOnly
               />
             </div>
@@ -534,8 +646,8 @@ const ReviewForm = ({ setStepCount, state }) => {
                 type="text"
                 name="shs_school_address"
                 id="shs_school_address"
-                className="form-control"
-                value={state.shs_school_address}
+                className="form-control bg-secondary-subtle"
+                value={getFormData.shs_school_address}
                 readOnly
               />
             </div>
@@ -548,8 +660,8 @@ const ReviewForm = ({ setStepCount, state }) => {
                 type="text"
                 name="shs_start_end"
                 id="shs_start_end"
-                className="form-control"
-                value={state.shs_start_end}
+                className="form-control bg-secondary-subtle"
+                value={getFormData.shs_start_end}
                 readOnly
               />
             </div>
@@ -590,8 +702,8 @@ const ReviewForm = ({ setStepCount, state }) => {
                 type="text"
                 name="guardian_complete_name"
                 id="guardian_complete_name"
-                className="form-control"
-                value={state.guardian_complete_name}
+                className="form-control bg-secondary-subtle"
+                value={getFormData.guardian_complete_name}
                 readOnly
               />
             </div>
@@ -609,8 +721,8 @@ const ReviewForm = ({ setStepCount, state }) => {
                 type="text"
                 name="guardian_complete_address"
                 id="guardian_complete_address"
-                className="form-control"
-                value={state.guardian_complete_address}
+                className="form-control bg-secondary-subtle"
+                value={getFormData.guardian_complete_address}
                 readOnly
               />
             </div>
@@ -634,8 +746,8 @@ const ReviewForm = ({ setStepCount, state }) => {
                   type="tel"
                   name="guardian_contact_number"
                   id="guardian_contact_number"
-                  className="form-control"
-                  value={state.guardian_contact_number}
+                  className="form-control bg-secondary-subtle"
+                  value={getFormData.guardian_contact_number}
                   readOnly
                 />
               </div>
@@ -652,8 +764,8 @@ const ReviewForm = ({ setStepCount, state }) => {
                 type="text"
                 name="guardian_occupation"
                 id="guardian_occupation"
-                className="form-control"
-                value={state.guardian_occupation}
+                className="form-control bg-secondary-subtle"
+                value={getFormData.guardian_occupation}
                 readOnly
               />
             </div>
@@ -669,8 +781,8 @@ const ReviewForm = ({ setStepCount, state }) => {
                 type="text"
                 name="guardian_place_of_work"
                 id="guardian_place_of_work"
-                className="form-control"
-                value={state.guardian_place_of_work}
+                className="form-control bg-secondary-subtle"
+                value={getFormData.guardian_place_of_work}
                 readOnly
               />
             </div>
@@ -688,8 +800,8 @@ const ReviewForm = ({ setStepCount, state }) => {
                 type="text"
                 name="guardian_educational_attainment"
                 id="guardian_educational_attainment"
-                className="form-control"
-                value={state.guardian_educational_attainment}
+                className="form-control bg-secondary-subtle"
+                value={getFormData.guardian_educational_attainment}
                 readOnly
               />
             </div>
@@ -726,8 +838,8 @@ const ReviewForm = ({ setStepCount, state }) => {
               <input
                 name="semester"
                 id="semester"
-                className="form-control"
-                value={state.semester}
+                className="form-control bg-secondary-subtle"
+                value={getFormData.semester}
                 readOnly
               />
             </div>
@@ -738,8 +850,8 @@ const ReviewForm = ({ setStepCount, state }) => {
                 type="text"
                 name="is_applying_for_merit"
                 id="is_applying_for_merit"
-                className="form-control"
-                value={state.is_applying_for_merit ? "Yes" : "No"}
+                className="form-control bg-secondary-subtle"
+                value={getFormData.is_applying_for_merit ? "Yes" : "No"}
                 readOnly
               />
             </div>
@@ -758,9 +870,9 @@ const ReviewForm = ({ setStepCount, state }) => {
                 type="number"
                 name="total_units_enrolled"
                 id="total_units_enrolled"
-                className="form-control"
+                className="form-control bg-secondary-subtle"
                 readOnly
-                value={state.total_units_enrolled}
+                value={getFormData.total_units_enrolled}
               />
             </div>
 
@@ -770,11 +882,11 @@ const ReviewForm = ({ setStepCount, state }) => {
               </label>
               <br />
               <input
-                className="form-control"
+                className="form-control bg-secondary-subtle"
                 type="text"
                 name="is_ladderized"
                 id="is_ladderized_yes"
-                value={state.is_ladderized ? "Yes" : "No"}
+                value={getFormData.is_ladderized ? "Yes" : "No"}
                 readOnly
               />
             </div>
@@ -790,8 +902,8 @@ const ReviewForm = ({ setStepCount, state }) => {
                 type="number"
                 name="number_of_semesters_before_graduating"
                 id="number_of_semesters_before_graduating"
-                className="form-control"
-                value={state.number_of_semesters_before_graduating}
+                className="form-control bg-secondary-subtle"
+                value={getFormData.number_of_semesters_before_graduating}
                 readOnly
               />
             </div>
@@ -806,8 +918,8 @@ const ReviewForm = ({ setStepCount, state }) => {
                 type="text"
                 name="transferee"
                 id="transferee"
-                className="form-control"
-                value={state.transferee}
+                className="form-control bg-secondary-subtle"
+                value={getFormData.transferee}
                 readOnly
               />
             </div>
@@ -820,8 +932,8 @@ const ReviewForm = ({ setStepCount, state }) => {
                 type="text"
                 name="shiftee"
                 id="shiftee"
-                className="form-control"
-                value={state.shiftee}
+                className="form-control bg-secondary-subtle"
+                value={getFormData.shiftee}
                 readOnly
               />
             </div>
@@ -833,8 +945,8 @@ const ReviewForm = ({ setStepCount, state }) => {
               <input
                 name="student_status"
                 id="student_status"
-                className="form-control"
-                value={state.student_status}
+                className="form-control bg-secondary-subtle"
+                value={getFormData.student_status}
                 readOnly
               />
             </div>
@@ -849,16 +961,21 @@ const ReviewForm = ({ setStepCount, state }) => {
           <button
             type="button"
             className="btn cs-btn-secondary fw-bold fs-5 shadow-sm px-5"
-            onClick={() => setStepCount((step) => step - 1)}
+            onClick={() => navigate("/startscholar")}
           >
-            Back
+            Cancel
           </button>
-          <SubmitButton onClick={sendingData}>Proceed</SubmitButton>
+          <SubmitButton onClick={handleOnSubmit}>Proceed</SubmitButton>
         </div>
       </div>
 
-      {/* {openModal && (
-        <div className="cs-modal-container">
+      {/* MODAL */}
+      {openModal && (
+        <form
+          method="post"
+          encType="multipart/form-data"
+          className="cs-modal-container"
+        >
           <div className="cs-modal">
             <div className="cs-modal-header">
               <h1 className="modal-title fs-5 fw-bold" id="exampleModalLabel">
@@ -888,16 +1005,16 @@ const ReviewForm = ({ setStepCount, state }) => {
             <div className="cs-modal-footer">
               <button
                 className="btn cs-btn-primary fw-bold fs-5 shadow-sm px-4"
-                onClick={sendingData}
+                onClick={handleSubmission}
               >
                 I Understand
               </button>
             </div>
           </div>
-        </div>
-      )} */}
+        </form>
+      )}
     </>
   );
 };
 
-export default ReviewForm;
+export default ReviewAndProcess;
