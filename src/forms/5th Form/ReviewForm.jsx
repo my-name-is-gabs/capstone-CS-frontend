@@ -1,17 +1,15 @@
 /* eslint-disable react/prop-types */
-// import { useEffect } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../constant";
-// import { useState } from "react";
 import { SubmitButton } from "../../components";
 import { useNavigate } from "react-router-dom";
-// import { useParams } from "react-router-dom";
 import {
   universityOptions,
   courseTakingOptions,
 } from "../../extras/selectionData";
 import { useState } from "react";
 import LoadingPage from "../../utils/LoadingPage";
+import ServerErrorMessage from "../../utils/ServerErrorMessage";
 
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.withCredentials = true;
@@ -22,6 +20,8 @@ const ReviewForm = ({ setStepCount, state }) => {
     universityOptions.find((value) => value.id == state.university_attending)
   );
   const [isLoading, setLoading] = useState(false);
+  const [showError, setIsShownError] = useState(false);
+  const [apiErrorMsg, setApiErrorMsg] = useState("");
 
   const sendingData = async () => {
     setLoading(true);
@@ -47,21 +47,34 @@ const ReviewForm = ({ setStepCount, state }) => {
       }
     } catch (err) {
       setLoading(false);
+      setIsShownError(true);
       if (err.response) {
-        alert("Server responded with status code: " + err.response.status);
+        // alert("Server responded with status code: " + err.response.status);
+        setApiErrorMsg(
+          `Server responded with status code: ${err.response.status}`
+        );
         console.error("Response data: " + err.response.data);
       } else if (err.request) {
-        alert("No response received");
+        // alert("No response received");
+        setApiErrorMsg("No response received");
         console.error(err.request);
       } else {
-        alert("Error creating request: " + err.message);
+        // alert("Error creating request: " + err.message);
+        setApiErrorMsg(`Error creating request: ${err.message}`);
       }
     }
   };
 
   return (
     <>
+      {showError && (
+        <ServerErrorMessage
+          setIsShownError={setIsShownError}
+          message={apiErrorMsg}
+        />
+      )}
       {isLoading && <LoadingPage />}
+
       <div className="text-danger text-center fw-bold mt-5 mb-2">
         **Please take time to review your details before submitting the form**
       </div>

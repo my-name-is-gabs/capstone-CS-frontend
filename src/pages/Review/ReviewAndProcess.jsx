@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../../constant";
@@ -10,6 +10,8 @@ import {
   courseTakingOptions,
 } from "../../extras/selectionData";
 import LoadingPage from "../../utils/LoadingPage";
+import ServerErrorMessage from "../../utils/ServerErrorMessage";
+import SuccessContext from "../../context/SuccessContext";
 
 const ReviewAndProcess = () => {
   const [getFormData, setFormData] = useState({});
@@ -19,6 +21,9 @@ const ReviewAndProcess = () => {
   const param = useParams();
   const { id } = param;
   const [isLoading, setLoading] = useState(false);
+  const [showError, setIsShownError] = useState(false);
+  const [apiErrorMsg, setApiErrorMsg] = useState("");
+  const { setSuccessDisplay } = useContext(SuccessContext);
 
   useEffect(() => {
     const fetchDataFromAPI = async () => {
@@ -39,13 +44,17 @@ const ReviewAndProcess = () => {
       } catch (err) {
         setLoading(false);
         if (err.response) {
-          alert("Server responded with status code: " + err.response.status);
+          // alert("Server responded with status code: " + err.response.status);
+          setApiErrorMsg(
+            `Server responded with status code: ${err.response.status}`
+          );
           console.error("Response data: " + err.response.data);
         } else if (err.request) {
-          alert("No response received");
+          // alert("No response received");
+          setApiErrorMsg("No response received");
           console.error(err.request);
         } else {
-          alert("Error creating request: " + err.message);
+          setApiErrorMsg(`Error creating request: ${err.message}`);
         }
       }
     };
@@ -73,17 +82,25 @@ const ReviewAndProcess = () => {
       );
       if (res.status === 201) {
         setLoading(false);
-        navigate("/success");
+        window.open("http://127.0.0.1:8000/survey/1/", "_blank");
+        setSuccessDisplay(true);
+        navigate("/");
       }
     } catch (err) {
+      setLoading(false);
+      setIsShownError(true);
       if (err.response) {
-        alert("Server responded with status code: " + err.response.status);
+        // alert("Server responded with status code: " + err.response.status);
+        setApiErrorMsg(
+          `Server responded with status code: ${err.response.status}`
+        );
         console.error("Response data: " + err.response.data);
       } else if (err.request) {
-        alert("No response received");
+        // alert("No response received");
+        setApiErrorMsg("No response received");
         console.error(err.request);
       } else {
-        alert("Error creating request: " + err.message);
+        setApiErrorMsg(`Error creating request: ${err.message}`);
       }
     }
   };
@@ -95,6 +112,13 @@ const ReviewAndProcess = () => {
 
   return (
     <>
+      {showError && (
+        <ServerErrorMessage
+          setIsShownError={setIsShownError}
+          message={apiErrorMsg}
+        />
+      )}
+
       {isLoading && <LoadingPage />}
       <div className="p-2 border border-3 border-dark rounded d-flex justify-content-around align-items-center bg-light mb-4 w-25 mx-auto mt-5">
         <div className="d-flex flex-column justify-content-center py-2">

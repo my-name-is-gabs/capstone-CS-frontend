@@ -1,25 +1,17 @@
-import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useContext } from "react";
 import { Footer } from "../../components";
 import "./home.css";
+import SuccessContext from "../../context/SuccessContext";
 
 const Home = () => {
-  const param = useParams();
-  let { message } = param;
-  const [isShown, setIsShown] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsShown(false);
-    }, 10000);
-  }, []);
+  const { isSuccessDisplay, setSuccessDisplay } = useContext(SuccessContext);
 
   return (
     <>
-      {message === "success" ? (
+      {isSuccessDisplay && (
         <div
           className={`alert alert-info alert-dismissible fade show text-center ${
-            isShown ? "" : "d-none"
+            isSuccessDisplay ? "" : "d-none"
           }`}
           role="alert"
         >
@@ -35,9 +27,10 @@ const Home = () => {
             className="btn-close"
             data-bs-dismiss="alert"
             aria-label="Close"
+            onClick={() => setSuccessDisplay(false)}
           ></button>
         </div>
-      ) : null}
+      )}
 
       <div className="cs-center-items">
         <div className="container-fluid mx-auto">

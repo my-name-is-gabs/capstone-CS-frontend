@@ -18,7 +18,8 @@ import ClientLandingPage from "./client/home/ClientLandingPage";
 import PrivateRouting from "./utils/PrivateRouting";
 import FormProtectedRoute from "./utils/FormProtectedRoute";
 import ReviewAndProcess from "./pages/Review/ReviewAndProcess";
-import LoadingPage from "./utils/LoadingPage";
+import PageNotFound from "./PageNotFound";
+// import SurveyPage from "./pages/Survey/SurveyPage";
 
 function App() {
   const { pathname } = useLocation();
@@ -33,7 +34,7 @@ function App() {
 
       <Routes>
         <Route index element={<Home />} />
-        <Route path="/:message" element={<Home />} />
+        {/* <Route path="/:message" element={<Home />} /> */}
         <Route path="/about" element={<About />} />
         <Route path="/guidelines" element={<Guidelines />} />
         <Route path="/startscholar" element={<StartingPage />} />
@@ -57,7 +58,8 @@ function App() {
         <Route element={<PrivateRouting />}>
           <Route exact path="/scholar" element={<ClientLandingPage />} />
         </Route>
-        <Route path="/testing" element={<LoadingPage />} />
+        {/* <Route path="/testing" element={<SurveyPage />} /> */}
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </>
   );
