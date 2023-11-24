@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
 import { createContext, useState, useEffect } from "react";
 import axios from "../api/axios";
-// import jwt_decode from "jwt-decode"; //decrepit
-import { jwtDecode } from "jwt-decode";
+import jwt_decode from "jwt-decode"; //decrepit
 import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
@@ -17,7 +16,7 @@ export const AuthProvider = ({ children }) => {
   // handling login
   const [scholar, setScholar] = useState(() =>
     localStorage.getItem("access_token")
-      ? jwtDecode(localStorage.getItem("access_token"))
+      ? jwt_decode(localStorage.getItem("access_token"))
       : null
   );
   const [error, setError] = useState("");
@@ -53,7 +52,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("access_token", res.data.access);
       localStorage.setItem("refresh_token", res.data.refresh);
 
-      setScholar(jwtDecode(res.data.access));
+      setScholar(jwt_decode(res.data.access));
       axios.defaults.headers["Authorization"] =
         "JWT " + localStorage.getItem("access_token");
 

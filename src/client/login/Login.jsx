@@ -61,16 +61,19 @@ const Login = () => {
                 required
               />
             </div>
-            <div className="mt-4 mb-5">
-              <input
-                className="form-check-input border border-1 border-dark"
-                type="checkbox"
-                id="showPassord"
-                onClick={() => setShowPass(!showPass)}
-              />
-              <label className="form-check-label ms-2" htmlFor="showPassord">
-                Show Password
-              </label>
+            <div className="d-flex justify-content-between">
+              <div className="mt-4 mb-5">
+                <input
+                  className="form-check-input border border-1 border-dark"
+                  type="checkbox"
+                  id="showPassord"
+                  onClick={() => setShowPass(!showPass)}
+                />
+                <label className="form-check-label ms-2" htmlFor="showPassord">
+                  Show Password
+                </label>
+              </div>
+              <a href="#">Forgot Password</a>
             </div>
 
             <div className="d-flex justify-content-center gap-3">
