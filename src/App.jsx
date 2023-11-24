@@ -20,6 +20,7 @@ import FormProtectedRoute from "./utils/FormProtectedRoute";
 import ReviewAndProcess from "./pages/Review/ReviewAndProcess";
 import PageNotFound from "./PageNotFound";
 import MonitorRoute from "./utils/MonitorRoute";
+import ForgotPassword from "./client/Forgot Pass/ForgotPassword";
 
 function App() {
   const { pathname } = useLocation();
@@ -63,6 +64,7 @@ function App() {
         <Route element={<PrivateRouting />}>
           <Route exact path="/scholar" element={<ClientLandingPage />} />
         </Route>
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         {/* <Route path="/testing" element={<SurveyPage />} /> */}
         <Route path="*" element={<PageNotFound />} />
       </Routes>

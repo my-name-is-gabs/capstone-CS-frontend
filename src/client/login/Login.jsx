@@ -61,7 +61,7 @@ const Login = () => {
                 required
               />
             </div>
-            <div className="d-flex justify-content-between">
+            <div className="d-inline-flex justify-content-between w-100">
               <div className="mt-4 mb-5">
                 <input
                   className="form-check-input border border-1 border-dark"
@@ -73,7 +73,9 @@ const Login = () => {
                   Show Password
                 </label>
               </div>
-              <a href="#">Forgot Password</a>
+              <NavLink to="/forgot-password" className="mt-4 mb-5">
+                Forgot Password
+              </NavLink>
             </div>
 
             <div className="d-flex justify-content-center gap-3">
