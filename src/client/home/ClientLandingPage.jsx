@@ -3,7 +3,7 @@ import AuthContext from "../../context/AuthContext";
 import "../clientcss.css";
 import RenewalForm from "../Renewal/RenewalForm";
 import HomeScholar from "./HomeScholar";
-import Settings from "../Profile Settings/Settings";
+import SettingPage from "../Profile Settings/SettingPage";
 
 const ClientLandingPage = () => {
   let { scholar, logoutScholar } = useContext(AuthContext);
@@ -18,7 +18,7 @@ const ClientLandingPage = () => {
         return <RenewalForm />;
 
       case 3:
-        return <Settings />;
+        return <SettingPage />;
 
       default:
         return;
