@@ -31,7 +31,10 @@ const MonitorApp = () => {
         const res = await axios.get(`${BASE_URL}/applications/tracking/${id}`);
         setScholarInfo(res.data);
         setScholarTrack(res.data.status_updates);
-        setActiveStep(res.data.status_updates[0].current_step);
+        setActiveStep(
+          res.data.status_updates[res.data.status_updates.length - 1]
+            .current_step
+        );
       } catch (error) {
         console.error(error);
       }
