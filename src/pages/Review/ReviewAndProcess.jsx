@@ -157,7 +157,10 @@ const ReviewAndProcess = () => {
                 className="form-control"
                 value={getFormData.firstname}
                 onChange={(e) =>
-                  setFormData({ ...getFormData, firstname: e.target.value })
+                  setFormData({
+                    ...getFormData,
+                    firstname: e.target.value.toUpperCase(),
+                  })
                 }
               />
             </div>
@@ -174,7 +177,10 @@ const ReviewAndProcess = () => {
                 className="form-control"
                 value={getFormData.middlename}
                 onChange={(e) =>
-                  setFormData({ ...getFormData, middlename: e.target.value })
+                  setFormData({
+                    ...getFormData,
+                    middlename: e.target.value.toUpperCase(),
+                  })
                 }
               />
             </div>
@@ -190,7 +196,10 @@ const ReviewAndProcess = () => {
                 className="form-control"
                 value={getFormData.lastname}
                 onChange={(e) =>
-                  setFormData({ ...getFormData, lastname: e.target.value })
+                  setFormData({
+                    ...getFormData,
+                    lastname: e.target.value.toUpperCase(),
+                  })
                 }
               />
             </div>

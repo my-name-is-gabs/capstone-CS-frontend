@@ -4,6 +4,20 @@ import "../clientcss.css";
 import RenewalForm from "../Renewal/RenewalForm";
 import HomeScholar from "./HomeScholar";
 import SettingPage from "../Profile Settings/SettingPage";
+import axios from "../api/api_connection";
+
+window.addEventListener("load", async () => {
+  const refresh_token = localStorage.getItem("refresh_token");
+  try {
+    const res = await axios.post(
+      "/api/token/refresh/",
+      JSON.stringify({ refresh: refresh_token })
+    );
+    localStorage.setItem("access_token", res.data);
+  } catch (error) {
+    alert("error in refresh token");
+  }
+});
 
 const ClientLandingPage = () => {
   let { scholar, logoutScholar } = useContext(AuthContext);
