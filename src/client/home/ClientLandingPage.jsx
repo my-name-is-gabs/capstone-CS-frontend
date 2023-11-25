@@ -4,7 +4,7 @@ import "../clientcss.css";
 import RenewalForm from "../Renewal/RenewalForm";
 import HomeScholar from "./HomeScholar";
 import SettingPage from "../Profile Settings/SettingPage";
-import axios from "../api/api_connection";
+import axios from "../../api/axios";
 
 window.addEventListener("load", async () => {
   const refresh_token = localStorage.getItem("refresh_token");

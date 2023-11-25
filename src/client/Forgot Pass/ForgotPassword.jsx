@@ -1,4 +1,31 @@
+import { useState } from "react";
+import axios from "../../api/axios";
+import { useNavigate } from "react-router-dom";
+
 const ForgotPassword = () => {
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+
+  const retrievePass = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.patch(
+        "/forgot-password/",
+        JSON.stringify({ email })
+      );
+      console.log(res);
+      if (res.status === 200) {
+        alert("Password reset was sent to your gmail");
+        navigate("/");
+      }
+    } catch (error) {
+      alert("Something went wrong");
+      if (error.response.status === 401) {
+        alert("Access token expired. Refresh the page");
+      }
+    }
+  };
+
   return (
     <>
       <div className="container d-flex align-items-center justify-content-center mt-5">
@@ -13,12 +40,15 @@ const ForgotPassword = () => {
                 name="email"
                 id="email"
                 className="form-control"
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
             <div className="card-footer">
               <div className="d-flex justify-content-end">
-                <button className="btn btn-primary">Continue</button>
+                <button className="btn btn-primary" onClick={retrievePass}>
+                  Continue
+                </button>
               </div>
             </div>
           </div>
