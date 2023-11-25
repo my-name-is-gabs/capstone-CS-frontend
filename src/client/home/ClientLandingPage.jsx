@@ -3,7 +3,7 @@ import AuthContext from "../../context/AuthContext";
 import "../clientcss.css";
 import RenewalForm from "../Renewal/RenewalForm";
 import HomeScholar from "./HomeScholar";
-import Inquiries from "../Inquiries/Inquiries";
+import Settings from "../Profile Settings/Settings";
 
 const ClientLandingPage = () => {
   let { scholar, logoutScholar } = useContext(AuthContext);
@@ -18,7 +18,7 @@ const ClientLandingPage = () => {
         return <RenewalForm />;
 
       case 3:
-        return <Inquiries />;
+        return <Settings />;
 
       default:
         return;
@@ -27,7 +27,7 @@ const ClientLandingPage = () => {
 
   return (
     <>
-      <header className="position-absolute top-0 left-0 z-3 w-100 p-3 cs-bg-client">
+      <header className="position-fixed top-0 left-0 z-3 w-100 p-3 cs-bg-client">
         <div className="d-flex ms-3">
           <img
             src="/assets/img/logo_degree.png"
@@ -46,7 +46,7 @@ const ClientLandingPage = () => {
       </header>
 
       <div className="row flex-nowrap">
-        <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 scholar-sidebar-hide">
+        <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 scholar-sidebar-hide position-fixed w-100">
           <aside className="scholar-sidebar col-auto col-md-2">
             <ul className="scholar-navs">
               <li
@@ -69,6 +69,7 @@ const ClientLandingPage = () => {
               >
                 <i className="fa-solid fa-file-pen"></i> Renew
               </li>
+
               <li
                 className={
                   pageStep === 3
@@ -76,16 +77,6 @@ const ClientLandingPage = () => {
                     : "scholar-nav-link"
                 }
                 onClick={() => setPageStep(3)}
-              >
-                <i className="fa-solid fa-message"></i> Inquiries
-              </li>
-              <li
-                className={
-                  pageStep === 4
-                    ? "scholar-nav-link active"
-                    : "scholar-nav-link"
-                }
-                onClick={() => setPageStep(4)}
               >
                 <i className="fa-solid fa-gear"></i> Settings
               </li>
@@ -96,7 +87,9 @@ const ClientLandingPage = () => {
             </button>
           </aside>
         </div>
-        <div className="scholar-main col py-3">{PageDisplay(pageStep)}</div>
+        <div className="scholar-main col py-3" style={{ marginLeft: "240px" }}>
+          {PageDisplay(pageStep)}
+        </div>
       </div>
     </>
   );
