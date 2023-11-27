@@ -162,7 +162,7 @@ const EducationalBackground = ({
                   </option>
                   {universityOptions.map((item) => (
                     <option key={item.id} value={item.id}>
-                      {item.id} - {item.university_name}
+                      {item.university_name}
                     </option>
                   ))}
                 </select>
@@ -186,7 +186,7 @@ const EducationalBackground = ({
                   </option>
                   {courseTakingOptions.map((item, i) => (
                     <option key={i} value={item.id}>
-                      {item.id} - {item.course_name}
+                      {item.course_name}
                     </option>
                   ))}
                 </select>
