@@ -3,10 +3,9 @@ import { PropTypes } from "prop-types";
 import { isEducInfoValid } from "../../extras/handleFormError";
 import { useState } from "react";
 import { SubmitButton } from "../../components";
-import {
-  courseTakingOptions,
-  universityOptions,
-} from "../../extras/selectionData";
+import { useEffect } from "react";
+import axios from "axios";
+import { BASE_URL } from "../../constant";
 
 const EducationalBackground = ({
   setHelperCount,
@@ -16,6 +15,42 @@ const EducationalBackground = ({
   saveProgress,
 }) => {
   const [error, setError] = useState({});
+  const [universityOptions, setUniversityOptions] = useState([]);
+  const [courseTakingOptions, setCourseTakingOptions] = useState([]);
+
+  useEffect(() => {
+    const fetchingUniv = async () => {
+      try {
+        const res = await axios.get(`${BASE_URL}/applications/univ/`);
+        setUniversityOptions(() => res.data);
+      } catch (err) {
+        if (err.response) {
+          // alert("Server responded with status code: " + err.response.status);
+          console.error(
+            `Server responded with status code: ${err.response.status}. ${err.response.data}`
+          );
+          console.debug("Response data: " + err.response);
+        }
+      }
+    };
+    fetchingUniv();
+
+    const fetchingCourse = async () => {
+      try {
+        const res = await axios.get(`${BASE_URL}/applications/courses/`);
+        setCourseTakingOptions(() => res.data);
+      } catch (err) {
+        if (err.response) {
+          // alert("Server responded with status code: " + err.response.status);
+          console.error(
+            `Server responded with status code: ${err.response.status}. ${err.response.data}`
+          );
+          console.debug("Response data: " + err.response);
+        }
+      }
+    };
+    fetchingCourse();
+  }, []);
 
   const handleChange = (e) => {
     dispatcher({
@@ -127,7 +162,7 @@ const EducationalBackground = ({
                   </option>
                   {universityOptions.map((item) => (
                     <option key={item.id} value={item.id}>
-                      {item.name}
+                      {item.id} - {item.university_name}
                     </option>
                   ))}
                 </select>
@@ -150,8 +185,8 @@ const EducationalBackground = ({
                     Choose course...
                   </option>
                   {courseTakingOptions.map((item, i) => (
-                    <option key={i} value={i + 1}>
-                      {item}
+                    <option key={i} value={item.id}>
+                      {item.id} - {item.course_name}
                     </option>
                   ))}
                 </select>

@@ -5,10 +5,10 @@ import { BASE_URL } from "../../constant";
 import { useState } from "react";
 import { SubmitButton } from "../../components";
 import { useNavigate } from "react-router-dom";
-import {
-  universityOptions,
-  courseTakingOptions,
-} from "../../extras/selectionData";
+// import {
+//   universityOptions,
+//   courseTakingOptions,
+// } from "../../extras/selectionData";
 import LoadingPage from "../../utils/LoadingPage";
 import ServerErrorMessage from "../../utils/ServerErrorMessage";
 import SuccessContext from "../../context/SuccessContext";
@@ -16,7 +16,6 @@ import SuccessContext from "../../context/SuccessContext";
 const ReviewAndProcess = () => {
   const [getFormData, setFormData] = useState({});
   const [openModal, setOpenModal] = useState(false);
-  const [getUnivName, setUnivName] = useState({});
   const navigate = useNavigate();
   const param = useParams();
   const { id } = param;
@@ -24,6 +23,44 @@ const ReviewAndProcess = () => {
   const [showError, setIsShownError] = useState(false);
   const [apiErrorMsg, setApiErrorMsg] = useState("");
   const { setSuccessDisplay } = useContext(SuccessContext);
+  const [universityOptions, setUniversityOptions] = useState([]);
+  const [courseTakingOptions, setCourseTakingOptions] = useState([]);
+  const [univName, setUnivName] = useState("");
+  const [courseName, setCourseName] = useState("");
+
+  useEffect(() => {
+    const fetchingUniv = async () => {
+      try {
+        const res = await axios.get(`${BASE_URL}/applications/univ/`);
+        setUniversityOptions(() => res.data);
+      } catch (err) {
+        if (err.response) {
+          // alert("Server responded with status code: " + err.response.status);
+          console.error(
+            `Server responded with status code: ${err.response.status}. ${err.response.data}`
+          );
+          console.debug("Response data: " + err.response);
+        }
+      }
+    };
+    fetchingUniv();
+
+    const fetchingCourse = async () => {
+      try {
+        const res = await axios.get(`${BASE_URL}/applications/courses/`);
+        setCourseTakingOptions(() => res.data);
+      } catch (err) {
+        if (err.response) {
+          // alert("Server responded with status code: " + err.response.status);
+          console.error(
+            `Server responded with status code: ${err.response.status}. ${err.response.data}`
+          );
+          console.debug("Response data: " + err.response);
+        }
+      }
+    };
+    fetchingCourse();
+  }, []);
 
   useEffect(() => {
     const fetchDataFromAPI = async () => {
@@ -33,11 +70,16 @@ const ReviewAndProcess = () => {
         );
         if (res.status === 200) {
           setFormData(() => res.data);
-          setUnivName(() =>
-            universityOptions.find(
-              (value) => value.id == res.data.university_attending
-            )
+          const getUnivname = universityOptions.find(
+            (value) => value.id == res.data.university_attending
           );
+          setUnivName(getUnivname.university_name);
+
+          const getCoursename = courseTakingOptions.find(
+            (value) => value.id == res.data.course_taking
+          );
+
+          setCourseName(getCoursename.course_name);
         }
       } catch (err) {
         setLoading(false);
@@ -57,7 +99,7 @@ const ReviewAndProcess = () => {
       }
     };
     fetchDataFromAPI();
-  }, [setFormData, id]);
+  }, [setFormData, id, universityOptions, courseTakingOptions]);
 
   const handleSubmission = async (e) => {
     e.preventDefault();
@@ -80,7 +122,7 @@ const ReviewAndProcess = () => {
       );
       if (res.status === 201) {
         setLoading(false);
-        window.open("http://127.0.0.1:8000/survey/1/", "_blank");
+        window.open(`${BASE_URL}/survey/2/`, "_blank");
         setSuccessDisplay(true);
         navigate("/");
       }
@@ -375,7 +417,7 @@ const ReviewAndProcess = () => {
                 className="form-control bg-secondary-subtle"
                 readOnly
                 // value={getFormData.university_attending}
-                value={getUnivName}
+                value={univName}
               />
             </div>
 
@@ -389,7 +431,7 @@ const ReviewAndProcess = () => {
                 className="form-control bg-secondary-subtle"
                 readOnly
                 // value={getFormData.course_taking}
-                value={courseTakingOptions[getFormData.course_taking]}
+                value={courseName}
               />
             </div>
 

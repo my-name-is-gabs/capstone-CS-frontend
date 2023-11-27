@@ -3,11 +3,11 @@ import axios from "axios";
 import { BASE_URL } from "../../constant";
 import { SubmitButton } from "../../components";
 import { useNavigate } from "react-router-dom";
-import {
-  universityOptions,
-  courseTakingOptions,
-} from "../../extras/selectionData";
-import { useState } from "react";
+// import {
+//   universityOptions,
+//   courseTakingOptions,
+// } from "../../extras/selectionData";
+import { useEffect, useState } from "react";
 import LoadingPage from "../../utils/LoadingPage";
 import ServerErrorMessage from "../../utils/ServerErrorMessage";
 
@@ -16,12 +16,58 @@ axios.defaults.withCredentials = true;
 
 const ReviewForm = ({ setStepCount, state }) => {
   const navigate = useNavigate();
-  const [getUnivName] = useState(() =>
-    universityOptions.find((value) => value.id == state.university_attending)
-  );
+
   const [isLoading, setLoading] = useState(false);
   const [showError, setIsShownError] = useState(false);
   const [apiErrorMsg, setApiErrorMsg] = useState("");
+  const [universityOptions, setUniversityOptions] = useState([]);
+  const [courseTakingOptions, setCourseTakingOptions] = useState([]);
+  const [univName, setUnivName] = useState({});
+  const [courseName, setCourseName] = useState({});
+
+  useEffect(() => {
+    const fetchingUniv = async () => {
+      try {
+        const res = await axios.get(`${BASE_URL}/applications/univ/`);
+        setUniversityOptions(() => res.data);
+        setUnivName(() =>
+          universityOptions.find(
+            (value) => value.id == res.data.university_attending
+          )
+        );
+      } catch (err) {
+        if (err.response) {
+          // alert("Server responded with status code: " + err.response.status);
+          console.error(
+            `Server responded with status code: ${err.response.status}. ${err.response.data}`
+          );
+          console.debug("Response data: " + err.response);
+        }
+      }
+    };
+    fetchingUniv();
+
+    const fetchingCourse = async () => {
+      try {
+        const res = await axios.get(`${BASE_URL}/applications/courses/`);
+        setCourseTakingOptions(() => res.data);
+        setCourseName(() =>
+          courseTakingOptions.find(
+            (value) => value.id == res.data.course_taking
+          )
+        );
+      } catch (err) {
+        if (err.response) {
+          // alert("Server responded with status code: " + err.response.status);
+          console.error(
+            `Server responded with status code: ${err.response.status}. ${err.response.data}`
+          );
+          console.debug("Response data: " + err.response);
+        }
+      }
+    };
+    fetchingCourse();
+  }, [courseTakingOptions, universityOptions]);
 
   const sendingData = async () => {
     setLoading(true);
@@ -246,7 +292,7 @@ const ReviewForm = ({ setStepCount, state }) => {
                 id="university_attending"
                 className="form-control"
                 readOnly
-                value={getUnivName.name}
+                value={univName.university_name}
               />
             </div>
 
@@ -259,7 +305,7 @@ const ReviewForm = ({ setStepCount, state }) => {
                 id="course_taking"
                 className="form-control"
                 readOnly
-                value={courseTakingOptions[state.course_taking]}
+                value={courseName.course_name}
               />
             </div>
 
