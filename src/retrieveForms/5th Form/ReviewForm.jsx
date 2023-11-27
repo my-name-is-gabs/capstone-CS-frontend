@@ -22,19 +22,18 @@ const ReviewForm = ({ setStepCount, state }) => {
   const [apiErrorMsg, setApiErrorMsg] = useState("");
   const [universityOptions, setUniversityOptions] = useState([]);
   const [courseTakingOptions, setCourseTakingOptions] = useState([]);
-  const [univName, setUnivName] = useState({});
-  const [courseName, setCourseName] = useState({});
+  const [univName, setUnivName] = useState("");
+  const [courseName, setCourseName] = useState("");
 
   useEffect(() => {
     const fetchingUniv = async () => {
       try {
         const res = await axios.get(`${BASE_URL}/applications/univ/`);
         setUniversityOptions(() => res.data);
-        setUnivName(() =>
-          universityOptions.find(
-            (value) => value.id == res.data.university_attending
-          )
+        const getUnivname = universityOptions.find(
+          (value) => value.id == state.university_attending
         );
+        setUnivName(getUnivname.university_name);
       } catch (err) {
         if (err.response) {
           // alert("Server responded with status code: " + err.response.status);
@@ -51,11 +50,10 @@ const ReviewForm = ({ setStepCount, state }) => {
       try {
         const res = await axios.get(`${BASE_URL}/applications/courses/`);
         setCourseTakingOptions(() => res.data);
-        setCourseName(() =>
-          courseTakingOptions.find(
-            (value) => value.id == res.data.course_taking
-          )
+        const getCoursename = courseTakingOptions.find(
+          (value) => value.id == state.course_taking
         );
+        setCourseName(getCoursename.course_name);
       } catch (err) {
         if (err.response) {
           // alert("Server responded with status code: " + err.response.status);
@@ -67,7 +65,7 @@ const ReviewForm = ({ setStepCount, state }) => {
       }
     };
     fetchingCourse();
-  }, [courseTakingOptions, universityOptions]);
+  }, [courseTakingOptions, universityOptions, state, univName, courseName]);
 
   const sendingData = async () => {
     setLoading(true);
@@ -292,7 +290,7 @@ const ReviewForm = ({ setStepCount, state }) => {
                 id="university_attending"
                 className="form-control"
                 readOnly
-                value={univName.university_name}
+                value={univName}
               />
             </div>
 
@@ -305,7 +303,7 @@ const ReviewForm = ({ setStepCount, state }) => {
                 id="course_taking"
                 className="form-control"
                 readOnly
-                value={courseName.course_name}
+                value={courseName}
               />
             </div>
 
