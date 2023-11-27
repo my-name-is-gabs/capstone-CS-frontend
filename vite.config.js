@@ -17,7 +17,7 @@ and after that it works fine. It works locally and in production. "define: { _gl
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
-    proxy: "http://127.0.0.1:8000",
+    proxy: "https://centrosecretariat-backend.onrender.com",
   },
   plugins: [react()],
   define: { global: "globalThis" },
