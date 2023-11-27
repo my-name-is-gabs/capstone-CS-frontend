@@ -23,7 +23,7 @@ window.addEventListener("load", async () => {
 
 const ClientLandingPage = () => {
   let { scholar, logoutScholar } = useContext(AuthContext);
-  const [pageStep, setPageStep] = useState(1);
+  const [pageStep, setPageStep] = useState(2);
 
   const PageDisplay = (step) => {
     switch (step) {
@@ -65,7 +65,7 @@ const ClientLandingPage = () => {
         <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 scholar-sidebar-hide position-fixed w-100">
           <aside className="scholar-sidebar col-auto col-md-2">
             <ul className="scholar-navs">
-              <li
+              {/* <li
                 className={
                   pageStep === 1
                     ? "scholar-nav-link active"
@@ -74,7 +74,7 @@ const ClientLandingPage = () => {
                 onClick={() => setPageStep(1)}
               >
                 <i className="fa-solid fa-house"></i> Home
-              </li>
+              </li> */}
               <li
                 className={
                   pageStep === 2

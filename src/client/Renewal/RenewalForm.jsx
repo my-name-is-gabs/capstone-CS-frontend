@@ -43,6 +43,7 @@ const RenewalForm = () => {
         console.log(res);
         setLoading(false);
         alert("Renewal application submitted");
+        navigate("/scholar");
       } catch (error) {
         setLoading(false);
         alert("Something went wrong");
