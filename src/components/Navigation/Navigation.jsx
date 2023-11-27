@@ -64,6 +64,11 @@ const Navigation = () => {
                   Guidelines
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink className={checkActiveLink} to="/faqs">
+                  FAQs
+                </NavLink>
+              </li>
               <li className="nav-item mx-2">
                 <NavButton btnBG="btn-warning" linkRef="/startscholar">
                   Be a Scholar!

@@ -26,7 +26,8 @@ const ForgotPassword = () => {
       setLoading(false);
       alert("Something went wrong");
       if (error.response.status === 401) {
-        alert("Access token expired. Refresh the page");
+        alert("Session has expired");
+        navigate("/login");
       }
     }
   };

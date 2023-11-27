@@ -11,10 +11,14 @@ import {
   INITIAL_STATE,
 } from "../../reducer/renewalFormReducer";
 import axios from "../../api/axios";
+import LoadingPage from "../../utils/LoadingPage";
+import { useNavigate } from "react-router-dom";
 
 const RenewalForm = () => {
   const [error, setError] = useState({});
   const [state, dispatch] = useReducer(formRenewReducer, INITIAL_STATE);
+  const [isLoading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -29,6 +33,7 @@ const RenewalForm = () => {
     }
 
     const patchData = async () => {
+      setLoading(true);
       try {
         const res = await axios.patch("/applications/renew/", formData, {
           headers: {
@@ -36,10 +41,15 @@ const RenewalForm = () => {
           },
         });
         console.log(res);
+        setLoading(false);
         alert("Renewal application submitted");
       } catch (error) {
+        setLoading(false);
         alert("Something went wrong");
-        console.error(error);
+        if (error.response.status === 401) {
+          alert("Session has expired");
+          navigate("/login");
+        }
       }
     };
     patchData();
@@ -64,6 +74,7 @@ const RenewalForm = () => {
 
   return (
     <>
+      {isLoading && <LoadingPage />}
       <form
         method="post"
         encType="multipart/form-data"

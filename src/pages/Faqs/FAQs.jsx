@@ -68,6 +68,7 @@ const FAQs = () => {
               </div>
             </div>
           </div>
+
           <div className="accordion-item">
             <h2 className="accordion-header">
               <button
@@ -97,21 +98,22 @@ const FAQs = () => {
               </div>
             </div>
           </div>
+
           <div className="accordion-item">
             <h2 className="accordion-header">
               <button
                 className="accordion-button collapsed fw-bold"
                 type="button"
                 data-bs-toggle="collapse"
-                data-bs-target="#flush-collapseThree"
+                data-bs-target="#flush-collapseFour"
                 aria-expanded="false"
-                aria-controls="flush-collapseThree"
+                aria-controls="flush-collapseFour"
               >
                 Question #4
               </button>
             </h2>
             <div
-              id="flush-collapseThree"
+              id="flush-collapseFour"
               className="accordion-collapse collapse"
               data-bs-parent="#accordionFlushExample"
             >
@@ -132,15 +134,15 @@ const FAQs = () => {
                 className="accordion-button collapsed fw-bold"
                 type="button"
                 data-bs-toggle="collapse"
-                data-bs-target="#flush-collapseThree"
+                data-bs-target="#flush-collapseFive"
                 aria-expanded="false"
-                aria-controls="flush-collapseThree"
+                aria-controls="flush-collapseFive"
               >
                 Question #5
               </button>
             </h2>
             <div
-              id="flush-collapseThree"
+              id="flush-collapseFive"
               className="accordion-collapse collapse"
               data-bs-parent="#accordionFlushExample"
             >

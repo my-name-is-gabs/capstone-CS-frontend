@@ -3,10 +3,12 @@ import ChangePassModal from "../Components/ChangePassModal";
 import ProfileModal from "../Components/ProfileModal";
 import axios from "../../api/axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SettingsPage = () => {
   const [profileDetail, setProfileDetail] = useState({});
   const [parseDate, setDate] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,11 +21,15 @@ const SettingsPage = () => {
           )
         );
       } catch (error) {
-        alert("There is an error fetching data");
+        alert("Something went wrong");
+        if (error.response.status === 401) {
+          alert("Session has expired");
+          navigate("/login");
+        }
       }
     };
     fetchData();
-  }, []);
+  }, [navigate]);
 
   const handleUpdateInfo = async (e) => {
     e.preventDefault();
@@ -38,6 +44,10 @@ const SettingsPage = () => {
       }
     } catch (error) {
       alert("Something went wrong");
+      if (error.response.status === 401) {
+        alert("Session has expired");
+        navigate("/login");
+      }
     }
   };
 
