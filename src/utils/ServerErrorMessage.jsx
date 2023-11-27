@@ -3,7 +3,7 @@ const ServerErrorMessage = ({ message, setIsShownError }) => {
   return (
     <>
       <div
-        className="position-absolute top-0 alert alert-danger alert-dismissible fade show text-center"
+        className="alert alert-danger alert-dismissible fade show text-center"
         role="alert"
       >
         <i className="fa-solid fa-triangle-exclamation"></i> {message}

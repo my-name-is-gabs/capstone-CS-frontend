@@ -51,9 +51,9 @@ const ReviewForm = ({ setStepCount, state }) => {
       if (err.response) {
         // alert("Server responded with status code: " + err.response.status);
         setApiErrorMsg(
-          `Server responded with status code: ${err.response.status}`
+          `Server responded with status code: ${err.response.status}. ${err.response.data}`
         );
-        console.error("Response data: " + err.response.data);
+        console.error("Response data: " + err.message);
       } else if (err.request) {
         // alert("No response received");
         setApiErrorMsg("No response received");

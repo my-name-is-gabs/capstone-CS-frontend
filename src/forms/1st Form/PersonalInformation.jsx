@@ -330,7 +330,7 @@ const PersonalInformation = ({
                   const response = confirm(
                     "All the data will be lost. Are you sure you want to cancel?"
                   );
-                  if (!response) return;
+                  if (response === false) return;
                   localStorage.removeItem("encryptedFormData");
                   localStorage.removeItem("formSecurityAccessData");
                   localStorage.removeItem("_grecaptcha");
