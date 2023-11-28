@@ -329,8 +329,8 @@ const RenewalForm = () => {
                     Choose course...
                   </option>
                   {courseTakingOptions.map((item, i) => (
-                    <option key={i} value={i + 1}>
-                      {item}
+                    <option key={i} value={item.id}>
+                      {item.course_name}
                     </option>
                   ))}
                 </select>
