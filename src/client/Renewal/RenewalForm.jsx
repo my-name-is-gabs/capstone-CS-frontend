@@ -27,6 +27,7 @@ const RenewalForm = () => {
       try {
         const res = await axios.get(`/applications/univ/`);
         setUniversityOptions(() => res.data);
+        console.log(res.data);
       } catch (err) {
         if (err.response) {
           // alert("Server responded with status code: " + err.response.status);
@@ -43,6 +44,7 @@ const RenewalForm = () => {
       try {
         const res = await axios.get(`/applications/courses/`);
         setCourseTakingOptions(() => res.data);
+        console.log(res.data);
       } catch (err) {
         if (err.response) {
           // alert("Server responded with status code: " + err.response.status);
