@@ -13,6 +13,7 @@ import {
 import axios from "../../api/axios";
 import LoadingPage from "../../utils/LoadingPage";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../constant";
 
 const RenewalForm = () => {
   const [error, setError] = useState({});
@@ -81,7 +82,8 @@ const RenewalForm = () => {
         console.log(res);
         setLoading(false);
         alert("Renewal application submitted");
-        navigate("/scholar");
+        window.open(`${BASE_URL}/survey/2/`, "_blank");
+        navigate("/login");
       } catch (error) {
         setLoading(false);
         alert("Something went wrong");
