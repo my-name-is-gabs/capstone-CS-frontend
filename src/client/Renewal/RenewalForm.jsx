@@ -84,6 +84,7 @@ const RenewalForm = () => {
       } catch (error) {
         setLoading(false);
         alert("Something went wrong");
+        console.error(error);
         if (error.response.status === 401) {
           alert("Session has expired");
           navigate("/login");
