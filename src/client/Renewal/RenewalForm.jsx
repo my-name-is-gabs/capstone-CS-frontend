@@ -1,11 +1,11 @@
 import { barangayOptions } from "../../extras/selectionData";
 import { isRenewInfoValid } from "../../extras/handleFormError";
-import {
-  courseTakingOptions,
-  universityOptions,
-} from "../../extras/selectionData";
+// import {
+//   courseTakingOptions,
+//   universityOptions,
+// } from "../../extras/selectionData";
 import { SubmitButton } from "../../components";
-import { useState, useReducer } from "react";
+import { useState, useReducer, useEffect } from "react";
 import {
   formRenewReducer,
   INITIAL_STATE,
@@ -19,6 +19,52 @@ const RenewalForm = () => {
   const [state, dispatch] = useReducer(formRenewReducer, INITIAL_STATE);
   const [isLoading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [univName, setUnivName] = useState("");
+  const [courseName, setCourseName] = useState("");
+  const [universityOptions, setUniversityOptions] = useState([]);
+  const [courseTakingOptions, setCourseTakingOptions] = useState([]);
+
+  useEffect(() => {
+    const fetchingUniv = async () => {
+      try {
+        const res = await axios.get(`/applications/univ/`);
+        setUniversityOptions(() => res.data);
+        const getUnivname = universityOptions.find(
+          (value) => value.id == state.university_attending
+        );
+        setUnivName(getUnivname.university_name);
+      } catch (err) {
+        if (err.response) {
+          // alert("Server responded with status code: " + err.response.status);
+          console.error(
+            `Server responded with status code: ${err.response.status}. ${err.response.data}`
+          );
+          console.debug("Response data: " + err.response);
+        }
+      }
+    };
+    fetchingUniv();
+
+    const fetchingCourse = async () => {
+      try {
+        const res = await axios.get(`/applications/courses/`);
+        setCourseTakingOptions(() => res.data);
+        const getCoursename = courseTakingOptions.find(
+          (value) => value.id == state.course_taking
+        );
+        setCourseName(getCoursename.course_name);
+      } catch (err) {
+        if (err.response) {
+          // alert("Server responded with status code: " + err.response.status);
+          console.error(
+            `Server responded with status code: ${err.response.status}. ${err.response.data}`
+          );
+          console.debug("Response data: " + err.response);
+        }
+      }
+    };
+    fetchingCourse();
+  }, [courseTakingOptions, universityOptions, state, univName, courseName]);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
