@@ -1,11 +1,11 @@
 import { barangayOptions } from "../../extras/selectionData";
 import { isRenewInfoValid } from "../../extras/handleFormError";
-// import {
-//   courseTakingOptions,
-//   universityOptions,
-// } from "../../extras/selectionData";
+import {
+  courseTakingOptions,
+  universityOptions,
+} from "../../extras/selectionData";
 import { SubmitButton } from "../../components";
-import { useState, useReducer, useEffect } from "react";
+import { useState, useReducer } from "react";
 import {
   formRenewReducer,
   INITIAL_STATE,
@@ -13,49 +13,12 @@ import {
 import axios from "../../api/axios";
 import LoadingPage from "../../utils/LoadingPage";
 import { useNavigate } from "react-router-dom";
-import { BASE_URL } from "../../constant";
 
 const RenewalForm = () => {
   const [error, setError] = useState({});
   const [state, dispatch] = useReducer(formRenewReducer, INITIAL_STATE);
   const [isLoading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const [universityOptions, setUniversityOptions] = useState([]);
-  const [courseTakingOptions, setCourseTakingOptions] = useState([]);
-
-  useEffect(() => {
-    const fetchingUniv = async () => {
-      try {
-        const res = await axios.get(`${BASE_URL}/applications/univ/`);
-        setUniversityOptions(() => res.data);
-      } catch (err) {
-        if (err.response) {
-          // alert("Server responded with status code: " + err.response.status);
-          console.error(
-            `Server responded with status code: ${err.response.status}. ${err.response.data}`
-          );
-          console.debug("Response data: " + err.response);
-        }
-      }
-    };
-    fetchingUniv();
-
-    const fetchingCourse = async () => {
-      try {
-        const res = await axios.get(`${BASE_URL}/applications/courses/`);
-        setCourseTakingOptions(() => res.data);
-      } catch (err) {
-        if (err.response) {
-          // alert("Server responded with status code: " + err.response.status);
-          console.error(
-            `Server responded with status code: ${err.response.status}. ${err.response.data}`
-          );
-          console.debug("Response data: " + err.response);
-        }
-      }
-    };
-    fetchingCourse();
-  }, []);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -344,7 +307,7 @@ const RenewalForm = () => {
                   </option>
                   {universityOptions.map((item) => (
                     <option key={item.id} value={item.id}>
-                      {item.university_name}
+                      {item.name}
                     </option>
                   ))}
                 </select>
@@ -366,8 +329,8 @@ const RenewalForm = () => {
                     Choose course...
                   </option>
                   {courseTakingOptions.map((item, i) => (
-                    <option key={i} value={item.id}>
-                      {item.course_name}
+                    <option key={i} value={i + 1}>
+                      {item}
                     </option>
                   ))}
                 </select>
