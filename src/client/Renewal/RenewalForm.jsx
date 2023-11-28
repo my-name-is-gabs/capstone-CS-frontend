@@ -19,8 +19,6 @@ const RenewalForm = () => {
   const [state, dispatch] = useReducer(formRenewReducer, INITIAL_STATE);
   const [isLoading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const [univName, setUnivName] = useState("");
-  const [courseName, setCourseName] = useState("");
   const [universityOptions, setUniversityOptions] = useState([]);
   const [courseTakingOptions, setCourseTakingOptions] = useState([]);
 
@@ -29,10 +27,6 @@ const RenewalForm = () => {
       try {
         const res = await axios.get(`/applications/univ/`);
         setUniversityOptions(() => res.data);
-        const getUnivname = universityOptions.find(
-          (value) => value.id == state.university_attending
-        );
-        setUnivName(getUnivname.university_name);
       } catch (err) {
         if (err.response) {
           // alert("Server responded with status code: " + err.response.status);
@@ -49,10 +43,6 @@ const RenewalForm = () => {
       try {
         const res = await axios.get(`/applications/courses/`);
         setCourseTakingOptions(() => res.data);
-        const getCoursename = courseTakingOptions.find(
-          (value) => value.id == state.course_taking
-        );
-        setCourseName(getCoursename.course_name);
       } catch (err) {
         if (err.response) {
           // alert("Server responded with status code: " + err.response.status);
@@ -64,7 +54,7 @@ const RenewalForm = () => {
       }
     };
     fetchingCourse();
-  }, [courseTakingOptions, universityOptions, state, univName, courseName]);
+  }, []);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
