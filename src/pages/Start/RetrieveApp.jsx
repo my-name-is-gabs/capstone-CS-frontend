@@ -35,13 +35,13 @@ const RetrieveApp = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    const appIdRetrieve = e.target.appIdRetrieve.value;
+    // const appIdRetrieve = e.target.appIdRetrieve.value;
     const retrieveSQ = e.target.retrieveSQ.value;
     const retrieveSA = e.target.retrieveSA.value;
 
     try {
       if (
-        retrievedSecurity.application_id === appIdRetrieve &&
+        // retrievedSecurity.application_id === appIdRetrieve &&
         retrievedSecurity.security_question === retrieveSQ &&
         retrievedSecurity.security_answer === retrieveSA
       ) {
@@ -70,7 +70,7 @@ const RetrieveApp = () => {
                 {error}
               </div>
             )}
-            <div className="px-4 mb-3">
+            {/* <div className="px-4 mb-3">
               <label className="form-label fw-bold">Application ID:</label>
               <input
                 type="text"
@@ -78,7 +78,7 @@ const RetrieveApp = () => {
                 id=""
                 className="form-control cs-outline"
               />
-            </div>
+            </div> */}
 
             <div className="px-4 mb-3">
               <label htmlFor="security_question" className="form-label fw-bold">
@@ -115,7 +115,6 @@ const RetrieveApp = () => {
               <input
                 type="text"
                 name="retrieveSA"
-                id=""
                 className="form-control cs-outline"
               />
             </div>

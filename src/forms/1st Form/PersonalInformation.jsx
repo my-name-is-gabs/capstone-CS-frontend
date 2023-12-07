@@ -11,6 +11,7 @@ const PersonalInformation = ({
   dispatcher,
   state,
   saveProgress,
+  cancelProgress,
 }) => {
   const [error, setError] = useState({});
 
@@ -327,13 +328,10 @@ const PersonalInformation = ({
                 to="/startscholar"
                 className="btn cs-btn-secondary fw-bold fs-5 shadow-sm px-5"
                 onClick={() => {
-                  const response = confirm(
-                    "All the data will be lost. Are you sure you want to cancel?"
-                  );
-                  if (response === false) return;
-                  localStorage.removeItem("encryptedFormData");
-                  localStorage.removeItem("formSecurityAccessData");
-                  localStorage.removeItem("_grecaptcha");
+                  cancelProgress();
+                  // localStorage.removeItem("encryptedFormData");
+                  // localStorage.removeItem("formSecurityAccessData");
+                  // localStorage.removeItem("_grecaptcha");
                 }}
               >
                 Cancel
@@ -354,6 +352,7 @@ PersonalInformation.propTypes = {
   dispatcher: PropTypes.func,
   state: PropTypes.object,
   saveProgress: PropTypes.func,
+  cancelProgress: PropTypes.func,
 };
 
 export default PersonalInformation;

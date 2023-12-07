@@ -7,32 +7,57 @@ import { useState, useReducer, useEffect, useLayoutEffect } from "react";
 import ReviewForm from "./5th Form/ReviewForm";
 import { formReducer, INITIAL_STATE } from "../reducer/formReducer";
 import CryptoJS from "crypto-js";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const RetrieveBaseForm = () => {
   const [helperCount, setHelperCount] = useState(0);
   const [stepCount, setStepCount] = useState(1);
-  const [scholarId, setScholarId] = useState("");
+  // const [scholarId, setScholarId] = useState("");
   const [state, dispatch] = useReducer(formReducer, INITIAL_STATE);
   const [retrievedFormData, setRetrieveFormData] = useState({});
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   const getScholarId = localStorage.getItem("formSecurityAccessData")
+  //     ? localStorage.getItem("formSecurityAccessData")
+  //     : "";
+  //   if (!getScholarId) return;
+  //   const decryptScholarId = CryptoJS.AES.decrypt(
+  //     getScholarId,
+  //     import.meta.env.VITE_SECRET_KEY
+  //   );
+
+  //   const decryptedData = JSON.parse(
+  //     decryptScholarId.toString(CryptoJS.enc.Utf8)
+  //   );
+
+  //   setScholarId(decryptedData.application_id);
+
+  //   ///
+  // }, []);
 
   useEffect(() => {
-    const getScholarId = localStorage.getItem("formSecurityAccessData")
-      ? localStorage.getItem("formSecurityAccessData")
-      : "";
-    if (!getScholarId) return;
-    const decryptScholarId = CryptoJS.AES.decrypt(
-      getScholarId,
-      import.meta.env.VITE_SECRET_KEY
-    );
+    const handleBeforeUnload = (e) => {
+      e.preventDefault();
+      const encryptFormData = CryptoJS.AES.encrypt(
+        JSON.stringify(state),
+        import.meta.env.VITE_SECRET_KEY
+      );
+      localStorage.setItem("encryptedFormData", encryptFormData);
+      e.returnValue = "";
+    };
 
-    const decryptedData = JSON.parse(
-      decryptScholarId.toString(CryptoJS.enc.Utf8)
-    );
+    if (window.location.pathname === "/forms") {
+      window.addEventListener("unload", handleBeforeUnload, {
+        capture: true,
+      });
+    }
 
-    setScholarId(decryptedData.application_id);
-
-    ///
-  }, []);
+    return () => {
+      window.removeEventListener("unload", handleBeforeUnload);
+    };
+  }, [state, location]);
 
   useLayoutEffect(() => {
     const getEncryptData = localStorage.getItem("encryptedFormData");
@@ -57,6 +82,16 @@ const RetrieveBaseForm = () => {
     });
   }, [dispatch, retrievedFormData]);
 
+  const cancelProgress = () => {
+    const encryptFormData = CryptoJS.AES.encrypt(
+      JSON.stringify(state),
+      import.meta.env.VITE_SECRET_KEY
+    );
+    localStorage.setItem("encryptedFormData", encryptFormData);
+    alert("You can get back to it later! Just go to the Retrieve Application.");
+    navigate("/startapp");
+  };
+
   const PageDisplay = (step) => {
     switch (step) {
       case 1:
@@ -66,6 +101,7 @@ const RetrieveBaseForm = () => {
             setStepCount={setStepCount}
             dispatcher={dispatch}
             state={state}
+            cancelProgress={cancelProgress}
           />
         );
       case 2:
@@ -107,12 +143,12 @@ const RetrieveBaseForm = () => {
   return (
     <>
       <div className="container mt-5 position-relative">
-        <div className="p-2 border border-3 border-dark rounded d-flex justify-content-around align-items-center bg-light mb-4 w-25 mx-auto">
+        {/* <div className="p-2 border border-3 border-dark rounded d-flex justify-content-around align-items-center bg-light mb-4 w-25 mx-auto">
           <div className="d-flex flex-column justify-content-center py-2">
             <h6 className="fw-bold">Your Application ID is:</h6>
             <p className="text-center text-danger fw-bold">{scholarId}</p>
           </div>
-        </div>
+        </div> */}
         {PageDisplay(stepCount)}
       </div>
 

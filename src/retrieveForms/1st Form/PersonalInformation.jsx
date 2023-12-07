@@ -10,6 +10,7 @@ const PersonalInformation = ({
   setStepCount,
   dispatcher,
   state,
+  cancelProgress,
 }) => {
   const [error, setError] = useState({});
 
@@ -316,15 +317,7 @@ const PersonalInformation = ({
               <NavLink
                 to="/startscholar"
                 className="btn cs-btn-secondary fw-bold fs-5 shadow-sm px-5"
-                onClick={() => {
-                  const response = confirm(
-                    "All the data will be lost. Are you sure you want to cancel?"
-                  );
-                  if (!response) return;
-                  localStorage.removeItem("encryptedFormData");
-                  localStorage.removeItem("formSecurityAccessData");
-                  localStorage.removeItem("_grecaptcha");
-                }}
+                onClick={() => cancelProgress()}
               >
                 Cancel
               </NavLink>
@@ -344,6 +337,7 @@ PersonalInformation.propTypes = {
   dispatcher: PropTypes.func,
   state: PropTypes.object,
   retrievedData: PropTypes.object,
+  cancelProgress: PropTypes.func,
 };
 
 export default PersonalInformation;

@@ -1,13 +1,14 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { useRef, useEffect, useState, useMemo } from "react";
+// import { useRef, useEffect, useState,  } from "react";
+import { useMemo } from "react";
 import { Footer } from "../../components";
 import AES from "crypto-js/aes";
 import "./appstyle.css";
 
 const StartApp = () => {
   const navigate = useNavigate();
-  const applicantIdRef = useRef(null);
-  const [generatedId, setGeneratedId] = useState(null);
+  // const applicantIdRef = useRef(null);
+  // const [generatedId, setGeneratedId] = useState(null);
 
   const securityQustions = {
     q1: "What city were you born in?",
@@ -18,12 +19,12 @@ const StartApp = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    const application_id = e.target.application_id.value;
+    // const application_id = e.target.application_id.value;
     const security_question = e.target.security_question.value;
     const security_answer = e.target.security_answer.value;
 
     const formData = {
-      application_id,
+      // application_id,
       security_question,
       security_answer,
     };
@@ -45,18 +46,18 @@ const StartApp = () => {
     };
   }, []);
 
-  const numGenerator = useMemo(() => {
-    return Math.ceil(Math.random() * 100000);
-  }, []);
+  // const numGenerator = useMemo(() => {
+  //   return Math.ceil(Math.random() * 100000);
+  // }, []);
 
-  useEffect(() => {
-    const handleIdGeneration = () => {
-      const currentYear = new Date().getFullYear();
-      const scholarId = `${currentYear}APP${numGenerator}`;
-      setGeneratedId(scholarId);
-    };
-    handleIdGeneration();
-  }, [numGenerator]);
+  // useEffect(() => {
+  //   const handleIdGeneration = () => {
+  //     const currentYear = new Date().getFullYear();
+  //     const scholarId = `${currentYear}APP${numGenerator}`;
+  //     setGeneratedId(scholarId);
+  //   };
+  //   handleIdGeneration();
+  // }, [numGenerator]);
 
   return (
     <>
@@ -201,17 +202,20 @@ const StartApp = () => {
                     width="100"
                     alt="logo"
                   />
-                  <input
+                  {/* <input
                     ref={applicantIdRef}
                     type="hidden"
                     name="application_id"
                     value={generatedId}
-                  />
+                  /> */}
                   <div className="d-flex flex-column justify-content-center py-2">
-                    <h6 className="fw-bold">Your Application ID is:</h6>
+                    {/* <h6 className="fw-bold">Your Application ID is:</h6>
                     <p className="text-center text-danger fw-bold">
                       {generatedId}
-                    </p>
+                    </p> */}
+                    <h5 className="text-center">
+                      Welcome to Centro Secretariat Scholarship Application
+                    </h5>
                     <h6 className="fw-bold">Date:</h6>
                     <p className="text-center">
                       {new Intl.DateTimeFormat("en-ph", dateTimeOption).format(
