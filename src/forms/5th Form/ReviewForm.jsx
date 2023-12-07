@@ -86,7 +86,7 @@ const ReviewForm = ({ setStepCount, state }) => {
       localStorage.removeItem("_grecaptcha");
       if (res.status === 200) {
         setLoading(false);
-        navigate(`/review_and_process/${state.application_reference_id}`);
+        navigate(`/review_and_process/${res.data.application_reference_id}`);
       }
     } catch (err) {
       setLoading(false);
