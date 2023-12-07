@@ -122,7 +122,7 @@ const ReviewAndProcess = () => {
       );
       if (res.status === 201) {
         setLoading(false);
-        window.open(`${BASE_URL}/survey/2/`, "_blank");
+        // window.open(`${BASE_URL}/survey/2/`, "_blank");
         setSuccessDisplay(true);
         navigate("/");
       }
