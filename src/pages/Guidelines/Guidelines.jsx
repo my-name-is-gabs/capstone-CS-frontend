@@ -19,23 +19,42 @@ const Guidelines = () => {
           <div className="col-md-7 d-flex flex-column p-4">
             <h4 className="fw-semibold">GUIDELINES:</h4>
             <ol className="fs-6 lh-lg">
-              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </li>
-              <li>Vestibulum sit amet blandit odio</li>
               <li>
-                Proin est orci, scelerisque in congue in, ultrices eu nibh.
-                Quisque quis sagittis turpis.
+                The applicant (new) will be submitting the form containing his
+                or her personal information, in which it is REQUIRED that he/she
+                submits legitimate documents needed. Otherwise, the application
+                form will be deemed as fraud, resulting in an automatic
+                rejection of his or her scholarship application.
               </li>
               <li>
-                Mauris eleifend, magna id faucibus efficitur, felis eros
-                consectetur felis, non maximus nunc nibh ac augue
+                As the scholarship in local municipalities encounter traffic due
+                to the massive amount of applications per semester and academic
+                year, it is for this reason why the system automatically
+                performs eligibility checking. It carefully checks and analyzes
+                the necessary files that was submitted by the applicant during
+                his or her application.
               </li>
               <li>
-                Integer ut libero aliquam, dignissim lorem et, luctus mi.
-                Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
-                posuere cubilia curae; Etiam ut leo sed justo pharetra
-                scelerisque
+                The results of the automated eligibility checking can be found
+                on the applicant's provided e-mail address, as well as under the
+                system's own monitoring page. To monitor your application,
+                please input the given application reference ID
+                (20XX-00000-ST-X) that was given to your e-mail address upon
+                submitting the said application.
               </li>
-              <li>Pellentesque ut nulla arcu</li>
+              <li>
+                Please bear with us and wait for a given amount of days as our
+                scholarship staffs and officers are doing their utmost best at
+                manually evaluating your scholarship application. Rest assured
+                that you shall get a notification from us soon.
+              </li>
+              <li>
+                Lastly, if the applicants ever have any concerns and/or
+                inquiries in regards to the application or scholarship program,
+                please do not hesitate on reaching out on our Facebook page.
+                Applicants are able to do so by clicking the chat widget found
+                on the bottom left of your screen.
+              </li>
             </ol>
             <button
               type="button"
