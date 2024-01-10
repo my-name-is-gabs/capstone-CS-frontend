@@ -70,7 +70,7 @@ const ChangePassModal = () => {
                   Old password:
                 </label>
                 <input
-                  type="text"
+                  type="password"
                   name="firstname"
                   id="firstname"
                   className="form-control bg-light-subtle"
@@ -88,7 +88,7 @@ const ChangePassModal = () => {
                   New password:
                 </label>
                 <input
-                  type="text"
+                  type="password"
                   name="middlename"
                   id="middlename"
                   className="form-control bg-light-subtle"
@@ -106,7 +106,7 @@ const ChangePassModal = () => {
                   Re-enter new password:
                 </label>
                 <input
-                  type="text"
+                  type="password"
                   name="lastname"
                   id="lastname"
                   className="form-control bg-light-subtle"
