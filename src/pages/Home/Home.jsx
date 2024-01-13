@@ -48,11 +48,11 @@ const Home = () => {
                 <h1 className="p-4 text-center fw-bold display-5">
                   Lorem ipsum dolor sit amet. <br /> Lorem, ipsum dolor.
                 </h1>
-                <div className="align-self-center">
+                {/* <div className="align-self-center">
                   <button className="btn btn-warning border-1 fw-bold fs-4 border border-1 border-dark">
                     Hear Stories!
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

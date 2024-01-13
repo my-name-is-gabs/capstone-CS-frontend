@@ -1,12 +1,14 @@
+/* eslint-disable react/jsx-no-target-blank */
 import { PropTypes } from "prop-types";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { SubmitButton } from "../../components";
 import { barangayOptions, religionOptions } from "../../extras/selectionData";
 import { isPersonalInfoValid } from "../../extras/handleFormError";
+import HelperOffcanvas from "../../components/Offcanvas/HelperOffcanvas";
 
 const PersonalInformation = ({
-  setHelperCount,
+  // setHelperCount,
   setStepCount,
   dispatcher,
   state,
@@ -102,7 +104,7 @@ const PersonalInformation = ({
                   data-bs-toggle="offcanvas"
                   data-bs-target="#offcanvasRight"
                   aria-controls="offcanvasRight"
-                  onClick={() => setHelperCount(0)}
+                  // onClick={() => setHelperCount(0)}
                 >
                   <i className="fs-2 fa-regular fa-circle-question"></i>
                 </button>
@@ -202,6 +204,7 @@ const PersonalInformation = ({
                     className="form-control"
                     onChange={handleChange}
                     value={state.email_address}
+                    placeholder="e.g.: enteryourvalidemail@gmail.com"
                     required
                   />
                 </div>
@@ -220,6 +223,7 @@ const PersonalInformation = ({
                     className="form-control"
                     onChange={handleChange}
                     value={state.house_address}
+                    placeholder="e.g.: house_number street_name unit/floor(if applicable)"
                     required
                   />
                 </div>
@@ -305,6 +309,7 @@ const PersonalInformation = ({
                     className="form-control"
                     onChange={handleChange}
                     value={state.personalized_facebook_link}
+                    placeholder="e.g.: fb.me/username"
                     required
                   />
                 </div>
@@ -342,6 +347,90 @@ const PersonalInformation = ({
         </form>
       </div>
       {/* End of Forms Under Personal Information */}
+
+      {/* Helper Offcanvas */}
+      <HelperOffcanvas
+        title="Personal Information Inquiry"
+        element={<PersonalInfoHelper />}
+      />
+    </>
+  );
+};
+
+const PersonalInfoHelper = () => {
+  return (
+    <>
+      <div className="d-flex flex-column gap-4 p-2">
+        <div className="d-inline-flex flex-column gap-2">
+          <h5 className="fw-bold">Uploading of National ID</h5>
+          <figure className="figure">
+            <img
+              src="assets/img/natl_id_samp.jpg"
+              alt="National ID"
+              className="img-fluid img-thumbnail"
+              width={350}
+            />
+            <figcaption className="figure-caption text-center">
+              Sample National ID
+            </figcaption>
+          </figure>
+          <p>
+            The system requires you to upload your National ID as part of
+            applicant eligibility checking. Our system will extract the
+            following information which is your <b>First Name</b>,{" "}
+            <b>Middle Name</b>, and <b>Last Name</b>.
+            <br /> <br />
+            Currently, the system is unable to extract information in ePhilID or
+            printed National ID, so it is recommended to have your National ID
+            card.
+          </p>
+        </div>
+
+        <div className="d-inline-flex flex-column gap-2">
+          <h5 className="fw-bold">Scholarship Type</h5>
+          <p>
+            Our system is basing the scholarship types in Taguig City
+            scholarship program. To learn more about these scholarship types, we
+            provide you a link from Taguig {"City's"} website:{" "}
+            <a
+              target="_blank"
+              rel="noopener norefferer"
+              href="http://tinyurl.com/5bh4bxs5"
+            >
+              different scholarship types
+            </a>
+            .
+          </p>
+        </div>
+
+        <div className="d-inline-flex flex-column gap-2">
+          <h5 className="fw-bold">Voter Certificate</h5>
+          <figure className="figure">
+            <img
+              src="assets/img/applicant_voter_samp.jpg"
+              alt="Applicant Voter Cert"
+              className="img-fluid img-thumbnail"
+              width={350}
+            />
+            <figcaption className="figure-caption text-center">
+              Voter Certificate Sample
+            </figcaption>
+          </figure>
+          <p>
+            Taguig City LGU requires the scholar to submit their {"voter's"}{" "}
+            certificate to prove that you are a resident of the city.
+          </p>
+        </div>
+
+        <div className="d-inline-flex flex-column gap-2">
+          <h5 className="fw-bold">FB Link</h5>
+
+          <p>
+            Your facebook profile link is need so that a scholar officer can
+            verify your identity if you are a legitimate person.
+          </p>
+        </div>
+      </div>
     </>
   );
 };

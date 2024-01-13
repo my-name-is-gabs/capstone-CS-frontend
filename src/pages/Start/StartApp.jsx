@@ -7,8 +7,6 @@ import "./appstyle.css";
 
 const StartApp = () => {
   const navigate = useNavigate();
-  // const applicantIdRef = useRef(null);
-  // const [generatedId, setGeneratedId] = useState(null);
 
   const securityQustions = {
     q1: "What city were you born in?",
@@ -19,12 +17,10 @@ const StartApp = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    // const application_id = e.target.application_id.value;
     const security_question = e.target.security_question.value;
     const security_answer = e.target.security_answer.value;
 
     const formData = {
-      // application_id,
       security_question,
       security_answer,
     };
@@ -46,19 +42,6 @@ const StartApp = () => {
     };
   }, []);
 
-  // const numGenerator = useMemo(() => {
-  //   return Math.ceil(Math.random() * 100000);
-  // }, []);
-
-  // useEffect(() => {
-  //   const handleIdGeneration = () => {
-  //     const currentYear = new Date().getFullYear();
-  //     const scholarId = `${currentYear}APP${numGenerator}`;
-  //     setGeneratedId(scholarId);
-  //   };
-  //   handleIdGeneration();
-  // }, [numGenerator]);
-
   return (
     <>
       <div className="row">
@@ -69,22 +52,26 @@ const StartApp = () => {
           <div className="cs-bg-primary p-4 rounded-3 text-white mt-4">
             <h5 className="fw-bold">PLEASE READ!</h5>
             <hr />
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quaerat
-              adipisci, numquam assumenda incidunt architecto aperiam. Dolorum
-              veniam minus voluptate sint! Eaque, odit illum aspernatur quasi
-              quos iusto quisquam deserunt esse ab ipsam minus praesentium illo
-              laudantium reprehenderit adipisci sapiente mollitia, doloremque
-              obcaecati porro totam! Culpa, vitae ut? Dolorum at laboriosam
-              repellat doloribus expedita vero? Ducimus perferendis, saepe
-              accusamus distinctio perspiciatis, laudantium deserunt deleniti
-              doloremque temporibus velit voluptatibus reprehenderit tenetur
-              possimus necessitatibus! Incidunt laudantium placeat commodi quasi
-              alias aliquam nulla accusantium? Sed tenetur odio reprehenderit
-              adipisci odit, possimus distinctio dolore ab. Voluptas nobis neque
-              earum blanditiis perferendis, reiciendis dolore qui aperiam. Lorem
-              ipsum dolor sit amet consectetur, adipisicing elit.
+            <p className="d-flex flex-column gap-4">
+              Before proceeding in answering and submitting your scholarship
+              application through our website, make sure that you read the
+              guidelines to ensure that you are providing the right details.
+              Incorrect information might get your application rejected so make
+              sure that you follow the instructions.
+              <div>
+                We make sure that we will guide your throughout the process of
+                scholarship application. See the picture below:
+              </div>
+              <img src="assets/img/guideInfo.png" alt="Info Guide Picture" />
+              <div>
+                Each header has a question mark{" "}
+                <i className="fs-4 fa-regular fa-circle-question"></i> button.
+                Upon clicking the button, a sidebar window will show up that
+                contains the information that will help you in answering the
+                form.
+              </div>
             </p>
+
             <p>
               Furthermore, the{" "}
               <span className="fw-bold">Centro Secretariat</span> assures that
@@ -92,8 +79,8 @@ const StartApp = () => {
             </p>
             <ul>
               <li>
-                obtain personal identifying informatino about you through your
-                use of this sysstem, unless you choose to provide such
+                obtain personal identifying information about you through your
+                use of this system, unless you choose to provide such
                 information.
               </li>
               <li>
@@ -119,14 +106,15 @@ const StartApp = () => {
           <h1 className="fw-bold">Application Information</h1>
           <div className="mx-auto p-4 mt-4">
             <div className="cs-bg-light cs-radius p-4">
-              <h5 className="fw-bold">Please record your Application ID</h5>
+              <h5 className="fw-bold">
+                Please remember your security question and answer
+              </h5>
               <p>
                 If there are technical issues with the system, or you want to
                 complete your application some other time, you can save your
-                work and later, satrt where you left off. In order to access
+                work and later, start where you left off. In order to access
                 your application later, however, you will need: (1) your
-                Application ID, and (2) the answer to the security question that
-                you will choose on this page.
+                security question, and (2) the answer to your security question.
               </p>
               <p>
                 To choose a security question, pick the one you like the best
@@ -202,17 +190,8 @@ const StartApp = () => {
                     width="100"
                     alt="logo"
                   />
-                  {/* <input
-                    ref={applicantIdRef}
-                    type="hidden"
-                    name="application_id"
-                    value={generatedId}
-                  /> */}
+
                   <div className="d-flex flex-column justify-content-center py-2">
-                    {/* <h6 className="fw-bold">Your Application ID is:</h6>
-                    <p className="text-center text-danger fw-bold">
-                      {generatedId}
-                    </p> */}
                     <h5 className="text-center">
                       Welcome to Centro Secretariat Scholarship Application
                     </h5>
@@ -234,12 +213,7 @@ const StartApp = () => {
                   >
                     Cancel
                   </NavLink>
-                  {/* <NavLink
-                    to="/forms"
-                    className="btn cs-btn-primary fw-bold fs-5 shadow-sm px-5"
-                  >
-                    Continue
-                  </NavLink> */}
+
                   <button className="btn cs-btn-primary fw-bold fs-5 shadow-sm px-5">
                     Continue
                   </button>

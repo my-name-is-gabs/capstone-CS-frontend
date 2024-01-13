@@ -3,9 +3,9 @@ import { PropTypes } from "prop-types";
 import { isGuardianInfoValid } from "../../extras/handleFormError";
 import { useState } from "react";
 import { SubmitButton } from "../../components";
+import HelperOffcanvas from "../../components/Offcanvas/HelperOffcanvas";
 
 const FamilyBackground = ({
-  setHelperCount,
   setStepCount,
   dispatcher,
   state,
@@ -104,7 +104,6 @@ const FamilyBackground = ({
                 data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvasRight"
                 aria-controls="offcanvasRight"
-                onClick={() => setHelperCount(4)}
               >
                 <i className="fs-2 fa-regular fa-circle-question"></i>
               </button>
@@ -145,6 +144,7 @@ const FamilyBackground = ({
                   id="guardian_complete_address"
                   className="form-control"
                   value={state.guardian_complete_address}
+                  placeholder="e.g.: house_number street_name unit/floor(if applicable), city"
                   onChange={handleChange}
                   required
                 />
@@ -174,6 +174,7 @@ const FamilyBackground = ({
                     className="form-control"
                     value={state.guardian_contact_number}
                     onChange={handleChange}
+                    placeholder="9XX-XXX-XXX"
                     required
                   />
                 </div>
@@ -231,6 +232,7 @@ const FamilyBackground = ({
                   className="form-control"
                   value={state.guardian_educational_attainment}
                   onChange={handleChange}
+                  placeholder="e.g.: College Graduate, Master's Graduate, Doctorate Graduate, Diploma Holder, etc"
                   required
                 />
               </div>
@@ -282,6 +284,52 @@ const FamilyBackground = ({
         </div>
       </form>
       {/* <!-- End of Forms Under Family Background --> */}
+
+      {/* Helper Offcanvas */}
+      <HelperOffcanvas
+        title="Guardian's Information Inquiry"
+        element={<GuardianSectionHelper />}
+      />
+    </>
+  );
+};
+
+const GuardianSectionHelper = () => {
+  return (
+    <>
+      <div className="d-flex flex-column gap-4 p-2">
+        <div className="d-inline-flex flex-column gap-2">
+          <h5 className="fw-bold">Contact Number</h5>
+          <p>The contact number should start with 9 not with 0.</p>
+        </div>
+
+        <div className="d-inline-flex flex-column gap-2">
+          <h5 className="fw-bold">Educational Attainment</h5>
+          <p>
+            Indicate if the guardian is a College Graduate, Master's Graduate,
+            Doctorate Graduate, Diploma Holder, etc.
+          </p>
+        </div>
+
+        <div className="d-inline-flex flex-column gap-2">
+          <h5 className="fw-bold">Guardian's Voter Certificate</h5>
+          <figure className="figure">
+            <img
+              src="assets/img/parent_voter_samp.jpg"
+              alt="Applicant Voter Cert"
+              className="img-fluid img-thumbnail"
+              width={350}
+            />
+            <figcaption className="figure-caption text-center">
+              Guardian Voter Certificate Sample
+            </figcaption>
+          </figure>
+          <p>
+            Taguig City LGU requires the scholar to submit their {"guardian's"}{" "}
+            voter certificate to prove that they are a resident of the city.
+          </p>
+        </div>
+      </div>
     </>
   );
 };

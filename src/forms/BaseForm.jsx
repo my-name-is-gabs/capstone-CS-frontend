@@ -2,7 +2,7 @@ import PersonalInformation from "./1st Form/PersonalInformation";
 import EducationalBackground from "./2nd Form/EducationalBackground";
 import FamilyBackground from "./3rd Form/FamilyBackground";
 import OthersForm from "./4th Form/OthersForm";
-import helperMenuContents from "../extras/helperData";
+// import helperMenuContents from "../extras/helperData";
 import { useState, useReducer, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { formReducer, INITIAL_STATE } from "../reducer/formReducer";
@@ -10,7 +10,7 @@ import CryptoJS from "crypto-js";
 import ReviewForm from "./5th Form/ReviewForm";
 
 const BaseForm = () => {
-  const [helperCount, setHelperCount] = useState(0);
+  // const [helperCount, setHelperCount] = useState(0);
   const [stepCount, setStepCount] = useState(1);
   // const [scholarId, setScholarId] = useState("");
   const [state, dispatch] = useReducer(formReducer, INITIAL_STATE);
@@ -55,27 +55,6 @@ const BaseForm = () => {
     };
   }, [state]);
 
-  // useEffect(() => {
-  //   const getScholarId = localStorage.getItem("formSecurityAccessData")
-  //     ? localStorage.getItem("formSecurityAccessData")
-  //     : "";
-  //   if (!getScholarId) return;
-  //   const decryptScholarId = CryptoJS.AES.decrypt(
-  //     getScholarId,
-  //     import.meta.env.VITE_SECRET_KEY
-  //   );
-
-  //   const decryptedData = JSON.parse(
-  //     decryptScholarId.toString(CryptoJS.enc.Utf8)
-  //   );
-
-  //   setScholarId(decryptedData.application_id);
-  //   dispatch({
-  //     type: "FORM_DATA",
-  //     payload: { name: "application_reference_id", value: scholarId },
-  //   });
-  // }, [scholarId]);
-
   const saveProgress = () => {
     const encryptFormData = CryptoJS.AES.encrypt(
       JSON.stringify(state),
@@ -100,7 +79,7 @@ const BaseForm = () => {
       case 1:
         return (
           <PersonalInformation
-            setHelperCount={setHelperCount}
+            // setHelperCount={setHelperCount}
             setStepCount={setStepCount}
             dispatcher={dispatch}
             state={state}
@@ -111,7 +90,7 @@ const BaseForm = () => {
       case 2:
         return (
           <EducationalBackground
-            setHelperCount={setHelperCount}
+            // setHelperCount={setHelperCount}
             setStepCount={setStepCount}
             dispatcher={dispatch}
             state={state}
@@ -121,7 +100,7 @@ const BaseForm = () => {
       case 3:
         return (
           <FamilyBackground
-            setHelperCount={setHelperCount}
+            // setHelperCount={setHelperCount}
             setStepCount={setStepCount}
             dispatcher={dispatch}
             state={state}
@@ -131,7 +110,7 @@ const BaseForm = () => {
       case 4:
         return (
           <OthersForm
-            setHelperCount={setHelperCount}
+            // setHelperCount={setHelperCount}
             setStepCount={setStepCount}
             dispatcher={dispatch}
             state={state}
@@ -150,17 +129,11 @@ const BaseForm = () => {
   return (
     <>
       <div className="container mt-5 position-relative">
-        {/* <div className="p-2 border border-3 border-dark rounded d-flex justify-content-around align-items-center bg-light mb-4 w-25 mx-auto">
-          <div className="d-flex flex-column justify-content-center py-2">
-            <h6 className="fw-bold">Your Application ID is:</h6>
-            <p className="text-center text-danger fw-bold">{scholarId}</p>
-          </div>
-        </div> */}
         {PageDisplay(stepCount)}
       </div>
 
-      {/* Offcanvas */}
-      <div
+      {/* Offcanvas Helper */}
+      {/* <div
         className="offcanvas offcanvas-end"
         tabIndex="-1"
         id="offcanvasRight"
@@ -180,7 +153,7 @@ const BaseForm = () => {
         <div className="offcanvas-body">
           {helperMenuContents[helperCount].body}
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

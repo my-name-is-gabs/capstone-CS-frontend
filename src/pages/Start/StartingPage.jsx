@@ -51,9 +51,11 @@ const StartingPage = () => {
             <hr />
             <ol>
               <li>
-                Learn about the
-                <a href="#">different types of scholarships</a> offered in
-                Taguig City.
+                Learn about the{" "}
+                <a href="http://tinyurl.com/5bh4bxs5">
+                  different types of scholarships
+                </a>{" "}
+                offered in Taguig City.
               </li>
               <li className="fw-bold">
                 This website is designed to be accessed by [BROWSER, X, Y, Z]

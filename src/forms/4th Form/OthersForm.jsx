@@ -1,8 +1,10 @@
+/* eslint-disable react/jsx-no-target-blank */
 import { useState } from "react";
 import { PropTypes } from "prop-types";
 import { isMiscInfoValid } from "../../extras/handleFormError";
 import { SubmitButton } from "../../components";
 import axios from "axios";
+import HelperOffcanvas from "../../components/Offcanvas/HelperOffcanvas";
 
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.withCredentials = true;
@@ -217,6 +219,7 @@ const OthersForm = ({
                   className="form-control"
                   onChange={handleChange}
                   value={state.total_units_enrolled}
+                  placeholder="e.g.: 12"
                   required
                 />
               </div>
@@ -280,6 +283,7 @@ const OthersForm = ({
                   className="form-control"
                   value={state.number_of_semesters_before_graduating}
                   onChange={handleChange}
+                  placeholder="e.g.: 1"
                   required
                 />
               </div>
@@ -372,6 +376,96 @@ const OthersForm = ({
         </div>
       </form>
       {/* <!-- End of FORMS Under Other Scholastic Information and Requirements --> */}
+
+      {/* Helper Offcanvas */}
+      <HelperOffcanvas
+        title="Miscellaneous Information Inquiry"
+        element={<MiscSectionHelper />}
+      />
+    </>
+  );
+};
+
+const MiscSectionHelper = () => {
+  return (
+    <>
+      <div className="d-flex flex-column gap-4 p-2">
+        <div className="d-inline-flex flex-column gap-2">
+          <h5 className="fw-bold">Semester</h5>
+          <p>
+            First Semester and Second Semester are the only option based on the
+            Taguig LGU scholarship program as our prospect client for this
+            system. To learn more, you can visit their website.{" "}
+            <a
+              target="_blank"
+              rel="noopener norefferer"
+              href="http://tinyurl.com/5bh4bxs5"
+            >
+              Click me!
+            </a>
+          </p>
+        </div>
+
+        <div className="d-inline-flex flex-column gap-2">
+          <h5 className="fw-bold">Registration Form File</h5>
+          <p>
+            Upload the scanned copy PDF file of your registration form from your
+            current university attending.
+          </p>
+        </div>
+
+        <div className="d-inline-flex flex-column gap-2">
+          <h5 className="fw-bold">Informative Copy of Grades</h5>
+          <p>
+            Upload the scanned copy PDF file of your informative copy of grades
+            from your current university attending.
+          </p>
+        </div>
+
+        <div className="d-inline-flex flex-column gap-2">
+          <h5 className="fw-bold">Applying for Merit</h5>
+          <p>
+            Tick the checkbox if you are applying for a merit. By applying for a
+            merit, you will receive an additional incentives. However, this only
+            applies if you are valid for the merit.
+          </p>
+        </div>
+
+        <div className="d-inline-flex flex-column gap-2">
+          <h5 className="fw-bold">Total Units Enrolled</h5>
+          <p>Total the units of the current ongoing semester.</p>
+        </div>
+
+        <div className="d-inline-flex flex-column gap-2">
+          <h5 className="fw-bold">Ladderize</h5>
+          <p>If you are a ladderize student click yes, if not just click no.</p>
+        </div>
+
+        <div className="d-inline-flex flex-column gap-2">
+          <h5 className="fw-bold">Number of Semester Remaining</h5>
+          <p>
+            Indicate the number of semester remaining before the school year
+            ends.
+          </p>
+        </div>
+
+        <div className="d-inline-flex flex-column gap-2">
+          <h5 className="fw-bold">Student Status</h5>
+          <p>
+            Indicate if you are a Regular, Irregular, or Octoberian student. An
+            Octoberian student is referenced from Taguig City scholarship
+            program. To learn more you can visit their website{" "}
+            <a
+              target="_blank"
+              rel="noopener norefferer"
+              href="http://tinyurl.com/5bh4bxs5"
+            >
+              click me
+            </a>
+            .
+          </p>
+        </div>
+      </div>
     </>
   );
 };

@@ -6,6 +6,7 @@ import { SubmitButton } from "../../components";
 import { useEffect } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../constant";
+import HelperOffcanvas from "../../components/Offcanvas/HelperOffcanvas";
 
 const EducationalBackground = ({
   setHelperCount,
@@ -162,7 +163,7 @@ const EducationalBackground = ({
                   </option>
                   {universityOptions.map((item) => (
                     <option key={item.id} value={item.id}>
-                      {item.id} - {item.university_name}
+                      {item.university_name}
                     </option>
                   ))}
                 </select>
@@ -186,7 +187,7 @@ const EducationalBackground = ({
                   </option>
                   {courseTakingOptions.map((item, i) => (
                     <option key={i} value={item.id}>
-                      {item.id} - {item.course_name}
+                      {item.course_name}
                     </option>
                   ))}
                 </select>
@@ -385,6 +386,7 @@ const EducationalBackground = ({
                   className="form-control"
                   value={state.elementary_school_address}
                   onChange={handleChange}
+                  placeholder="e.g.: number street_name, city"
                   required
                 />
               </div>
@@ -404,6 +406,7 @@ const EducationalBackground = ({
                   className="form-control"
                   value={state.elementary_start_end}
                   onChange={handleChange}
+                  placeholder="e.g.: 20XX-20XX"
                   required
                 />
               </div>
@@ -504,6 +507,7 @@ const EducationalBackground = ({
                   className="form-control"
                   value={state.jhs_school_address}
                   onChange={handleChange}
+                  placeholder="e.g.: number street_name, city"
                   required
                 />
               </div>
@@ -520,6 +524,7 @@ const EducationalBackground = ({
                   className="form-control"
                   value={state.jhs_start_end}
                   onChange={handleChange}
+                  placeholder="e.g.: 20XX-20XX"
                   required
                 />
               </div>
@@ -620,6 +625,7 @@ const EducationalBackground = ({
                   className="form-control"
                   value={state.shs_school_address}
                   onChange={handleChange}
+                  placeholder="e.g.: number street_name, city"
                   required
                 />
               </div>
@@ -636,6 +642,7 @@ const EducationalBackground = ({
                   className="form-control"
                   value={state.shs_start_end}
                   onChange={handleChange}
+                  placeholder="e.g.: 20XX-20XX"
                   required
                 />
               </div>
@@ -668,6 +675,52 @@ const EducationalBackground = ({
         </div>
       </form>
       {/* <!-- End of Forms Under Educational Background --> */}
+
+      {/* Helper Offcanvas */}
+      <HelperOffcanvas
+        title="Education Background Inquiry"
+        element={<EducSectionHelper />}
+      />
+    </>
+  );
+};
+
+const EducSectionHelper = () => {
+  return (
+    <>
+      <div className="d-flex flex-column gap-4 p-2">
+        <div className="d-inline-flex flex-column gap-2">
+          <h5 className="fw-bold">University Attending</h5>
+          <p>Select the university that you are currently attending to.</p>
+        </div>
+
+        <div className="d-inline-flex flex-column gap-2">
+          <h5 className="fw-bold">Course Taking</h5>
+          <p>Select the course that you are currently enrolled/taking.</p>
+        </div>
+
+        <div className="d-inline-flex flex-column gap-2">
+          <h5 className="fw-bold">Year Level</h5>
+          <p>Your current year level.</p>
+        </div>
+
+        <div className="d-inline-flex flex-column gap-2">
+          <h5 className="fw-bold">Course Duration</h5>
+          <p>
+            Enter the duration of your course regardless if you are a transferee
+            or shiftee.
+          </p>
+        </div>
+
+        <div className="d-inline-flex flex-column gap-2">
+          <h5 className="fw-bold">School Year Graduated</h5>
+          <p>
+            Enter your school duration from year when you first started and the
+            year you graduated. For example, Senior High School: {"(2017-2019)"}
+            .
+          </p>
+        </div>
+      </div>
     </>
   );
 };
