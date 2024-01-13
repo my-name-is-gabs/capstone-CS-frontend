@@ -123,20 +123,6 @@ const SettingsPage = () => {
             </div>
 
             <div className="col-md-4">
-              <label htmlFor="age" className="form-label fw-bold">
-                Age:
-              </label>
-              <input
-                type="text"
-                name="age"
-                id="age"
-                className="form-control bg-light-subtle"
-                value={profileDetail.age}
-                readOnly
-              />
-            </div>
-
-            <div className="col-md-4">
               <label htmlFor="gender" className="form-label fw-bold">
                 Gender:
               </label>

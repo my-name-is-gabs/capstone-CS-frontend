@@ -109,25 +109,6 @@ const ProfileModal = ({ defaultValue, setProfileDetail, handleUpdateInfo }) => {
                 />
               </div>
 
-              <div className="col-md-6">
-                <label htmlFor="age" className="form-label fw-bold">
-                  Age:
-                </label>
-                <input
-                  type="text"
-                  name="age"
-                  id="age"
-                  className="form-control"
-                  value={defaultValue.age}
-                  onChange={(e) =>
-                    setProfileDetail({
-                      ...defaultValue,
-                      age: e.target.value,
-                    })
-                  }
-                />
-              </div>
-
               <hr className="my-2 invisible" />
 
               <div className="col-md-8">
