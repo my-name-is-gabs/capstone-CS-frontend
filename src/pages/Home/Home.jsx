@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Footer } from "../../components";
 import "./home.css";
 import SuccessContext from "../../context/SuccessContext";
+import { NavLink } from "react-router-dom";
 
 const Home = () => {
   const { isSuccessDisplay, setSuccessDisplay } = useContext(SuccessContext);
@@ -38,21 +39,30 @@ const Home = () => {
             <div className="row">
               <div className="col-md-6">
                 <img
-                  src="https://plus.unsplash.com/premium_photo-1682284548131-58cb47f6ab2b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-                  alt="Unsplash Image Link"
+                  src="assets/img/taguig_banner.jpg"
+                  alt="Taguig Banner"
                   className="img-fluid"
-                  width={800}
+                  width={900}
                 />
               </div>
               <div className="col-md-6 d-flex flex-column align-items-center justify-content-center">
                 <h1 className="p-4 text-center fw-bold display-5">
-                  Lorem ipsum dolor sit amet. <br /> Lorem, ipsum dolor.
+                  Welcome to <br />{" "}
+                  <span style={{ color: "#1a4798", fontSize: "4rem" }}>
+                    CITY OF
+                  </span>{" "}
+                  <span style={{ color: "#ed1c24", fontSize: "4rem" }}>
+                    TAGUIG
+                  </span>
                 </h1>
-                {/* <div className="align-self-center">
-                  <button className="btn btn-warning border-1 fw-bold fs-4 border border-1 border-dark">
-                    Hear Stories!
-                  </button>
-                </div> */}
+                <div className="align-self-center">
+                  <NavLink
+                    className="btn btn-warning border-1 fw-bold fs-4 border border-1 border-dark"
+                    to="/guidelines"
+                  >
+                    Get Started!
+                  </NavLink>
+                </div>
               </div>
             </div>
           </div>

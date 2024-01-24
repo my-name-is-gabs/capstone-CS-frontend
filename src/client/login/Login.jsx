@@ -14,14 +14,14 @@ const Login = () => {
       <div className="login-page_container">
         <aside className="login-page_sidebar">
           <div className="login-page_header">
-            <img src="/assets/img/logo_degree.png" alt="Logo" />
-            <div className="d-block text-white">
-              <h3 className="fw-bold head-title">ABC City</h3>
+            <img src="/assets/img/logo_degree.png" alt="Logo" width={120} />
+            <div className="d-block text-white ms-2">
+              <h3 className="fw-bold head-title">Taguig City</h3>
               <p className="fs-5">Scholarship Programs</p>
             </div>
           </div>
           <div className="display-6 fw-bold text-white p-4 mt-4">
-            “Lorem ipsum dolor sit amet, consectetur adipiscing elit.”
+            “Investing in Education is Investing in the {"City's"} Foundation”
           </div>
         </aside>
         <main className="login-page_main">
@@ -36,6 +36,9 @@ const Login = () => {
             onSubmit={handleLogin}
           >
             <h1 className="fw-bold fs-2 mt-5">Welcome to Centro Secretariat</h1>
+            <h6 className="text-center fw-semibold">
+              For Renewing Scholar Applicants Only
+            </h6>
             <div className="mt-5">
               <label htmlFor="username" className="form-label fw-bold">
                 Username

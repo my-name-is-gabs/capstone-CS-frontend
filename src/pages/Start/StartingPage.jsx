@@ -8,7 +8,7 @@ import AuthContext from "../../context/AuthContext";
 import axios from "../../api/axios";
 
 const StartingPage = () => {
-  const [captcha, setCaptcha] = useState(null);
+  const [captcha, setCaptcha] = useState("");
   const [isOngoing, setOngoing] = useState(false);
   const { startApp, setStartApp } = useContext(AuthContext);
   const [securityExist] = useState(
@@ -18,14 +18,10 @@ const StartingPage = () => {
   );
 
   useEffect(() => {
-    (function () {
-      axios
-        .get("/head/get-is-ongoing")
-        .then((res) => setOngoing(res.data))
-        .catch(() =>
-          console.error("there is an error in fetching ongoing data")
-        );
-    })();
+    axios
+      .get("/head/get-is-ongoing/")
+      .then((res) => setOngoing(res.data))
+      .catch((err) => console.error(err));
   }, []);
 
   return (

@@ -1,12 +1,13 @@
 import { Footer } from "../../components";
+import { useNavigate } from "react-router-dom";
 
 const Guidelines = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="container-fluid mx-auto" style={{ width: "90%" }}>
-        <h1 className="mt-4 fw-bold display-5">
-          Type 1 Scholarship Requirements
-        </h1>
+        <h1 className="mt-4 fw-bold display-5">Scholarship Requirements</h1>
         <div className="row mt-5">
           <div className="col-md-4">
             <img
@@ -36,8 +37,9 @@ const Guidelines = () => {
               </li>
               <li>
                 The results of the automated eligibility checking can be found
-                on the applicant's provided e-mail address, as well as under the
-                system's own monitoring page. To monitor your application,
+                on the {"applicant's"}provided e-mail address, as well as under
+                the
+                {"system's"} own monitoring page. To monitor your application,
                 please input the given application reference ID
                 (20XX-00000-ST-X) that was given to your e-mail address upon
                 submitting the said application.
@@ -62,7 +64,7 @@ const Guidelines = () => {
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
             >
-              View Policies
+              Be a Scholar!
             </button>
           </div>
         </div>
@@ -73,7 +75,9 @@ const Guidelines = () => {
         <div className="modal-dialog modal-lg">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title fs-4 fw-bold">TERMS & CONDITIONS</h5>
+              <h5 className="modal-title fs-4 fw-bold">
+                TERMS & CONDITIONS OF USE
+              </h5>
               <button
                 type="button"
                 className="btn-close"
@@ -83,39 +87,78 @@ const Guidelines = () => {
             </div>
             <div className="modal-body p-4">
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                scelerisque at lectus sed mollis. Donec velit nibh, condimentum
-                in pharetra in, mattis eget sapien. Vestibulum ante ipsum primis
-                in faucibus orci luctus et ultrices posuere cubilia curae;
-                Aenean accumsan elit metus, a sollicitudin velit finibus eu. Sed
-                ultrices sollicitudin velit. Ut non nibh sed magna porttitor
-                mattis. Mauris eu turpis vulputate, tristique dolor
-                sollicitudin, consectetur ex. Aenean nibh tortor, tempor ac
-                magna sed, ultrices gravida dolor. Proin commodo dapibus nibh.
+                Welcome to Centro Secretariat Scholarship System! These terms
+                and conditions govern your access to and use of our system,
+                which has been developed by students of Polytechnic University
+                of the Philippines. Please read these Terms carefully before
+                using the System.
               </p>
-              <p>
-                Sed consequat aliquam condimentum. Duis ipsum nisi, dignissim id
-                porttitor eget, porttitor id lacus. Duis porta tincidunt
-                laoreet. Nam scelerisque ut orci id dictum. Vestibulum rhoncus
-                arcu quis nibh tristique fermentum. Nullam sollicitudin orci non
-                libero pulvinar cursus. In luctus odio id fermentum posuere.
-              </p>
-              <p>
-                Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
-                posuere cubilia curae; Aenean accumsan elit metus, a
-                sollicitudin velit finibus eu. Ut non nibh sed magna porttitor
-                mattis. Mauris eu turpis vulputate, tristique dolor
-                sollicitudin, consectetur ex. Aenean nibh tortor, tempor ac
-                magna sed, ultrices gravida dolor. Proin commodo dapibus nibh.
-              </p>
+              <ol>
+                <li>
+                  <h6 className="fw-bold">Acceptance of Terms</h6>
+                  <p>
+                    By accessing or using the System, you agree to be bound by
+                    these Terms. If you do not agree to these Terms, please do
+                    not use the System.
+                  </p>
+                </li>
+                <li>
+                  <h6 className="fw-bold">Use of the System</h6>
+                  <p>
+                    You may not (i) copy, modify, or distribute the System; (ii)
+                    reverse engineer or attempt to extract the source code of
+                    the System; (iii) use the System for any unlawful purpose or
+                    in violation of these Terms; (iv) interfere with the proper
+                    operation of the System; or (v) bypass any measures used to
+                    prevent or restrict access to the System.
+                  </p>
+                </li>
+                <li>
+                  <h6 className="fw-bold">Submitting Information</h6>
+                  <p>
+                    Since the system is not yet officially used for business
+                    purposes, you may use dummy information to test our system.
+                    You are not required and is discourage to insert your
+                    personal detail.
+                  </p>
+                </li>
+                <li>
+                  <h6 className="fw-bold">Privacy</h6>
+                  <p>
+                    The information collected is only disclosed to the
+                    scholarship officers that facilitate the scholarship program
+                    of Taguig. For further inquiries you may visit Taguig{" "}
+                    {"City's"} website for more info.
+                  </p>
+                </li>
+                <li>
+                  <h6 className="fw-bold">Limitation of Liability</h6>
+                  <p>
+                    To the fullest extent permitted by applicable law, Centro
+                    Secretariat Scholarship System shall not be liable for any
+                    indirect, incidental, special, consequential, or punitive
+                    damages, or any loss of profits or revenues, whether
+                    incurred directly or indirectly, or any loss of data, use,
+                    goodwill, or other intangible losses.
+                  </p>
+                </li>
+              </ol>
+              <p>Thank you for using Centro Secretariat Scholarship System.</p>
             </div>
             <div className="modal-footer">
               <button
                 type="button"
-                className="align-self-center mt-4 btn btn-warning rounded-pill px-4 fw-bold fs-5 border border-2 border-dark"
+                className="align-self-center mt-4 btn btn-warning rounded-pill px-4 fw-bold fs-5 border border-1 border-dark"
                 data-bs-dismiss="modal"
               >
                 Close
+              </button>
+              <button
+                className="align-self-center mt-4 btn btn-primary rounded-pill px-4 fw-bold fs-5 border border-1 border-dark"
+                onClick={() => navigate("/startscholar")}
+                data-bs-dismiss="modal"
+              >
+                Proceed
               </button>
             </div>
           </div>

@@ -32,11 +32,11 @@ const Navigation = () => {
             <img
               src="/assets/img/logo_degree.png"
               alt="Logo"
-              width="30"
-              height="24"
-              className="d-inline-block align-text-top"
+              width="32"
+              height="32"
+              className="d-inline-block align-text-top me-2"
             />
-            ABC Scholarship
+            Taguig Scholarship
           </NavLink>
           <button
             className="navbar-toggler"
@@ -54,7 +54,7 @@ const Navigation = () => {
             id="navbarNav"
           >
             <ul className="navbar-nav">
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <NavLink className={checkActiveLink} to="/about">
                   About
                 </NavLink>
@@ -63,17 +63,22 @@ const Navigation = () => {
                 <NavLink className={checkActiveLink} to="/guidelines">
                   Guidelines
                 </NavLink>
+              </li> */}
+              <li className="nav-item">
+                <NavLink className={checkActiveLink} to="/">
+                  Home
+                </NavLink>
               </li>
               <li className="nav-item">
                 <NavLink className={checkActiveLink} to="/faqs">
                   FAQs
                 </NavLink>
               </li>
-              <li className="nav-item mx-2">
+              {/* <li className="nav-item mx-2">
                 <NavButton btnBG="btn-warning" linkRef="/startscholar">
                   Be a Scholar!
                 </NavButton>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <NavButton btnBG="btn-primary" linkRef="/login">
                   Login
