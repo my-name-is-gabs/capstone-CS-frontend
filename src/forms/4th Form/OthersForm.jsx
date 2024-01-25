@@ -148,7 +148,8 @@ const OthersForm = ({
                   htmlFor="registration_form"
                   className="form-label fw-bold"
                 >
-                  REGISTRATION FORM FILE: <span className="text-danger">*</span>
+                  REGISTRATION FORM FILE (file format: pdf):{" "}
+                  <span className="text-danger">*</span>
                 </label>
                 <input
                   type="file"
@@ -156,6 +157,7 @@ const OthersForm = ({
                   id="registration_form"
                   className="form-control"
                   onChange={handleFile}
+                  accept=".pdf"
                   required
                 />
               </div>
@@ -165,7 +167,7 @@ const OthersForm = ({
                   htmlFor="informative_copy_of_grades"
                   className="form-label fw-bold"
                 >
-                  INFORMATIVE COPY OF GRADES:{" "}
+                  INFORMATIVE COPY OF GRADES (file format: pdf):{" "}
                   <span className="text-danger">*</span>
                 </label>
                 <input
@@ -174,6 +176,7 @@ const OthersForm = ({
                   id="informative_copy_of_grades"
                   className="form-control"
                   onChange={handleFile}
+                  accept=".pdf"
                   required
                 />
               </div>

@@ -252,6 +252,7 @@ const FamilyBackground = ({
                   id="guardian_voter_certificate"
                   className="form-control"
                   onChange={handleFile}
+                  accept=".png, .jpg, .jpeg"
                   required
                 />
               </div>
@@ -324,6 +325,11 @@ const GuardianSectionHelper = () => {
               Guardian Voter Certificate Sample
             </figcaption>
           </figure>
+          <p>
+            You should upload the image of your guardian's voter certificate.
+            The file format should either be <b>.png</b>/<b>.jpeg</b>/
+            <b>.jpg</b>
+          </p>
           <p>
             Taguig City LGU requires the scholar to submit their {"guardian's"}{" "}
             voter certificate to prove that they are a resident of the city.

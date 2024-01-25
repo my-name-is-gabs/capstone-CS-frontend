@@ -114,7 +114,8 @@ const PersonalInformation = ({
               <div className="row">
                 <div className="col-md-6">
                   <label htmlFor="national_id" className="form-label fw-bold">
-                    Upload National ID: <span className="text-danger">*</span>
+                    Upload National ID (file format: png/jpeg/jpg):
+                    <span className="text-danger">*</span>
                   </label>
                   <input
                     className="form-control"
@@ -122,6 +123,7 @@ const PersonalInformation = ({
                     id="national_id"
                     name="national_id"
                     onChange={handleFile}
+                    accept=".png, .jpg, .jpeg"
                   />
                 </div>
 
@@ -232,7 +234,8 @@ const PersonalInformation = ({
 
                 <div className="col-md-6">
                   <label htmlFor="voter_cert" className="form-label fw-bold">
-                    VOTER CERTIFICATE: <span className="text-danger">*</span>
+                    VOTER CERTIFICATE (file format: png/jpg/jpeg):{" "}
+                    <span className="text-danger">*</span>
                   </label>
                   <input
                     type="file"
@@ -240,6 +243,7 @@ const PersonalInformation = ({
                     id="voter_cert"
                     className="form-control"
                     onChange={handleFile}
+                    accept=".png, .jpg, .jpeg"
                     required
                   />
                 </div>
@@ -375,6 +379,10 @@ const PersonalInfoHelper = () => {
             </figcaption>
           </figure>
           <p>
+            You should upload the image of your ID. The file format shoud either
+            be <b>.png</b>/<b>.jpeg</b>/<b>.jpg</b>
+          </p>
+          <p>
             The system requires you to upload your National ID as part of
             applicant eligibility checking. Our system will extract the
             following information which is your <b>First Name</b>,{" "}
@@ -416,6 +424,10 @@ const PersonalInfoHelper = () => {
               Voter Certificate Sample
             </figcaption>
           </figure>
+          <p>
+            You should upload the image of your voter's certificate. The file
+            format should either be <b>.png</b>/<b>.jpeg</b>/<b>.jpg</b>
+          </p>
           <p>
             Taguig City LGU requires the scholar to submit their {"voter's"}{" "}
             certificate to prove that you are a resident of the city.
