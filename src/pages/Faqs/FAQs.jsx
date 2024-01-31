@@ -23,7 +23,8 @@ const FAQs = () => {
                 aria-expanded="false"
                 aria-controls="flush-collapseOne"
               >
-                Question #1
+                What are the basic qualification criteria for the scholarship
+                program?
               </button>
             </h2>
             <div
@@ -32,13 +33,35 @@ const FAQs = () => {
               data-bs-parent="#accordionFlushExample"
             >
               <div className="accordion-body">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis,
-                nemo quibusdam ea mollitia, laudantium dolor blanditiis debitis
-                perspiciatis sint eligendi reprehenderit expedita et cumque.
-                Dignissimos ipsum obcaecati praesentium provident cumque iure
-                dolore officiis reiciendis quam corporis. Excepturi
-                exercitationem minus dolore enim quasi incidunt. Eos nemo iusto
-                nobis nulla maiores voluptatibus
+                <ol>
+                  <li>
+                    <strong>
+                      Bona fide resident of Taguig City for at least three (3)
+                      years
+                    </strong>{" "}
+                    immediately preceding the application. Must be a{" "}
+                    <strong>
+                      registered voter of the City if 18 years old or older
+                    </strong>
+                    , and with at least one of the parents{" "}
+                    <strong>also a registered voter of the City</strong>.
+                  </li>
+
+                  <li>
+                    <strong>Of good moral character</strong> both in paper and
+                    in deeds.
+                  </li>
+                  <li>
+                    Determined to{" "}
+                    <strong>
+                      finish the course or pass the bar/board examination
+                    </strong>
+                    .
+                  </li>
+                  <li>
+                    Committed to <strong>love and serve Taguig City</strong>.
+                  </li>
+                </ol>
               </div>
             </div>
           </div>
@@ -52,7 +75,7 @@ const FAQs = () => {
                 aria-expanded="false"
                 aria-controls="flush-collapseTwo"
               >
-                Question #2
+                What are the scholarship types?
               </button>
             </h2>
             <div
@@ -61,10 +84,20 @@ const FAQs = () => {
               data-bs-parent="#accordionFlushExample"
             >
               <div className="accordion-body">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Assumenda expedita, placeat iure inventore corrupti tempora sed
-                ullam beatae vel non asperiores laborum? Ad harum at perferendis
-                voluptates iusto vel fugit!
+                The scholarship types available in Taguig Scholarship are{" "}
+                <strong>HONORS</strong>, <strong>PREMIER</strong>,{" "}
+                <strong>PRIORITY</strong>,{" "}
+                <strong>BASIC PLUS (PUBLIC TO PUBLIC)</strong>,{" "}
+                <strong>BASIC (PUBLIC TO PRIVATE)</strong>,{" "}
+                <strong>SUC/LCU (PRIVATE TO PUBLIC)</strong>,{" "}
+                <strong>REVIEW</strong>, and <strong>LEAD</strong>.
+                <br />
+                <br />
+                To learn more about the scholarship types you can visit the
+                website of Taguig LGU.{" "}
+                <a href="https://taguig.gov.ph/index.php/scholarship-program/lifeline-assistance-for-neighbors-in-need-lani-scholarship-program/">
+                  Click me!
+                </a>
               </div>
             </div>
           </div>
@@ -79,7 +112,7 @@ const FAQs = () => {
                 aria-expanded="false"
                 aria-controls="flush-collapseThree"
               >
-                Question #3
+                How do I maintain my scholarship?
               </button>
             </h2>
             <div
@@ -88,72 +121,37 @@ const FAQs = () => {
               data-bs-parent="#accordionFlushExample"
             >
               <div className="accordion-body">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum
-                obcaecati officia sapiente quos placeat, magni deleniti atque
-                quasi ullam maxime incidunt mollitia illo possimus earum autem
-                quidem, laborum, quibusdam non fuga facere. A rerum alias, eius
-                quod, dicta soluta repellendus dignissimos fugiat cupiditate
-                mollitia aliquid incidunt voluptate ullam reprehenderit
-                provident libero et porro maiores. Maxime?
-              </div>
-            </div>
-          </div>
-
-          <div className="accordion-item">
-            <h2 className="accordion-header">
-              <button
-                className="accordion-button collapsed fw-bold"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#flush-collapseFour"
-                aria-expanded="false"
-                aria-controls="flush-collapseFour"
-              >
-                Question #4
-              </button>
-            </h2>
-            <div
-              id="flush-collapseFour"
-              className="accordion-collapse collapse"
-              data-bs-parent="#accordionFlushExample"
-            >
-              <div className="accordion-body">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum
-                obcaecati officia sapiente quos placeat, magni deleniti atque
-                quasi ullam maxime incidunt mollitia illo possimus earum autem
-                quidem, laborum, quibusdam non fuga facere. A rerum alias, eius
-                quod, dicta soluta repellendus dignissimos fugiat cupiditate
-                mollitia aliquid incidunt voluptate ullam reprehenderit
-                provident libero et porro maiores. Maxime?
-              </div>
-            </div>
-          </div>
-          <div className="accordion-item">
-            <h2 className="accordion-header">
-              <button
-                className="accordion-button collapsed fw-bold"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#flush-collapseFive"
-                aria-expanded="false"
-                aria-controls="flush-collapseFive"
-              >
-                Question #5
-              </button>
-            </h2>
-            <div
-              id="flush-collapseFive"
-              className="accordion-collapse collapse"
-              data-bs-parent="#accordionFlushExample"
-            >
-              <div className="accordion-body">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum
-                obcaecati officia sapiente quos placeat, magni deleniti atque
-                quasi ullam maxime incidunt mollitia illo possimus earum autem
-                quidem, laborum, quibusdam non fuga facere. A rerum alias, eius
-                quod, dicta soluta repellendus dignissimos fugiat cupiditate
-                mollitia aliquid incidunt voluptate ullam reprehenderit
-                provident libero et porro maiores. Maxime?
+                <ul>
+                  <li>
+                    To maintain the scholarship, scholars must fill out the
+                    renewal form once they logged in to their account during the
+                    application period and submit the required documents every
+                    semester. Semestral weighted average (SWA) for the duration
+                    of the scholarship covered{" "}
+                    <strong>
+                      should not be lower than 2.5, with no failing marks,
+                      incomplete, blank or no grade subjects, or dropped
+                      subjects, and must carry a load of at least 15 units per
+                      semester or its equivalent per trimester.
+                    </strong>
+                  </li>
+                  <br />
+                  <li>
+                    {" "}
+                    For those with violations (self-monitoring is encouraged):
+                    <br />
+                    <br />
+                    <strong>1st Offense</strong> – Probation / Warning
+                    <br />
+                    <br />
+                    <strong>2nd Offense</strong> – Suspension from the
+                    scholarship for the semester
+                    <br />
+                    <br />
+                    <strong>3rd Offense</strong> – Termination from the
+                    scholarship
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
